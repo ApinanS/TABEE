@@ -17,6 +17,6 @@
 - `links.js` ลิงก์ภายนอก แก้ที่ไฟล์นี้ไฟล์เดียว
 
 ## ลิงก์ภายนอก
-- วิดีโอ: YouTube ของสภาวิศวกร (playlist https://www.youtube.com/playlist?list=PLQ_e0l-u6mxo) เล่นในหน้าโมดูลและนับเวลาดูได้เฉพาะเมื่อเปิดจากเว็บ (GitHub Pages) ต้องดูถึง 90% แบบทดสอบจึงเปิด ถ้าเปิดจากไฟล์ในเครื่อง (ดับเบิลคลิก index.html) YouTube ไม่ยอมเล่นในหน้า ปุ่มจะพาไปดูบน YouTube และแบบทดสอบไม่ล็อก
+- วิดีโอ: YouTube ของสภาวิศวกร (playlist https://www.youtube.com/playlist?list=PLQ_e0l-u6mxo) ยกเว้น Module 8 และ 9 ใช้คลิปแยกของ EP.8 เล่นในหน้าโมดูลและนับเวลาดูได้เฉพาะเมื่อเปิดจากเว็บ (GitHub Pages) ต้องดูถึง 90% แบบทดสอบจึงเปิด ถ้าเปิดจากไฟล์ในเครื่อง (ดับเบิลคลิก index.html) YouTube ไม่ยอมเล่นในหน้า ปุ่มจะพาไปดูบน YouTube และแบบทดสอบไม่ล็อก
 - Quiz & Poll และกระดาน Brainstorm: https://apinans.github.io/TABEE/
 - PEV Studio: https://apinans.github.io/TABEE/pevstudio/ (ฉบับผู้อบรม อยู่ในโฟลเดอร์ `pevstudio/`) กำหนดที่ค่า `pevStudio` ใน `links.js`
