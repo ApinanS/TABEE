@@ -19,4 +19,4 @@
 ## ลิงก์ภายนอก
 - วิดีโอ: YouTube แบบไม่เป็นสาธารณะ เล่นในหน้าโมดูลและนับเวลาดูได้เฉพาะเมื่อเปิดจากเว็บ (GitHub Pages) ต้องดูถึง 90% แบบทดสอบจึงเปิด ถ้าเปิดจากไฟล์ในเครื่อง (ดับเบิลคลิก index.html) YouTube ไม่ยอมเล่นในหน้า ปุ่มจะพาไปดูบน YouTube และแบบทดสอบไม่ล็อก
 - Quiz & Poll และกระดาน Brainstorm: https://apinans.github.io/TABEE/
-- PEV Studio: กำหนดใน `links.js` ตอนนี้ยังชี้ไปที่หน้าเดิมบน claude.ai เมื่อย้าย PEV Studio ขึ้น GitHub แล้วให้เปลี่ยนค่า `pevStudio`
+- PEV Studio: https://apinans.github.io/TABEE/pevstudio/ (ฉบับผู้อบรม อยู่ในโฟลเดอร์ `pevstudio/`) กำหนดที่ค่า `pevStudio` ใน `links.js`
