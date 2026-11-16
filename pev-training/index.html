@@ -330,7 +330,7 @@ th{color:var(--soft)}
 .csteps{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}.csteps li{flex:1 1 200px;display:flex;gap:10px;align-items:center;padding:10px 14px;border:1px solid var(--rule);border-radius:12px;background:var(--sheet);font-size:14px}.csteps li>b{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#ECE8E1;font-family:var(--f-d);flex:none}.csteps li.ok>b{background:#2E7D4F;color:#fff}
 .keyb{border:2px dashed #B3242B}
 
-/* video dock (YouTube, unlisted) */
+/* video dock (YouTube) */
 .vdock{position:fixed;inset:0;z-index:80;background:rgba(20,18,22,.78);display:grid;place-items:center;padding:16px}
 .vdock[hidden]{display:none}
 .vbox{width:min(1100px,100%);background:var(--sheet);border-radius:16px;padding:14px 16px 12px;display:flex;flex-direction:column;gap:10px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
@@ -397,8 +397,8 @@ const tx=(th,en)=>lang==='en'?en:th;
 const W=(th,en)=>({th,en}); const L=x=>x&&typeof x==='object'&&!Array.isArray(x)?x[lang]:x;
 /* videos: Google Drive folder “TABEE PEV Training/Video” (My Drive of the studio owner) */
 const GD={"1": "1SqOr0aFcfqNIIaZKt_UCzYAiMxkoOvMo", "2": "1Xd1IygRiUdnyfRD-tb74XdMYDJkWCrK7", "3": "1JyVWx5laUN-sFYaZrI1-_opt7DeMek_p", "4": "1Kpl0RLHmJb8nAY7tsn6XrVK3Cy7PQmIn", "5": "1yVXRgPjunDxJuUtLaXFB8nSwVEo68hrs", "6": "1t5-q5osCx0recLmy-_N1B8Eu01XE7Oiq", "7": "1LECM7IxG77QI5wcFi5LCto9Gj1kXtYpA", "8": "1gv6dwzWqIlHt7Ti3CT_6Ne3ZRa8J0asS", "9": "1lVeyvGfs02yx0qGvKn3tlM0M7BY02_MH", "10": "1hIE20Q8ufT682pNbUg1xJbzvgeEkyocp", "11": "11bVZsPhSOGsOfs4s1WiEpGjD3ZMnutK6", "12": "1UDo4SPg2VdZC9S3OEQn66BM63wM-QtGt", "13": "179nTjLdq_3N98PzdhWEkYfyQKZp-Oevh", "14": "1YfwgXxunemZQZzX4LGM6pSlnqZNqtK5n"};
-/* YouTube (Unlisted) per module; EP.1 covers Modules 0 and 1, EP.8 was split into Modules 8 and 9 */
-const VID={0:'lAuO8jYVsxc',1:'lAuO8jYVsxc',2:'_V10iW5Ms8Y',3:'Xsd9pq4swoY',4:'tAKTh_zl1lU',5:'3UvanxzRDI0',6:'RJTz0nW81hM',7:'VgHiGeJ8SyQ',8:'RvmlZ7kPH84',9:'6xx61xWG7lM',10:'CZlRDfHJDqE',11:'aE04Rmpoxk0',12:'2uGC-3tRB84',13:'nOTjlkWcKfY',14:'GHWAwOcqcXI',15:'zzVzg-lfW5A'};
+/* YouTube per module, Council of Engineers Thailand playlist PLQ_e0l-u6mxo; EP.1 covers Modules 0 and 1, EP.8 covers Modules 8 and 9 */
+const VID={0:'3OX6MGMh5GU',1:'3OX6MGMh5GU',2:'uRrl1lkkh28',3:'7Smawg8mVcU',4:'koEoeAs4OrA',5:'5bHP7qIXaoo',6:'DVZGcN8COxs',7:'EOjJvWqY-hI',8:'dbphfRKp4M8',9:'dbphfRKp4M8',10:'TgAEwna9cdE',11:'fhtH6sQZTjQ',12:'ONX_14xA0bs',13:'tTph08PSd_Y',14:'rQ_RZ0oIK1A',15:'8wOOhQWLe1M'};
 /* YouTube plays inside the page only from a web address (GitHub Pages). Opened as a local file (file://) YouTube refuses the embed (error 153),
    so the page then links out to YouTube and does not lock the quiz. ytBroken is set if the player fails at run time for the same effect. */
 let ytBroken=false;
