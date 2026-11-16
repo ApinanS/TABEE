@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TABEE PEV Training Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Prompt:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: the trainee's road to registration is a four-stop line across the top; every screen hangs off one stop. Colour comes from TABEE's own episode covers: crimson with an orange spark. */
+:root{
+  --paper:#faf6f3; --sheet:#ffffff; --ink:#1f1315; --soft:#6f5d60; --rule:#e6dcd8;
+  --brand:#a3122c; --brand-2:#7a0c20; --spark:#e8621a; --on:#ffffff; --tint:#f7e9e6;
+  --ok:#1f7a4a; --ok-t:#e2f2e8; --warn:#9a5b00; --warn-t:#fbeed2; --bad:#b3261e; --bad-t:#fbe4e1;
+  --f-d:"Prompt","Anuphan",system-ui,sans-serif; --f-b:"Anuphan","Leelawadee UI",Tahoma,system-ui,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#170e10;--sheet:#22161a;--ink:#f4ecec;--soft:#b9a6a9;--rule:#3a272c;--brand:#e0465f;--brand-2:#a3122c;--spark:#ff8a45;--on:#ffffff;--tint:#33181e;--ok:#6fcf97;--ok-t:#16301f;--warn:#e8b455;--warn-t:#3a2b0f;--bad:#f08379;--bad-t:#3d1a17;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#170e10;--sheet:#22161a;--ink:#f4ecec;--soft:#b9a6a9;--rule:#3a272c;--brand:#e0465f;--brand-2:#a3122c;--spark:#ff8a45;--on:#ffffff;--tint:#33181e;--ok:#6fcf97;--ok-t:#16301f;--warn:#e8b455;--warn-t:#3a2b0f;--bad:#f08379;--bad-t:#3d1a17;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-b);font-size:16px;line-height:1.65}
+h1,h2,h3{font-family:var(--f-d);margin:0;line-height:1.25;text-wrap:balance}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--brand)}
+img{max-width:100%;display:block}
+:focus-visible{outline:3px solid var(--spark);outline-offset:2px}
+.bar{position:sticky;top:0;z-index:5;background:var(--brand-2);color:var(--on)}
+.bar .in{max-width:1180px;margin:0 auto;padding:10px clamp(16px,4vw,36px);display:flex;gap:10px 22px;align-items:center;flex-wrap:wrap}
+.logo{font:800 17px var(--f-d);letter-spacing:.02em;color:var(--on);text-decoration:none}
+.logo span{font-weight:500;opacity:.8}
+.stops{display:flex;gap:4px;flex:1;min-width:0;overflow-x:auto}
+.stops a{color:var(--on);text-decoration:none;font:500 14px var(--f-d);padding:6px 12px;border-radius:999px;white-space:nowrap;opacity:.8;display:flex;gap:7px;align-items:center}
+.stops a b{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.2);font-size:12px}
+.stops a[aria-current="page"]{background:var(--on);color:var(--brand-2);opacity:1}
+.stops a[aria-current="page"] b{background:var(--spark);color:var(--on)}
+.hub{color:var(--on);font-size:13px;opacity:.85}
+.page{max-width:1180px;margin:0 auto;padding:28px clamp(16px,4vw,36px) 80px;display:flex;flex-direction:column;gap:26px}
+.lead{color:var(--soft);max-width:66ch;margin:8px 0 0}
+h1{font-size:clamp(28px,4vw,42px);font-weight:800}
+h2{font-size:21px;font-weight:700}
+.crumb{font-size:14px;color:var(--soft)}
+.crumb a{color:var(--soft)}
+.card{background:var(--sheet);border:1px solid var(--rule);border-radius:16px}
+.pad{padding:18px 20px}
+.chip{display:inline-block;font:500 12.5px/1.5 var(--f-b);padding:1px 10px;border-radius:999px;white-space:nowrap;background:var(--tint);color:var(--brand)}
+.chip.ok{background:var(--ok-t);color:var(--ok)}.chip.warn{background:var(--warn-t);color:var(--warn)}.chip.bad{background:var(--bad-t);color:var(--bad)}.chip.mute{background:var(--rule);color:var(--soft)}
+.btn{all:unset;box-sizing:border-box;cursor:pointer;font:600 15px var(--f-d);padding:9px 18px;border-radius:999px;background:var(--brand);color:var(--on);display:inline-flex;gap:8px;align-items:center}
+.btn:hover{background:var(--brand-2)} .btn:focus-visible{outline:3px solid var(--spark);outline-offset:2px}
+.btn.ghost{background:transparent;color:var(--brand);box-shadow:inset 0 0 0 1.5px var(--brand)}
+.btn.ghost:hover{background:var(--tint)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.note{font-size:13.5px;color:var(--soft)}
+/* home */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px 40px;align-items:center}
+.hero img{border-radius:18px;box-shadow:0 18px 40px -22px rgba(60,0,10,.6)}
+.road{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.stop{position:relative;display:flex;flex-direction:column;gap:6px;padding:18px 18px 16px;border-radius:18px;text-decoration:none;color:var(--ink);background:var(--sheet);border:1px solid var(--rule);overflow:hidden;transition:transform .16s ease,border-color .16s}
+.stop:hover{transform:translateY(-3px);border-color:var(--brand)}
+.stop .no{font:800 64px/1 var(--f-d);color:var(--tint);position:absolute;right:10px;top:4px}
+.stop.on{background:var(--brand);color:var(--on);border-color:var(--brand)}
+.stop.on .no{color:rgba(255,255,255,.18)} .stop.on .note{color:rgba(255,255,255,.85)}
+.stop h3{font-size:19px;position:relative}
+.stop .big{font:700 26px var(--f-d);font-variant-numeric:tabular-nums;margin-top:8px}
+.meter{height:6px;border-radius:3px;background:var(--rule);overflow:hidden;margin-top:6px}
+.meter i{display:block;height:100%;background:var(--spark);border-radius:3px}
+.stop.on .meter{background:rgba(255,255,255,.25)}
+/* episodes */
+.eps{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.ep{display:flex;flex-direction:column;text-decoration:none;color:var(--ink);background:var(--sheet);border:1px solid var(--rule);border-radius:16px;overflow:hidden;transition:transform .16s ease}
+.ep:hover{transform:translateY(-3px)}
+.ep .b{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px}
+.ep h3{font-size:16px}
+.row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.two{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,4fr);gap:20px;align-items:start}
+ul.dots{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.slot{border:1.5px dashed var(--rule);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+/* quiz */
+.q{padding:18px 20px;border-top:1px solid var(--rule)}
+.q:first-child{border-top:0}
+.cq{display:grid;grid-template-columns:minmax(220px,340px) 1fr;gap:20px;align-items:start}
+.cimg .slot{display:none}.cimg.noimg img,.cimg.noimg figcaption{display:none}.cimg.noimg .slot{display:flex;align-items:center;justify-content:center;aspect-ratio:16/9;border:2px dashed var(--rule);border-radius:12px;color:var(--soft);font-size:13px}
+.cimg{margin:0}.cimg img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px;border:1px solid var(--rule);background:var(--paper)}
+.cimg figcaption{font-size:12px;opacity:.65;margin-top:5px}
+@media (max-width:820px){.cq{grid-template-columns:1fr}.cimg{max-width:520px}}
+.q .t{font-weight:500;max-width:74ch}
+.q .n{font:700 14px var(--f-d);color:var(--brand);margin-right:6px}
+.opts{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.opt{all:unset;box-sizing:border-box;cursor:pointer;padding:10px 14px;border:1.5px solid var(--rule);border-radius:12px;display:block}
+.opt:hover{border-color:var(--brand)} .opt:focus-visible{outline:3px solid var(--spark);outline-offset:2px}
+.opt[aria-pressed="true"]{border-color:var(--brand);background:var(--tint)}
+.opt.right{border-color:var(--ok);background:var(--ok-t)} .opt.wrong{border-color:var(--bad);background:var(--bad-t)}
+.opt[disabled]{cursor:default}
+.sol{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--paper);font-size:14.5px}
+.lv{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.lv .opt{padding:7px 14px;border-radius:999px;font:600 14px var(--f-d)}
+.lv .opt{--c:#888;--t:#f4f4f4;--f:#fff;border-color:var(--c);background:var(--t);display:inline-flex;align-items:center;gap:7px}
+.lv .opt::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--c);flex:none}
+.lv .opt[data-k="N"]{--c:#2e8b57;--t:#e7f4ec}
+.lv .opt[data-k="R"]{--c:#d9a400;--t:#fdf5d6;--f:#3a2c00}
+.lv .opt[data-k="C"]{--c:#b8661c;--t:#f8eadb}
+.lv .opt[data-k="W"]{--c:#2361b0;--t:#e3edf9}
+.lv .opt[data-k="D"]{--c:#c0262d;--t:#fbe5e6}
+.lv .opt:hover:not([disabled]){background:var(--c);color:var(--f)}
+.lv .opt:hover:not([disabled])::before{background:var(--f)}
+.lv .opt[disabled]{opacity:.42}
+.lv .opt.right{opacity:1;background:var(--c);color:var(--f);border-color:var(--c);box-shadow:0 0 0 3px #fff,0 0 0 5px var(--c)}
+.lv .opt.right::before{content:"✓";width:auto;height:auto;background:none;font-weight:800}
+.lv .opt.wrong{opacity:1;background:var(--t);border-style:dashed;text-decoration:line-through}
+.lv .opt.wrong::before{content:"✗";width:auto;height:auto;background:none;color:var(--c);font-weight:800}
+.lv .opt.pick{background:var(--c);color:var(--f);box-shadow:0 0 0 3px #fff,0 0 0 5px var(--c)}.lv .opt.pick::before{background:var(--f)}
+.lvk{display:inline-flex;align-items:center;gap:6px;padding:1px 10px;border-radius:999px;font-weight:700;color:#fff}
+.lvk.N{background:#2e8b57}.lvk.R{background:#d9a400;color:#3a2c00}.lvk.C{background:#b8661c}.lvk.W{background:#2361b0}.lvk.D{background:#c0262d}
+.lvlegend{display:flex;flex-wrap:wrap;gap:8px;font-size:13.5px;margin-top:6px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{all:unset;box-sizing:border-box;cursor:pointer;font:500 14px var(--f-d);padding:6px 14px;border-radius:999px;border:1.5px solid var(--rule)}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.tab:focus-visible{outline:3px solid var(--spark);outline-offset:2px}
+.score{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.score .num{font:800 44px/1 var(--f-d);font-variant-numeric:tabular-nums}
+/* ser */
+.reader{max-height:70vh;overflow:auto;white-space:pre-wrap;font-size:15px;padding:18px 20px}
+.form{display:flex;flex-direction:column;gap:10px}
+.form label{font-size:13.5px;color:var(--soft);display:flex;flex-direction:column;gap:4px}
+.form input,.form select,.form textarea{background:var(--paper);border:1.5px solid var(--rule);border-radius:10px;padding:8px 10px;width:100%}
+.form textarea{min-height:70px;resize:vertical}
+.find{padding:12px 0;border-top:1px solid var(--rule);display:flex;flex-direction:column;gap:4px}
+.find:first-child{border-top:0}
+.x{all:unset;cursor:pointer;color:var(--soft);font-size:13px;text-decoration:underline}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-size:13px;color:var(--soft);font-weight:600}
+tr:last-child td{border-bottom:0}
+td select{background:var(--paper);border:1.5px solid var(--rule);border-radius:8px;padding:4px 6px}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+/* onsite */
+.day{font:700 15px var(--f-d);padding:10px 20px;background:var(--tint);color:var(--brand);border-radius:16px 16px 0 0}
+.ag{display:grid;grid-template-columns:150px 1fr;gap:12px;padding:12px 20px;border-top:1px solid var(--rule);align-items:start}
+.ag input{width:20px;height:20px;accent-color:var(--brand);margin-top:3px}
+.ag .k{font:600 12px var(--f-d);padding:2px 10px;border-radius:6px;white-space:nowrap;color:var(--on)}
+.k.m{background:var(--brand)} .k.b{background:var(--spark)} .k.l{background:var(--soft)}
+.board{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin-top:14px}
+.sticky{background:var(--warn-t);color:var(--ink);padding:12px;border-radius:4px 4px 14px 4px;font-size:14.5px;min-height:84px;display:flex;flex-direction:column;justify-content:space-between;gap:8px;box-shadow:0 6px 12px -8px rgba(0,0,0,.4)}
+.sticky:nth-child(3n+1){transform:rotate(-1deg)} .sticky:nth-child(3n){transform:rotate(1deg)}
+@media (max-width:820px){.ag,.ag.br{grid-template-columns:1fr}.mt{top:0}.hero,.two{grid-template-columns:1fr}.road{grid-template-columns:1fr 1fr}.ag{grid-template-columns:30px 1fr}.ag .k{grid-column:2;justify-self:start}}
+@media (max-width:480px){.road{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.stop,.ep{transition:none}}
+.lang{display:inline-flex;border:1.5px solid var(--on);border-radius:999px;overflow:hidden;flex:none}
+.lang button{all:unset;cursor:pointer;font:600 13px var(--f-d);padding:3px 11px;color:var(--on)}
+.lang button[aria-pressed="true"]{background:var(--on);color:var(--brand-2)}
+.lang button:focus-visible{outline:3px solid var(--spark);outline-offset:-3px}
+.src{font-size:13px;color:var(--warn);background:var(--warn-t);border-radius:10px;padding:8px 12px}
+/* modules */
+.phase{display:flex;flex-direction:column;gap:12px}
+.mods{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.mod{display:flex;flex-direction:column;text-decoration:none;color:var(--ink);background:var(--sheet);border:1px solid var(--rule);border-radius:16px;overflow:hidden;transition:transform .16s ease,border-color .16s}
+.mod:hover{transform:translateY(-3px);border-color:var(--brand)}
+.mod img{aspect-ratio:16/9;object-fit:cover;width:100%;height:auto}
+.mod .b{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px}
+.mod h3{font-size:16px}
+.mod .mn{font:700 12.5px var(--f-d);color:var(--brand);letter-spacing:.04em;text-transform:uppercase}
+.mod .note{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mx{aspect-ratio:16/9;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:14px 16px;background:linear-gradient(135deg,var(--brand-2),var(--brand) 60%,var(--spark));color:var(--on)}
+.mx b{font:800 54px/1 var(--f-d)} .mx span{font:600 13px var(--f-d);opacity:.9}
+.mxbig{display:flex;flex-direction:column;gap:6px;background:linear-gradient(135deg,var(--tint),var(--sheet))}
+.vid{position:relative;display:block;border-radius:16px;overflow:hidden}
+.vid img{width:100%;height:auto}
+.vid .btn{position:absolute;right:14px;bottom:14px}
+.mt{margin-top:4px;position:sticky;top:52px;z-index:3;background:var(--paper);padding:8px 0}
+.sec{display:flex;flex-direction:column;gap:10px}
+.act h3{font:600 15px var(--f-d);margin:0 0 4px;color:var(--brand)}
+.act .aimg{margin:4px 0 0;max-width:760px}.act .aimg figcaption{font-size:12.5px;color:var(--soft);margin-top:4px}.act .aimg img{display:block;width:100%;height:auto;aspect-ratio:16/9;border-radius:12px;border:1px solid var(--rule);background:var(--paper)}
+.act .who{font-size:15px;color:var(--soft)}.act .who b{color:var(--ink);margin-right:6px}
+.act .ag{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px 22px}
+.act .ag .do{background:var(--tint);border-radius:12px;padding:10px 14px}
+.act .tip{border-left:3px solid var(--spark);padding-left:10px;margin:0}
+.qg{border:1px solid var(--rule);border-radius:12px;padding:10px 14px;background:var(--paper)}
+.qg summary{cursor:pointer;font:600 15px var(--f-d);color:var(--brand)}
+.dots.tb{margin:0;padding-left:18px}.dots.tb li{margin:2px 0}
+.qg h4{font:600 14.5px var(--f-d);margin:12px 0 4px}
+.qg h4.ab{color:#1F5AA6;border-top:1px dashed var(--rule);padding-top:10px}.qg h4.ab::before{content:'ABET';display:inline-block;font:700 11px var(--f-b);letter-spacing:.06em;background:#1F5AA6;color:#fff;border-radius:6px;padding:2px 7px;margin-right:8px;vertical-align:1px}.qg ol{margin:0;padding-left:22px}.qg li{margin:3px 0}
+
+.sec p{margin:0;max-width:78ch}
+.sec .sn{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:8px;background:var(--brand);color:var(--on);font-size:14px;margin-right:10px;vertical-align:2px}
+td.k1{font-weight:600;min-width:150px}
+.warnlist li::marker{color:var(--spark)}
+.viewer{overflow:hidden}
+.stage{background:#111;display:grid;place-items:center}
+.stage img{width:100%;height:auto;max-height:72vh;object-fit:contain}
+.vbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:12px 16px;border-top:1px solid var(--rule)}
+.vbar .btn.ghost[data-sl]{padding:6px 16px;font-size:20px;line-height:1}
+.pgno{font:600 14px var(--f-d);font-variant-numeric:tabular-nums;min-width:64px;text-align:center}
+.thumbs{display:flex;gap:8px;overflow-x:auto;padding:0 16px 14px}
+.thumbs button{all:unset;cursor:pointer;flex:none;border-radius:6px;outline:2px solid transparent;opacity:.65}
+.thumbs button img{width:120px;height:auto;border-radius:6px}
+.thumbs button[aria-current="true"]{outline-color:var(--spark);opacity:1}
+.thumbs button:hover{opacity:1}
+.thumbs button:focus-visible{outline:3px solid var(--spark)}
+.pn{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font:500 14.5px var(--f-d)}
+.pn a{text-decoration:none}
+.ag .tm{font:600 13.5px var(--f-d);font-variant-numeric:tabular-nums;color:var(--brand)}
+.ag .agb{display:flex;flex-direction:column;gap:4px}
+.ag .abet{font-size:12px;color:var(--soft);font-style:italic}
+.ag .ho{gap:6px}
+.ag.br{grid-template-columns:150px 1fr;padding:8px 20px;background:var(--paper)}
+.k{font:600 12px var(--f-d);padding:2px 10px;border-radius:6px;white-space:nowrap;color:var(--on)}
+.vfail{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#111;color:#fff;text-align:center;padding:20px}.vfail .note{color:#ccc}
+</style>
+<style id="theme-v2">
+/* Theme v2 (15 Nov 2026): evaluator's desk. Warm paper ground, one maroon brand, five finding-level colours used the same way everywhere, each with its letter. */
+:root{--paper:#F6F4EF;--sheet:#FFFFFF;--ink:#1B1A1F;--soft:#5C5A63;--rule:#E4E0D8;--brand:#7B1E2E;--brand-2:#7B1E2E;--spark:#7B1E2E;--on:#FFFFFF;--tint:#F5E9EA;
+ --ok:#2E7D4F;--ok-t:#E6F2EA;--warn:#7A4E00;--warn-t:#FBF2D2;--bad:#B3242B;--bad-t:#F8E2E3;
+ --f-d:"Prompt","IBM Plex Sans Thai",system-ui,sans-serif;--f-b:"IBM Plex Sans Thai","Leelawadee UI",Tahoma,system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#141317;--sheet:#1F1D23;--ink:#F4F1EA;--soft:#BDB8AE;--rule:#34313A;--brand:#E58A97;--brand-2:#5A1420;--spark:#E58A97;--tint:#3A1E24;--ok:#7FD1A1;--ok-t:#16301F;--warn:#F2C94C;--warn-t:#3A2B0F;--bad:#F08379;--bad-t:#3A1A1A}}
+:root[data-theme="dark"]{--paper:#141317;--sheet:#1F1D23;--ink:#F4F1EA;--soft:#BDB8AE;--rule:#34313A;--brand:#E58A97;--brand-2:#5A1420;--spark:#E58A97;--tint:#3A1E24;--ok:#7FD1A1;--ok-t:#16301F;--warn:#F2C94C;--warn-t:#3A2B0F;--bad:#F08379;--bad-t:#3A1A1A}
+body{line-height:1.6}
+h1{font-weight:700}h2{font-weight:600}
+.bar :focus-visible{outline-color:#FFFFFF}
+.bar .in{max-width:1240px;padding:12px clamp(16px,4vw,32px)}
+.page{max-width:1240px}
+.logo{font:600 18px var(--f-d);display:flex;align-items:center;gap:10px}
+.logo::before{content:"PEV";width:34px;height:34px;border-radius:9px;background:#FFFFFF;color:#7B1E2E;display:grid;place-items:center;font:700 13px var(--f-d)}
+.stops a{font:500 15px var(--f-b);padding:8px 16px;opacity:1}
+.stops a[aria-current="page"]{color:#7B1E2E;font-weight:600}
+.stops a[aria-current="page"] b{background:#7B1E2E}
+.lang{border-color:rgba(255,255,255,.6)}.lang button{padding:6px 14px}.lang button[aria-pressed="true"]{color:#7B1E2E}
+.card,.stop,.ep,.mod{border-radius:18px}
+.pad{padding:20px 24px}
+.btn{border-radius:12px;min-height:44px;padding:10px 20px}
+.btn:hover{background:#5A1420}
+.tab{min-height:44px;padding:8px 16px;font:500 14.5px var(--f-b);border:1px solid #C9C3B8;background:var(--sheet)}
+.tab[aria-selected="true"]{font-weight:600}
+.meter{height:8px;border-radius:99px}.meter i{background:var(--brand);border-radius:99px}
+.stop.on{background:var(--sheet);color:var(--ink);border:1.5px solid var(--brand)}
+.stop.on .no{color:var(--tint)}.stop.on .note{color:var(--soft)}.stop.on .meter{background:var(--rule)}
+.stop .no{color:#EFE9E1}
+.opt{border-radius:14px;min-height:44px}
+/* five finding levels: same colour, same letter, everywhere */
+.lv{gap:10px}
+.lv .opt{--c:#888;--t:#f4f4f4;--f:#fff;--i:#1B1A1F;display:inline-flex;align-items:center;gap:10px;padding:7px 16px 7px 7px;border-radius:14px;border:2px solid var(--c);background:var(--t);color:var(--i);font:600 15px var(--f-b);min-height:48px}
+.lv .opt::before{content:attr(data-k);width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:var(--c);color:var(--f);font:700 14px var(--f-d)}
+.lv .opt[data-k="N"]{--c:#2E7D4F;--t:#E6F2EA;--f:#FFFFFF;--i:#1E5A38}
+.lv .opt[data-k="R"]{--c:#F2C94C;--t:#FBF2D2;--f:#3A2C00;--i:#6B5200}
+.lv .opt[data-k="C"]{--c:#A65A16;--t:#F6E8DA;--f:#FFFFFF;--i:#7A400C}
+.lv .opt[data-k="W"]{--c:#1F5AA6;--t:#E3ECF8;--f:#FFFFFF;--i:#1A4A88}
+.lv .opt[data-k="D"]{--c:#B3242B;--t:#F8E2E3;--f:#FFFFFF;--i:#8E1C22}
+.lv .opt[data-k="R"]{border-color:#C9A227}
+.lv .opt:hover:not([disabled]),.lv .opt.pick,.lv .opt.right{background:var(--c);color:var(--f);box-shadow:none}
+.lv .opt:hover:not([disabled])::before,.lv .opt.pick::before,.lv .opt.right::before{background:#FFFFFF;color:var(--c)}
+.lv .opt[data-k="R"].pick::before,.lv .opt[data-k="R"].right::before,.lv .opt[data-k="R"]:hover:not([disabled])::before{color:#6B5200}
+.lv .opt.right{outline:3px solid var(--c);outline-offset:3px}
+.lv .opt.right::before{content:"✓"}
+.lv .opt.wrong{background:var(--t);border-style:dashed;text-decoration:line-through}
+.lv .opt.wrong::before{content:"✗";background:var(--c);color:var(--f)}
+.lvk{border-radius:8px;padding:1px 10px}
+.lvk.N{background:#2E7D4F}.lvk.R{background:#F2C94C;color:#3A2C00}.lvk.C{background:#A65A16}.lvk.W{background:#1F5AA6}.lvk.D{background:#B3242B}
+th{color:var(--soft)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<style id="sidebar-v1">
+/* left navigator, from the Design canvas "PEV Training Studio · Sidebar navigator" */
+.shell{display:grid;grid-template-columns:288px minmax(0,1fr);min-height:100vh}
+.side{position:sticky;top:0;height:100vh;overflow-y:auto;background:#1D1A20;color:#E4DFD8;padding:20px 14px 24px;display:flex;flex-direction:column;gap:16px;box-sizing:border-box;scrollbar-width:thin;scrollbar-color:#3A353F transparent}
+.side a{color:#E4DFD8;text-decoration:none}
+.side :focus-visible{outline:3px solid #F2C94C;outline-offset:1px;border-radius:8px}
+.side .brand{display:flex;align-items:center;gap:8px;padding:0 4px}
+.side .bl{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
+.side .bx{width:40px;height:40px;border-radius:11px;background:#7B1E2E;color:#fff;display:grid;place-items:center;font:700 14px var(--f-d)}
+.side .bt{display:flex;flex-direction:column;line-height:1.2}.side .bt b{font:600 18px var(--f-d);color:#fff}.side .bt small{font:500 10.5px ui-monospace,Menlo,monospace;letter-spacing:.14em;color:#A39DA6;margin-top:3px}
+.side .close{all:unset;display:none;width:44px;height:44px;place-items:center;color:#E4DFD8;cursor:pointer;border-radius:10px}
+.side .prog{display:flex;flex-direction:column;gap:6px;padding:12px 14px;border-radius:12px;background:#2A262E;border:1px solid #3A353F}
+.side .prog .pl{font-size:12.5px;color:#A39DA6}.side .pb{display:flex;align-items:center;gap:10px}.side .pb b{font:600 13px ui-monospace,Menlo,monospace;color:#fff}
+.side .bar2{flex:1;height:6px;border-radius:3px;background:#3A353F;overflow:hidden}.side .bar2 i{display:block;height:100%;background:#C9485E;border-radius:3px}
+.side nav{display:flex;flex-direction:column;gap:14px}
+.side .grp{display:flex;flex-direction:column;gap:1px}
+.side .gh{display:flex;gap:10px;align-items:baseline;padding:2px 10px 6px;font-size:12.5px;color:#A39DA6}.side .gh span{font:500 11.5px ui-monospace,Menlo,monospace;color:#8C8692}
+.side .it{display:flex;align-items:center;gap:10px;min-height:40px;padding:4px 10px;border-radius:10px;font-size:14.5px;line-height:1.35}
+.side .it:hover{background:#2C2830;color:#fff}
+.side .it.on{background:#7B1E2E;color:#fff}
+.side .si{width:18px;height:18px;flex:none}
+.side .lb{flex:1;min-width:0}
+.side .mt2{font:500 11.5px ui-monospace,Menlo,monospace;color:#A39DA6;flex:none}.side .it.on .mt2{color:#F3D7DC}
+.side .mn{font:500 11.5px ui-monospace,Menlo,monospace;color:#A39DA6;width:30px;flex:none}.side .it.on .mn{color:#F3D7DC}
+.side details.ph{margin:2px 0}
+.side details.ph summary{list-style:none;display:flex;align-items:center;gap:8px;min-height:38px;padding:2px 10px;border-radius:10px;cursor:pointer;font-size:13.5px;font-weight:600;color:#CFC9D2}
+.side details.ph summary::-webkit-details-marker{display:none}
+.side details.ph summary::before{content:"";width:7px;height:7px;border-right:1.8px solid #A39DA6;border-bottom:1.8px solid #A39DA6;transform:rotate(-45deg);margin:0 4px 0 2px;transition:transform .15s}
+.side details.ph[open] summary::before{transform:rotate(45deg)}
+.side details.ph summary:hover{background:#2C2830}
+.side details.ph .it.m{margin-left:14px;font-size:14px;min-height:38px}
+.side .sub{display:flex;flex-direction:column;margin:2px 0 6px 52px;border-left:1px solid #3A353F}
+.side .sub button{all:unset;cursor:pointer;padding:7px 12px;font-size:13px;color:#C9C3CC;border-radius:8px}.side .sub button:hover{color:#fff;background:#2C2830}
+.side .saved{margin:auto 0 0;padding:12px 8px 0;border-top:1px solid #3A353F;display:flex;gap:8px;align-items:center;font-size:12.5px;color:#A39DA6}
+.mainc{min-width:0;display:flex;flex-direction:column}
+.mainc>.page{min-width:0;width:100%;max-width:1180px;box-sizing:border-box}
+.bar{position:sticky;top:0;z-index:5;background:#FBFAF7;color:var(--ink);border-bottom:1px solid #E2DCD1}
+.bar .in{max-width:none;margin:0;padding:10px clamp(16px,3vw,32px);display:flex;align-items:center;gap:12px;min-height:44px}
+.bar .crumbt{font:600 15px var(--f-d);color:var(--ink)}
+.bar .sp{flex:1}
+.bar .stops{display:none}
+.bar .hub{color:#7B1E2E;font-size:14px;opacity:1}
+.bar :focus-visible{outline:3px solid #7B1E2E;outline-offset:2px}
+.bar .lang{border:1px solid #CFC7BA}.bar .lang button{color:var(--ink);padding:6px 14px}.bar .lang button[aria-pressed="true"]{background:#1B1A1F;color:#fff}
+.bar .menu{all:unset;display:none;width:44px;height:44px;place-items:center;border-radius:10px;cursor:pointer;color:var(--ink)}
+.mt{top:66px}
+.scrim{position:fixed;inset:0;background:rgba(20,18,22,.55);z-index:40}
+@media (max-width:960px){
+ .shell{grid-template-columns:minmax(0,1fr)}
+ .side{position:fixed;left:0;top:0;bottom:0;height:auto;width:min(318px,86vw);z-index:50;transform:translateX(-102%);transition:transform .2s ease;visibility:hidden}
+ body.drawer .side{transform:none;visibility:visible}
+ .side .close{display:grid}
+ .bar{background:#7B1E2E;color:#fff;border-bottom:0}.bar .crumbt,.bar .menu{color:#fff}.bar .hub{display:none}
+ .bar .lang{border-color:rgba(255,255,255,.6)}.bar .lang button{color:#fff}.bar .lang button[aria-pressed="true"]{background:#fff;color:#7B1E2E}
+ .bar .menu{display:grid}
+ .bar :focus-visible{outline-color:#fff}
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bar{background:#1F1D23;border-color:#2E2B33}:root:not([data-theme="light"]) .bar .lang button[aria-pressed="true"]{background:#F4F1EA;color:#1B1A1F}}
+@media (prefers-reduced-motion:reduce){.side{transition:none}}
+
+/* onsite v2: one mock SER in PEV Studio */
+.ag .ps{display:block;margin-top:6px;font-size:13.5px;color:var(--soft)}.ag .ps b{display:inline-block;background:#1D1A20;color:#fff;border-radius:6px;padding:1px 7px;font:600 11.5px var(--f-b);margin-right:6px}.ag .ps span{color:var(--ink)}
+.ag .ho a.chip{text-decoration:none}
+.k.w{background:#1D1A20;color:#fff}
+.mtp{display:flex;flex-wrap:wrap;gap:18px 28px}.mtp .mtl{flex:3 1 420px;display:flex;flex-direction:column;gap:6px}.mtp .mtf{flex:1 1 240px;display:flex;flex-direction:column;gap:8px}.mtp .mtf .btn{justify-content:center;text-align:center}
+.howto{margin:8px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.h2s{font:600 20px var(--f-d);margin:6px 0 10px}
+.crts{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}.crt h3{font-size:16px}
+.csteps{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}.csteps li{flex:1 1 200px;display:flex;gap:10px;align-items:center;padding:10px 14px;border:1px solid var(--rule);border-radius:12px;background:var(--sheet);font-size:14px}.csteps li>b{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#ECE8E1;font-family:var(--f-d);flex:none}.csteps li.ok>b{background:#2E7D4F;color:#fff}
+.keyb{border:2px dashed #B3242B}
+
+/* video dock (YouTube, unlisted) */
+.vdock{position:fixed;inset:0;z-index:80;background:rgba(20,18,22,.78);display:grid;place-items:center;padding:16px}
+.vdock[hidden]{display:none}
+.vbox{width:min(1100px,100%);background:var(--sheet);border-radius:16px;padding:14px 16px 12px;display:flex;flex-direction:column;gap:10px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.vhead{display:flex;align-items:center;gap:12px}.vhead b{flex:1;font:600 17px var(--f-d)}
+.vframe{position:relative;aspect-ratio:16/9;background:#000;border-radius:10px;overflow:hidden}.vframe iframe,.vframe #ytp{position:absolute;inset:0;width:100%;height:100%}
+.vbar{display:flex;align-items:center;gap:12px;font-size:14px}.vprog{flex:1;height:8px;border-radius:4px;background:#E8E2D7;overflow:hidden}.vprog i{display:block;height:100%;width:0;background:#2E7D4F}
+.vprog2{height:6px;border-radius:3px;background:#E8E2D7;overflow:hidden}.vprog2 i{display:block;height:100%;background:#2E7D4F}
+button.vid{all:unset;cursor:pointer;display:block;position:relative;border-radius:16px;overflow:hidden}
+.btn.locked{cursor:not-allowed;opacity:.75}
+.lockc h1{font-size:28px}
+body.vopen{overflow:hidden}
+</style>
+<style id="trx-v1">
+.chip.bad{background:#FBE3E1;color:#9B2C22}.chip.ok{background:#E3F2E8;color:#1F6B3D}
+.trc td,.trc th{font-size:14px}.trc tr.gr td{background:var(--tint);font:600 14px var(--f-d);color:var(--brand)}
+.flg{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 10px}.fk{font:500 12.5px var(--f-b);padding:2px 10px;border-radius:6px;border:1.5px solid}
+.fk.mj{background:#F6E3E5}.fk.bs{background:#E6EEF7}.fk.ms{background:#E8F2EA}.fk.ge{background:#F4EFE6}.fk.el{background:#EFEAF5}
+.flw{border:1px solid var(--rule);border-radius:12px;background:#FCFBF8}.flow{display:block}.flow .fh{font:600 12.5px var(--f-d);fill:#5b1a1a}
+.fb{cursor:pointer}.fb rect{stroke-width:1.5}.fb .t1{font:600 11.5px var(--f-d);fill:#2b2328}.fb .t2{font:400 10.5px var(--f-b);fill:#4a4247}
+.fb.mj rect,.fk.mj{fill:#F6E3E5;border-color:#9B2C3A;stroke:#9B2C3A}.fb.bs rect,.fk.bs{fill:#E6EEF7;border-color:#3B6A9B;stroke:#3B6A9B}.fb.ms rect,.fk.ms{fill:#E8F2EA;border-color:#3E7D54;stroke:#3E7D54}.fb.ge rect,.fk.ge{fill:#F4EFE6;border-color:#8A7350;stroke:#8A7350}.fb.el rect,.fk.el{fill:#EFEAF5;border-color:#6B5A8E;stroke:#6B5A8E}
+.fb:focus{outline:none}.fb:focus rect,.fb.sel rect{stroke-width:3.5}.fb.up rect{stroke:#C77700;stroke-width:3}.fb.dn rect{stroke:#1F6B3D;stroke-width:3}.fb.dim{opacity:.28}
+.fe{fill:none;stroke:#8C8590;stroke-width:1.2}.fe.c{stroke-dasharray:4 3}.fe.on{stroke:#2b2328;stroke-width:2.2}.fe.dim{opacity:.1}
+.serf{width:100%;height:78vh;border:1px solid var(--rule);border-radius:12px;background:#fff;margin-top:10px}
+.trdoc{background:#fff;border:1px solid #C9C3B8;border-radius:10px;padding:22px 24px;font:14px/1.5 var(--f-b);min-width:720px;margin:14px 0}
+.trh{display:grid;grid-template-columns:1fr 1.3fr;gap:16px;border-bottom:2px solid #7b1f2a;padding-bottom:12px;margin-bottom:12px}.trh dl{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;margin:0}.trh dt{color:#6E6873}.trh dd{margin:0}
+.terms{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.tt{border:1px solid #DDD6CA;border-radius:8px;padding:8px 10px;break-inside:avoid}.tt .th{font:600 13.5px var(--f-d);color:#5b1a1a;margin-bottom:4px}
+.tt table{width:100%;border-collapse:collapse}.tt td{padding:1px 4px;font-size:13px;border-bottom:1px dotted #E2DCD1}.tt td.g{font-weight:600;text-align:center;width:34px}.tt td.gf{color:#B3261E}.tt td.gw{color:#8A6D00}
+.ts{font-size:12.5px;color:#4a4247;margin-top:6px}.trf{display:flex;flex-wrap:wrap;gap:6px 22px;border-top:2px solid #7b1f2a;margin-top:12px;padding-top:10px}
+.fl{display:flex;flex-direction:column;gap:4px;margin-top:12px;font:500 14px var(--f-b)}.fl textarea,.fl select,.trws select{font:15px var(--f-b);padding:8px 10px;border:1px solid #C9C3B8;border-radius:10px;background:#fff}
+.trkey{border-color:#E1B7B7;background:#FFFBFA}
+@media (max-width:760px){.trh{grid-template-columns:1fr}.terms{grid-template-columns:1fr}.trdoc{min-width:0;padding:14px}}
+@media print{body.pr1 .side,body.pr1 .bar,body.pr1 #view>*:not(.tw),body.pr1 .scrim,body.pr1 #vdock{display:none!important}body.pr1 .mainc,body.pr1 .shell{display:block;margin:0}body.pr1 .trdoc{border:0;min-width:0}body.pr1 .tw{overflow:visible}}
+</style>
+</head>
+<body>
+<div class="shell">
+<aside class="side" id="side"></aside>
+<div class="scrim" id="scrim" hidden></div>
+<div class="vdock" id="vdock" hidden role="dialog" aria-modal="true" aria-labelledby="vtitle"><div class="vbox"><div class="vhead"><b id="vtitle"></b><button type="button" class="btn ghost" id="vclose">ปิด / Close</button></div><div class="vframe"><div id="ytp"></div></div><div class="vbar"><span class="vprog"><i id="vpi"></i></span><span id="vpt"></span></div><p class="note" id="vnote" aria-live="polite"></p></div></div>
+<div class="mainc">
+<header class="bar"><div class="in">
+  <button type="button" class="menu" id="menu" aria-controls="side" aria-expanded="false"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  <span class="crumbt" id="crumbt"></span>
+  <nav class="stops" id="stops" hidden></nav>
+  <span class="sp"></span>
+  <a class="hub" id="hub" href="#" hidden></a>
+  <div class="lang" role="group" aria-label="Language"><button type="button" data-lang="th">ไทย</button><button type="button" data-lang="en">EN</button></div>
+</div></header>
+<main class="page" id="view"></main>
+</div>
+</div>
+<script src="data.js"></script>
+<script src="workshop-data.js"></script>
+<script src="serlab-data.js"></script>
+<script src="serlab.js"></script>
+<script src="links.js"></script>
+<script src="modules.js"></script>
+<script src="trx-data.js"></script>
+<script>
+const D=window.TR_DATA;
+const QZ=Object.assign({},D.quiz,window.TR_QX||{});
+let lang='th'; try{lang=localStorage.getItem('tabee-lang')||'th'}catch(e){}
+const tx=(th,en)=>lang==='en'?en:th;
+const W=(th,en)=>({th,en}); const L=x=>x&&typeof x==='object'&&!Array.isArray(x)?x[lang]:x;
+/* videos: Google Drive folder “TABEE PEV Training/Video” (My Drive of the studio owner) */
+const GD={"1": "1SqOr0aFcfqNIIaZKt_UCzYAiMxkoOvMo", "2": "1Xd1IygRiUdnyfRD-tb74XdMYDJkWCrK7", "3": "1JyVWx5laUN-sFYaZrI1-_opt7DeMek_p", "4": "1Kpl0RLHmJb8nAY7tsn6XrVK3Cy7PQmIn", "5": "1yVXRgPjunDxJuUtLaXFB8nSwVEo68hrs", "6": "1t5-q5osCx0recLmy-_N1B8Eu01XE7Oiq", "7": "1LECM7IxG77QI5wcFi5LCto9Gj1kXtYpA", "8": "1gv6dwzWqIlHt7Ti3CT_6Ne3ZRa8J0asS", "9": "1lVeyvGfs02yx0qGvKn3tlM0M7BY02_MH", "10": "1hIE20Q8ufT682pNbUg1xJbzvgeEkyocp", "11": "11bVZsPhSOGsOfs4s1WiEpGjD3ZMnutK6", "12": "1UDo4SPg2VdZC9S3OEQn66BM63wM-QtGt", "13": "179nTjLdq_3N98PzdhWEkYfyQKZp-Oevh", "14": "1YfwgXxunemZQZzX4LGM6pSlnqZNqtK5n"};
+/* YouTube (Unlisted) per module; EP.1 covers Modules 0 and 1, EP.8 was split into Modules 8 and 9 */
+const YT={0:'lAuO8jYVsxc',1:'lAuO8jYVsxc',2:'_V10iW5Ms8Y',3:'Xsd9pq4swoY',4:'tAKTh_zl1lU',5:'3UvanxzRDI0',6:'RJTz0nW81hM',7:'VgHiGeJ8SyQ',8:'RvmlZ7kPH84',9:'6xx61xWG7lM',10:'CZlRDfHJDqE',11:'aE04Rmpoxk0',12:'2uGC-3tRB84',13:'nOTjlkWcKfY',14:'GHWAwOcqcXI',15:'zzVzg-lfW5A'};
+/* YouTube plays inside the page only from a web address (GitHub Pages). Opened as a local file (file://) YouTube refuses the embed (error 153),
+   so the page then links out to YouTube and does not lock the quiz. ytBroken is set if the player fails at run time for the same effect. */
+let ytBroken=false;
+const YTOK=/^https?:$/.test(location.protocol)&&!window.claude;
+const ytLive=()=>YTOK&&!ytBroken;
+const VPASS=.9, VMAXRATE=2;
+const vw=id=>{S.vw=S.vw||{};return S.vw[id]=S.vw[id]||{reach:0,dur:0,done:false}};
+const vidDone=m=>!!(YT[m]&&S.vw&&S.vw[YT[m]]&&S.vw[YT[m]].done);
+const vidPct=m=>{const v=YT[m]&&S.vw&&S.vw[YT[m]];return v&&v.dur?Math.min(100,Math.round(100*v.reach/v.dur)):0};
+const quizLocked=m=>ytLive()&&!!YT[m]&&!!QZ[m]&&!vidDone(m)&&!(S.vbypass&&window.SERLAB_MODE!=='trainee');
+let ytApi=null, ytP=null, ytVid=null, ytTimer=null, ytLast=0;
+function loadYT(){if(ytApi)return ytApi;ytApi=new Promise((res,rej)=>{const to=setTimeout(()=>rej(new Error('timeout')),12000);window.onYouTubeIframeAPIReady=()=>{clearTimeout(to);res(window.YT)};const sc=document.createElement('script');sc.src='https://www.youtube.com/iframe_api';sc.onerror=()=>{clearTimeout(to);rej(new Error('load'))};document.head.appendChild(sc)});ytApi.catch(()=>{ytApi=null});return ytApi}
+function ytFail(code){ytBroken=true;clearInterval(ytTimer);const id=ytVid;$('#ytp').outerHTML='<div id="ytp"></div>';ytP=null;
+  $('.vframe').innerHTML=`<div id="ytp"></div><div class="vfail"><p>${tx('เล่นวิดีโอในหน้านี้ไม่ได้','The video cannot play on this page')}${code?` (YouTube ${code})`:''}</p><a class="btn" href="https://youtu.be/${id}" target="_blank" rel="noopener">▶ ${tx('ดูบน YouTube','Watch on YouTube')} ↗</a><p class="note">${tx('ระบบนับเวลาดูจึงปิดไว้ และทำแบบทดสอบได้เลย','Watch tracking is off, so the quiz is open.')}</p></div>`}
+function vMsg(t){const n=$('#vnote');if(n)n.textContent=t||''}
+function vUI(){const v=ytVid&&vw(ytVid);if(!v)return;const p=v.dur?Math.min(100,Math.round(100*v.reach/v.dur)):0;$('#vpi').style.width=p+'%';$('#vpt').textContent=v.done?tx(`ดูครบแล้ว ${p}% · ทำแบบทดสอบได้`,`Watched ${p}% · quiz unlocked`):tx(`ดูแล้ว ${p}% · ต้องถึง 90% จึงทำแบบทดสอบได้`,`Watched ${p}% · reach 90% to unlock the quiz`)}
+function vTick(){
+  if(!ytP||!ytP.getCurrentTime)return; const v=vw(ytVid), t=ytP.getCurrentTime()||0, d=ytP.getDuration()||0, st=ytP.getPlayerState();
+  if(d)v.dur=d;
+  if(t>v.reach+3){ytP.seekTo(v.reach,true);vMsg(tx('ข้ามไปยังส่วนที่ยังไม่ได้ดูไม่ได้ ระบบพากลับมาที่จุดที่ดูถึงล่าสุด','You cannot skip ahead past what you have not watched; returned to your furthest point.'));return}
+  if(st===1&&t>v.reach)v.reach=t;
+  if(ytP.getPlaybackRate&&ytP.getPlaybackRate()>VMAXRATE){ytP.setPlaybackRate(VMAXRATE);vMsg(tx('ความเร็วสูงสุดคือ x2','Maximum speed is 2×'))}
+  if(!v.done&&v.dur&&v.reach/v.dur>=VPASS){v.done=true;save();vMsg(tx('ดูครบ 90% แล้ว ปิดหน้าต่างนี้แล้วทำแบบทดสอบได้','90% reached. Close this window and take the quiz.'))}
+  if(Date.now()-ytLast>5000){ytLast=Date.now();save()}
+  vUI();
+}
+async function openVid(m){
+  const id=YT[m]; if(!id)return; if(!ytLive()){window.open('https://youtu.be/'+id,'_blank','noopener');return} ytVid=id; const v=vw(id), dock=$('#vdock');
+  $('#vtitle').textContent=`Module ${m} · ${md(m)}`; vMsg(''); dock.hidden=false; document.body.classList.add('vopen'); vUI(); $('#vclose').focus();
+  let Y;try{Y=await loadYT()}catch(_){ytFail('');return}
+  const start=Math.max(0,Math.floor(v.reach)-2);
+  if(ytP&&ytP.loadVideoById){ytP.loadVideoById({videoId:id,startSeconds:start})}
+  else ytP=new Y.Player('ytp',{videoId:id,width:'100%',height:'100%',playerVars:{rel:0,playsinline:1,cc_load_policy:1,start,modestbranding:1,origin:location.origin},events:{
+    onError:e=>ytFail(e.data),
+    onPlaybackRateChange:e=>{if(e.data>VMAXRATE){ytP.setPlaybackRate(VMAXRATE);vMsg(tx('ความเร็วสูงสุดคือ x2','Maximum speed is 2×'))}},
+    onStateChange:e=>{if(e.data===0){vTick();save()}}}});
+  clearInterval(ytTimer); ytTimer=setInterval(vTick,500);
+}
+function closeVid(){clearInterval(ytTimer);try{ytP&&ytP.pauseVideo&&ytP.pauseVideo()}catch(_){}save();$('#vdock').hidden=true;document.body.classList.remove('vopen');render(true)}
+const vurl=f=>{const n=(f.match(/ep\.(\d+)/i)||[])[1];return GD[n]?`https://drive.google.com/file/d/${GD[n]}/view`:VFOLDER};
+const VFOLDER='https://drive.google.com/drive/folders/1E6v3dh6EXiQS515-ghrX9vxjoK68stAH';
+const MOD=[W('ปฐมนิเทศและโครงสร้างการเรียนล่วงหน้า','Orientation and pre-work structure'),W('แนวคิด OBE และ OBA','OBE and OBA concepts'),W('ระบบรับรองมาตรฐานคุณภาพการศึกษาวิศวกรรมศาสตร์','The engineering accreditation system'),W('วงจรการพัฒนาคุณภาพอย่างต่อเนื่อง (CQI)','Continuous quality improvement (CQI)'),W('แนวทางการประเมินและบทบาทของคณะผู้ตรวจ','Evaluation approach and the team’s roles'),W('การเตรียมตัวเพื่อขอรับรองมาตรฐาน','How programs prepare for accreditation'),W('เกณฑ์ข้อ 1 นิสิตนักศึกษา','Criterion 1 Students'),W('เกณฑ์ข้อ 2 วัตถุประสงค์หลักสูตร','Criterion 2 Program educational objectives'),W('เกณฑ์ข้อ 3 ผลลัพธ์การศึกษา','Criterion 3 Program outcomes'),W('เกณฑ์ข้อ 3 ตัวชี้วัดผลลัพธ์ (PI)','Criterion 3 Performance indicators'),W('เกณฑ์ข้อ 4 การพัฒนาต่อเนื่อง','Criterion 4 Continuous improvement'),W('เกณฑ์ข้อ 5 รายละเอียดหลักสูตร','Criterion 5 Curriculum'),W('Capstone Design Project','Capstone design project'),W('เกณฑ์ข้อ 6 คณาจารย์','Criterion 6 Faculty'),W('เกณฑ์ข้อ 7 สิ่งอำนวยความสะดวก','Criterion 7 Facilities'),W('เกณฑ์ข้อ 8 การสนับสนุนของสถาบันการศึกษา','Criterion 8 Institutional support'),W('วันตรวจเยี่ยม (Visit Day)','The visit day'),W('เตรียมตัวเข้าอบรม Onsite','Preparing for the on-site training')];
+const md=m=>L(MOD[m]);
+const EP=[
+ [1,[0,1],29,'EP.1_SUB ENG.mp4','EP.1 Module00-01 Rev.12-4-69',[W('บทบาทของการเรียนล่วงหน้า','Purpose of the pre-work'),W('การอ่านแบบผู้ตรวจ: วิเคราะห์เชิงรุก','Reading like an evaluator: active analysis'),W('โครงสร้าง 15 โมดูลใน 3 ระยะ','15 modules in three phases'),W('แนวคิด OBE และ OBA','OBE and OBA concepts'),W('สิ่งที่ต้องเตรียมก่อน Simulated visit','Preparing for the simulated visit')]],
+ [2,[2],15,'Ep.2_SUB ENG.mp4','EP.2 Module 02 Rev.18-4-69',[W('ความหมายของการรับรองมาตรฐาน','What accreditation means'),W('Washington, Sydney และ Dublin Accord','Washington, Sydney and Dublin Accords'),W('เส้นทางของไทยสู่ Washington Accord','Thailand’s path to the Washington Accord'),W('หลักการประเมิน 3 ข้อของ TABEE','TABEE’s three evaluation principles'),W('4 ขั้นตอนหลักและประเภทผลการตัดสิน','Four main stages and decision types')]],
+ [3,[3],18,'EP.3_SUB ENG.mp4','EP.3 Module 03 Rev.15-4-69',[W('วงจร Plan–Do–Check–Act','The Plan–Do–Check–Act cycle'),W('ความเชื่อมโยงของเกณฑ์ TABEE','How the TABEE criteria connect'),W('การประเมิน PO','Assessing program outcomes'),W('Course Portfolio ในฐานะคลังหลักฐาน','The course portfolio as evidence'),W('กรณีศึกษาการปิดวงจร','Closing-the-loop cases')]],
+ [4,[4],15,'EP.4_SUB ENG.mp4','EP.4 Module 04 Rev.16-4-69',[W('ปรัชญา Peer review','The peer-review philosophy'),W('ผลการตัดสิน 5 ระดับ','The five decision levels'),W('โครงสร้างคณะผู้ตรวจและ COI','Team structure and conflicts of interest'),W('บทบาท PEV ก่อนและระหว่างลงพื้นที่','The PEV before and during the visit'),W('ศิลปะการสัมภาษณ์','Interviewing skills'),W('หลุมพรางที่พบบ่อย','Common pitfalls')]],
+ [5,[5],18,'EP.5_SUB ENG.mp4','EP.5 Module 05 Rev.16-4-69',[W('การเตรียมตัวของสถาบันเพื่อขอรับรองมาตรฐาน','How institutions prepare for accreditation')]],
+ [6,[6],15,'EP.6_SUB ENG.mp4','EP.6 Module 06 Rev.16-4-69',[W('ปรัชญาของเกณฑ์ข้อ 1','Intent of criterion 1'),W('Checklist 7 เรื่อง ตั้งแต่การรับเข้าถึงใบระเบียนผลการศึกษา','Seven checklists, from admission to transcripts'),W('กรณีศึกษา 2 กรณี','Two case studies'),W('ข้อบกพร่องที่พบบ่อย','Common deficiencies')]],
+ [7,[7],14,'EP.7_SUB ENG.mp4','EP.7 Module 07 Rev.16-4-69',[W('PEO กับ PO','PEOs versus POs'),W('ระดับของข้อค้นพบ','Levels of findings'),W('Checklist 7 เรื่อง ตั้งแต่พันธกิจถึงการปิดวงจร','Seven checklists, from mission to closing the loop'),W('กรณีศึกษาระดับ W, C และ R','Case studies at W, C and R')]],
+ [8,[8,9],28,'EP.8_SUB ENG.mp4','EP.8.1 Module 08 + EP.8.2 Module 09',[W('Graduate Attributes 11 ข้อ','The 11 graduate attributes'),W('Knowledge profile (TK)','Knowledge profile (TK)'),W('การเชื่อม PLO กับ PO','Mapping PLOs to POs'),W('PI และ CLO','PIs and CLOs'),W('การประเมินทางตรงและทางอ้อม','Direct and indirect assessment'),W('กรณีศึกษา','Case studies')]],
+ [9,[10],14,'EP.9_SUB ENG.mp4','EP.9 Module 10 Rev.11-4-69',[W('โครงสร้างของเกณฑ์ข้อ 4','Structure of criterion 4'),W('สัดส่วนการประเมินทางตรง','Share of direct assessment'),W('ตาราง Closing the loop','The closing-the-loop table'),W('องค์ประกอบของ Course Portfolio','What a course portfolio contains'),W('Checklist และกรณีศึกษา','Checklist and case studies')]],
+ [10,[11],15,'EP.10_SUB ENG.mp4','EP.10 Module 11 Rev.11-4-69',[W('สัดส่วนหมวดความรู้','Credit shares by subject area'),W('การนับหน่วยกิตแฝง','Counting embedded credits'),W('ตาราง 5.1, 5.2 และวิชาบังคับก่อน','Tables 5.1, 5.2 and prerequisites'),W('Capstone Design Course','The capstone design course'),W('Checklist และกรณีศึกษา','Checklist and case studies')]],
+ [11,[12],15,'EP.11_SUB ENG.mp4','EP.11 Module 12 Rev.16-4-69',[W('นิยามของ Capstone Design Project','What a capstone project is'),W('Complex กับ Broadly-defined problems','Complex versus broadly-defined problems'),W('ตารางตรวจความซับซ้อนใน SER','The complexity table in the SER'),W('กรณีสหกิจศึกษา','Cooperative education'),W('Checklist และกรณีศึกษา','Checklist and case studies')]],
+ [12,[13],11,'EP.12_SUB ENG.mp4','EP.12 Module 13 Rev.16-4-69',[W('คุณวุฒิและภาระงาน','Qualifications and workload'),W('ทักษะการจัดการเรียนรู้แบบ OBE','OBE teaching skills'),W('กรณีศึกษา','Case studies'),W('ความต่างของ Concern กับ Weakness','Concern versus weakness')]],
+ [13,[14],10,'EP.13_SUB ENG.mp4','EP.13 Module 14 Rev.11-4-69',[W('เกณฑ์ข้อ 7 สิ่งอำนวยความสะดวก','Criterion 7 Facilities')]],
+ [14,[15],10,'EP.14_SUB ENG.mp4','EP.14 Module 15 Rev.11-4-69',[W('การนำองค์กร','Program leadership'),W('งบประมาณ','Budget'),W('บุคลากรสายสนับสนุน','Support staff'),W('การรับและพัฒนาคณาจารย์','Faculty hiring and development'),W('Checklist และการสัมภาษณ์ผู้บริหาร','Checklist and leadership interviews')]]
+].map(a=>({n:a[0],mods:a[1],slides:a[2],video:a[3],deck:a[4],topics:a[5]}));
+const epTitle=e=>e.mods.map(md).join(tx(' และ ',' and '));
+const LV={N:W('ไม่มีประเด็น','No issue'),R:W('Remark','Remark'),C:W('Concern','Concern'),W:W('Weakness','Weakness'),D:W('Deficiency','Deficiency')};
+const DIFF={'ง่าย':'Easy','ปานกลาง':'Medium','ยากมาก':'Very hard'};
+const CASET=['Criterion 1 Students','Criterion 2 Program educational objectives','Criterion 3 Program outcomes','Criterion 4 Continuous improvement','Criterion 5 Curriculum and capstone project','Criterion 6 Faculty','Criterion 7 Facilities','Criterion 8 Institutional support'];
+const SERT=['Part 1 Background information','Part 2 Criterion 1 Students','Part 3 Criterion 2 Program educational objectives'];
+const QN=5, QPASS=4, PASS=80, CASEPASS=80, TOTAL_CASES=D.cases.reduce((a,c)=>a+c.items.length,0);
+const SERKEY=[
+ [W('ส่วนที่ 1','Part 1'),W('ชื่อปริญญาภาษาไทยเขียนว่าวิศวกรรมคอมพิวเตอร์ แต่หลักสูตรและชื่อภาษาอังกฤษเป็นวิศวกรรมโยธา','The Thai degree name says computer engineering; the program and English name are civil engineering.')],
+ [W('ส่วนที่ 1','Part 1'),W('ข้อ 5 ประวัติการเปิดสอน และข้อ 6 ความร่วมมือ ไม่มีเนื้อหา','Item 5 (program history) and item 6 (partnerships) are empty.')],
+ [W('ส่วนที่ 1','Part 1'),W('ชื่อสถาบันเขียนไม่ตรงกันในเล่ม','The institution name is written inconsistently.')],
+ [W('เกณฑ์ข้อ 1','Criterion 1'),W('วิธีประเมินผลการเรียนรู้บรรยายทักษะของวิศวกรรมคอมพิวเตอร์ ไม่ใช่วิศวกรรมโยธา','The assessment methods describe computer-engineering skills, not civil engineering.')],
+ [W('เกณฑ์ข้อ 1','Criterion 1'),W('ข้อ 2.2 ผลการประเมินและการติดตามผลการเรียนรู้ ไม่มีข้อมูล','Item 2.2 (assessment results and follow-up) has no data.')],
+ [W('เกณฑ์ข้อ 1','Criterion 1'),W('ข้อ 4.2 ปริมาณการให้คำปรึกษา ไม่มีข้อมูล','Item 4.2 (advising volume) has no data.')],
+ [W('เกณฑ์ข้อ 1','Criterion 1'),W('การปรับปรุงเกณฑ์รับเข้าดูที่จำนวนรับ ไม่ได้ดูความสามารถของผู้ที่รับเข้า','Admission review looks at intake numbers, not at the ability of admitted students.')],
+ [W('เกณฑ์ข้อ 1','Criterion 1'),W('ปี 2566 และ 2567 มีการรับรอบที่ 4 โดยไม่มีแผน และรอบที่ 3 ไม่กำหนดหน่วยกิตขั้นต่ำ','Round 4 admitted students in 2023 and 2024 with no plan; round 3 sets no minimum credits.')],
+ [W('เกณฑ์ข้อ 1','Criterion 1'),W('เกณฑ์อนุมัติจบอ้างข้อกำหนดของมหาวิทยาลัย ไม่แสดงการตรวจว่าบรรลุ PO ครบ','Graduation rules cite university regulations and show no check that every PO is met.')],
+ [W('เกณฑ์ข้อ 1','Criterion 1'),W('ข้อ 7 ใบระเบียนผลการศึกษาของผู้สำเร็จการศึกษา ไม่มีเอกสาร','Item 7 (graduate transcripts) has no documents.')],
+ [W('เกณฑ์ข้อ 2','Criterion 2'),W('ผลลัพธ์การศึกษาของหลักสูตรมี 7 ข้อ ต้องตรวจว่าครอบคลุม PO 11 ข้อของ TABEE','The program has 7 outcomes; check they cover TABEE’s 11 POs.')],
+ [W('เกณฑ์ข้อ 2','Criterion 2'),W('PEO เชื่อมด้วยคำว่า "หรือ" และกำหนดที่ 5 ปีหลังจบ ต้องตรวจกับนิยามและรอบการทบทวน','PEOs are joined by "or" and set at 5 years after graduation; check against the definition and review cycle.')],
+ [W('เกณฑ์ข้อ 2','Criterion 2'),W('ต้องหาหลักฐานว่าผู้มีส่วนได้ส่วนเสียมีส่วนร่วมกำหนดและทบทวน PEO จริง','Look for evidence that stakeholders actually set and review the PEOs.')]];
+const TXCHK=[W('ชื่อปริญญาและสาขาตรงกับหลักสูตรที่ขอรับรอง','Degree name and discipline match the program'),W('หน่วยกิตรวมครบตามหลักสูตร','Total credits meet the curriculum'),W('หน่วยกิตคณิตศาสตร์และวิทยาศาสตร์พื้นฐานครบตามเกณฑ์','Math and basic science credits meet the criteria'),W('หน่วยกิตวิชาวิศวกรรมครบตามเกณฑ์','Engineering credits meet the criteria'),W('เรียนวิชาบังคับก่อนตามลำดับ','Prerequisites taken in order'),W('การเทียบโอนหรือแทนรายวิชามีหลักฐาน','Transfers and substitutions are documented'),W('มี Capstone Design Project ในชั้นปีสุดท้าย','Capstone project taken in the final year')];
+
+let S={watched:{},quiz:{},cases:{},ser:[],tx:{},done:{},bs:{},read:{}};
+try{Object.assign(S,JSON.parse(localStorage.getItem('tabee-tr-v1')||'{}'))}catch(e){}
+const save=()=>{try{localStorage.setItem('tabee-tr-v1',JSON.stringify(S))}catch(e){}};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const $=q=>document.querySelector(q), view=$('#view');
+const QM=Object.keys(QZ).map(Number).sort((a,b)=>a-b);
+const passed=m=>S.quiz[m]&&S.quiz[m].best>=PASS;
+const srcNote=()=>lang==='en'?'<p class="src">This content is in Thai, as written by TABEE. An English version has not been prepared yet.</p>':'';
+const stat=()=>{
+  const qp=QM.filter(passed).length;
+  let ca=0,cr=0; D.cases.forEach((c,i)=>c.items.forEach((it,j)=>{const v=(S.cases[i]||{})[j]; if(v){ca++; if(v===it.a)cr++}}));
+  const on=AGW.map(a=>'o:'+a.id), od=on.filter(k=>S.done[k]).length;
+  return {qp,ca,cr,casePct:Math.round(cr/TOTAL_CASES*100),od,on:on.length};
+};
+let run=null, caseTab=0, serTab=0, bsTab=0, showKey=false;
+
+let sideOpen=null;
+const ico={d:'<svg class="si" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="8" fill="#2E7D4F"/><path d="M5 9.2l2.6 2.5L13 6.4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+ p:'<svg class="si" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="7.2" fill="none" stroke="#D88B97" stroke-width="1.8"/><path d="M9 1.8A7.2 7.2 0 0 1 9 16.2Z" fill="#D88B97"/></svg>',
+ t:'<svg class="si" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="7.2" fill="none" stroke="#6E6873" stroke-width="1.8"/></svg>'};
+const mSt=m=>(m===0?isRead(m):passed(m))?'d':(isRead(m)||S.quiz[m]||S.watched[m])?'p':'t';
+function sideHTML(id){
+  const s=stat(), mm=(id.match(/^(?:mod|quiz|ep)-(\d+)$/)||[])[1], cur=mm===undefined?null:(id.startsWith('ep-')?((EP.find(e=>e.n===+mm)||{mods:[]}).mods[0]):+mm);
+  const sl=window.serlabDone?serlabDone():0, rd=ALLM.filter(isRead).length;
+  const pct=Math.round(100*[rd/ALLM.length,s.qp/QM.length,s.ca/TOTAL_CASES,sl/7,s.on?s.od/s.on:0].reduce((a,b)=>a+b,0)/5);
+  const st=(n,of)=>n>=of&&of>0?'d':n>0?'p':'t';
+  if(!sideOpen){sideOpen={};PHASES.forEach((ph,i)=>sideOpen[i]=cur!==null&&ph[1].includes(cur))}
+  else if(cur!==null) PHASES.forEach((ph,i)=>{if(ph[1].includes(cur))sideOpen[i]=true});
+  const item=(href,label,stt,meta,on)=>`<a class="it${on?' on':''}" href="#${href}"${on?' aria-current="page"':''}>${ico[stt]}<span class="lb">${label}</span>${meta!==''&&meta!==undefined?`<span class="mt2">${meta}</span>`:''}</a>`;
+  const grp=(no,name,body)=>`<div class="grp"><div class="gh"><span>${no}</span>${name}</div>${body}</div>`;
+  const ph=PHASES.map((p,i)=>{const done=p[1].filter(m=>mSt(m)==='d').length;
+    const mods=p[1].map(m=>{const on=cur===m;let x=`<a class="it m${on?' on':''}" href="#mod-${m}"${on?' aria-current="page"':''}>${ico[mSt(m)]}<span class="mn">M${m}</span><span class="lb">${esc(md(m))}</span></a>`;
+      if(on&&m===16&&TM[16]){x+=`<div class="sub">${[['act-0-1',tx('วันที่ 0 · ประชุมคณะ','Day 0 · team meeting')],['act-1-1',tx('วันที่ 1','Day 1')],['act-2-1',tx('วันที่ 2','Day 2')],['qbank',tx('คลังคำถามตามเกณฑ์','Question bank')]].map(a=>`<button type="button" data-jump="${a[0]}">${a[1]}</button>`).join('')}</div>`}
+      return x}).join('');
+    return `<details class="ph" data-ph="${i}"${sideOpen[i]?' open':''}><summary><span class="lb">${L(p[0]).replace(/^(ระยะที่ \d|Phase \d)\s*/,'$1 · ').replace(/^(โมดูลเสริม|Supplementary):.*$/,'$1')}</span><span class="mt2">${done}/${p[1].length}</span></summary>${mods}</details>`}).join('');
+  return `<div class="brand"><a href="#path" class="bl"><span class="bx">PEV</span><span class="bt"><b>Training Studio</b><small>TABEE · PEV CANDIDATE</small></span></a><button type="button" class="close" id="sideClose" aria-label="${tx('ปิดเมนู','Close menu')}"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+  <a class="prog" href="#record"><span class="pl">${tx('ความคืบหน้ารวม','Overall progress')}</span><span class="pb"><span class="bar2"><i style="width:${pct}%"></i></span><b>${pct}%</b></span></a>
+  <nav aria-label="${tx('แถบนำทาง Studio','Studio navigation')}">
+  ${grp('01',tx('เส้นทาง','Path'),item('path',tx('ภาพรวม','Overview'),st(pct,100),'',id==='path'||id===''))}
+  ${grp('02',tx('เรียนออนไลน์','Online learning'),item('learn',tx('ทุกโมดูล','All modules'),st(s.qp,QM.length),`${s.qp}/${QM.length}`,id==='learn')+ph)}
+  ${grp('03',tx('ฝึกวิเคราะห์','Analysis practice'),item('transcript',tx('ใบระเบียนผลการศึกษา','Transcripts'),st(trAll(),35),`${trAll()}/35`,id==='transcript')+item('cases',tx('การประเมินผลการตรวจ','Finding-level assessment'),'t','',id==='cases')+item('serlab',tx('ชุดฝึก SER 7 หลักสูตร','Mock SER lab'),st(sl,7),`${sl}/7`,id==='serlab'))}
+  ${grp('04',tx('อบรม Onsite','On-site training'),item('onsite',tx('กำหนดการ 2 วัน · SER วัสดุ','Two days · materials SER'),st(s.od,s.on),`${s.od}/${s.on}`,id==='onsite')+`<details class="ph" data-ph="crit"${sideOpen.crit||/^crit-/.test(id)?' open':''}><summary><span class="lb">${tx('ประเมินรายเกณฑ์ 1–8','Criteria 1–8')}</span><span class="mt2">${s.ca}/${TOTAL_CASES}</span></summary>${CRN.map((c,i)=>{const on=id==='crit-'+(i+1),dn=caseDone(i),tot=D.cases[i].items.length;return `<a class="it m${on?' on':''}" href="#crit-${i+1}"${on?' aria-current="page"':''}>${ico[dn>=tot?'d':dn?'p':'t']}<span class="mn">${tx('ข้อ','C')}${i+1}</span><span class="lb">${esc(L(c))}</span></a>`}).join('')}</details>`)}
+  ${grp('05',tx('ผลของฉัน','My record'),item('record',tx('สรุปผลและเกณฑ์ผ่าน','Results and pass rules'),'t','',id==='record'))}
+  </nav>
+  <p class="saved"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="#6FBF8E" stroke-width="2" fill="none" stroke-linecap="round"/></svg>${tx('บันทึกในเครื่องนี้อัตโนมัติ','Saved on this device')}</p>`;
+}
+function nav(id){
+  const g=/^(ep|quiz|mod)/.test(id)?'learn':['serlab','transcript','cases'].includes(id)?'analysis':/^crit-/.test(id)?'onsite':id;
+  $('#side').innerHTML=sideHTML(id);
+  {const on=$('#side .it.on');if(on){const r=on.getBoundingClientRect(),sb=$('#side').getBoundingClientRect();if(r.top<sb.top+120||r.bottom>sb.bottom-20)on.scrollIntoView({block:'center'})}}
+  const mm=id.match(/^(ep|quiz|mod)-(\d+)$/);
+  $('#crumbt').textContent=/^crit-/.test(id)?tx('Onsite · เกณฑ์ข้อ ','Onsite · criterion ')+id.slice(5):mm?(mm[1]==='ep'?'EP.'+mm[2]:'Module '+mm[2]+(mm[1]==='quiz'?tx(' · แบบทดสอบ',' · Quiz'):'')):({path:tx('ภาพรวม','Overview'),learn:tx('เรียนออนไลน์','Online learning'),analysis:tx('ฝึกวิเคราะห์','Analysis practice'),transcript:tx('ใบระเบียนผลการศึกษา','Transcripts'),cases:tx('การประเมินผลการตรวจ','Finding-level assessment'),serlab:tx('ชุดฝึก SER จำลอง','Mock SER lab'),onsite:'Onsite',record:tx('ผลของฉัน','My record')}[id]||tx('ภาพรวม','Overview'));
+  $('#menu').setAttribute('aria-label',tx('เปิดเมนู','Open menu'));
+  $('#stops').setAttribute('aria-label',tx('ขั้นของการอบรม','Training stages'));
+  $('#stops').innerHTML=[['path','',tx('เส้นทาง','Path')],['learn','1',tx('เรียนออนไลน์','Online')],['analysis','2',tx('ฝึกวิเคราะห์','Analysis')],['onsite','3','Onsite'],['record','4',tx('ผลของฉัน','My record')]]
+   .map(a=>`<a href="#${a[0]}" ${g===a[0]?'aria-current="page"':''}>${a[1]?`<b>${a[1]}</b>`:''}${a[2]}</a>`).join('');
+  {const h=$('#hub'),u=(window.STUDIO_LINKS||{}).hub;if(u){h.href=u;h.hidden=false;h.textContent=tx('TABEE Studio ทั้งหมด','All TABEE studios')}}
+  document.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===lang));
+  document.documentElement.lang=lang;
+}
+function home(){
+  const s=stat();
+  const stops=[
+   ['learn','1',tx('เรียนออนไลน์','Online learning'),`${s.qp}/${QM.length}`,tx('แบบทดสอบที่ผ่าน','quizzes passed'),s.qp/QM.length,tx(`${ALLM.length} โมดูล บทอ่าน สไลด์ PDF วิดีโอ 14 ตอน และแบบทดสอบ`,`${ALLM.length} modules: readings, PDF slides, 14 videos and quizzes`)],
+   ['analysis','2',tx('ฝึกวิเคราะห์','Analysis practice'),`${s.ca}/${TOTAL_CASES}`,tx('กรณีศึกษาที่ทำแล้ว','cases done'),s.ca/TOTAL_CASES,tx('ใบระเบียน การประเมินผลการตรวจ และชุดฝึก SER 7 หลักสูตร','Transcripts, finding-level assessment and the 7-program mock SER lab')],
+   ['onsite','3','Onsite',`${s.od}/${s.on}`,tx('ช่วงที่ทำแล้ว','sessions done'),s.od/s.on,tx('ตรวจเยี่ยมจำลอง 2 วันตามโครงของ ABET','Two-day simulated visit on ABET’s outline')],
+   ['record','4',tx('ผลของฉัน','My record'),'',tx('เทียบเกณฑ์ขึ้นทะเบียน','Against registration criteria'),0,tx('สรุปผลทุกขั้นเพื่อเสนอขึ้นทะเบียน PEV','All results, ready for PEV registration')]];
+  const next=s.qp<QM.length?0:s.ca<TOTAL_CASES?1:s.od<s.on?2:3;
+  return `<section class="hero"><div><h1>${tx('เส้นทางสู่การเป็นผู้ตรวจประเมิน TABEE','Your path to becoming a TABEE program evaluator')}</h1><p class="lead">${tx('เรียนจากสื่อของ TABEE 14 ตอน ฝึกวิเคราะห์กับหลักสูตรจำลอง แล้วเข้า Mock-up visit ก่อนสังเกตการณ์การตรวจจริง','Learn from TABEE’s 14 episodes, practise on a mock program, then join the mock-up visit before observing a real one.')}</p><p style="margin-top:18px"><a class="btn" href="#${stops[next][0]}">${tx('ทำต่อ','Continue')}: ${stops[next][2]}</a></p></div><img src="covers/0.jpg" alt="${tx('ปกสื่อการเรียนรู้ออนไลน์ของ TABEE จำนวน 14 ตอน','Cover of TABEE’s 14-episode online course')}" width="560" height="315"></section>
+  <section class="road">${stops.map((a,i)=>`<a class="stop ${i===next?'on':''}" href="#${a[0]}"><span class="no">${a[1]}</span><h3>${a[2]}</h3><span class="note">${a[6]}</span>${a[3]?`<span class="big">${a[3]}</span><span class="note">${a[4]}</span><span class="meter"><i style="width:${Math.round(a[5]*100)}%"></i></span>`:`<span class="note" style="margin-top:8px">${a[4]}</span>`}</a>`).join('')}</section>
+  <p class="note">${tx('ผลการเรียนเก็บในเบราว์เซอร์เครื่องนี้เท่านั้น ยังไม่ส่งถึงวิทยากรหรือเจ้าหน้าที่','Progress is saved in this browser only. It is not yet sent to facilitators or staff.')}</p>`;
+}
+function ep(n){const e=EP.find(x=>x.n===n);location.replace('#mod-'+(e?e.mods[0]:''));return ''}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+/* quiz draw: 5 questions = hard 1 + medium 2 + easy 2, avoiding the previous set where the bank allows */
+const QMIX=[['ง่าย',2],['ปานกลาง',2],['ยากมาก',1]];
+function drawQ(m){
+  const Q=QZ[m], last=new Set((S.qlast&&S.qlast[m])||[]), used=new Set(), set=[];
+  const pick=(lv,n)=>{const all=Q.map((q,i)=>i).filter(i=>Q[i].l===lv&&!used.has(i));
+    const fresh=shuffle(all.filter(i=>!last.has(i))), old=shuffle(all.filter(i=>last.has(i)));
+    const got=fresh.concat(old).slice(0,n); got.forEach(i=>used.add(i)); set.push(...got); return n-got.length};
+  let short=0; QMIX.forEach(([lv,n])=>{short+=pick(lv,n)});
+  if(short>0){['ยากมาก','ปานกลาง','ง่าย'].forEach(lv=>{if(short>0) short=pick(lv,short)})}
+  if(set.length<QN){shuffle(Q.map((q,i)=>i).filter(i=>!used.has(i))).slice(0,QN-set.length).forEach(i=>{used.add(i);set.push(i)})}
+  S.qlast=S.qlast||{}; S.qlast[m]=set; save();
+  return set;
+}
+function quiz(m){
+  const BANK=QZ[m]; if(!BANK) return learn();
+  if(quizLocked(m)) return `<div class="crumb"><a href="#learn">${tx('เรียนออนไลน์','Online learning')}</a> / <a href="#mod-${m}">Module ${m}</a> / ${tx('แบบทดสอบ','Quiz')}</div>
+  <section class="card pad lockc"><h1>🔒 ${tx('แบบทดสอบยังล็อกอยู่','The quiz is locked')}</h1><p>${tx(`ต้องดูวิดีโอของ Module ${m} ให้ถึง 90% โดยไม่กรอข้ามส่วนที่ยังไม่ได้ดูก่อน ตอนนี้ดูแล้ว ${vidPct(m)}%`,`Watch the Module ${m} video to 90% without skipping ahead first. You are at ${vidPct(m)}%.`)}</p>
+  <p class="row"><button type="button" class="btn" data-vid="${m}">▶ ${tx('ดูวิดีโอต่อ','Continue the video')}</button><a class="btn ghost" href="#mod-${m}">${tx('กลับไปที่โมดูล','Back to module')}</a>${window.SERLAB_MODE!=='trainee'?`<button type="button" class="btn ghost" data-vbypass="1">${tx('ปลดล็อกทุกโมดูล (วิทยากร)','Unlock all (facilitator)')}</button>`:''}</p></section>`;
+  if(!run||run.m!==m){const set=drawQ(m); run={m,set,ord:set.map(()=>shuffle([0,1,2,3])),ans:{},done:false}}
+  const Q=run.set.map(i=>BANK[i]), n=Object.keys(run.ans).length;
+  let top='';
+  if(run.done){const ok=Q.filter((q,i)=>run.ans[i]===q.a).length, pass=ok>=QPASS;
+    top=`<section class="card pad score"><span class="num" style="color:var(${pass?'--ok':'--bad'})">${ok}/${Q.length}</span><span><b>${pass?tx('ผ่าน','Passed'):tx('ยังไม่ผ่าน','Not passed')}</b> ${tx(`ถูก ${ok} จาก ${Q.length} ข้อ เกณฑ์ผ่านคือถูกอย่างน้อย ${QPASS} ข้อ`,`${ok} of ${Q.length} correct; you need at least ${QPASS} to pass`)}<br><span class="note">${pass?tx(`ทำแล้ว ${S.quiz[m].tries} ครั้ง`,`Attempt ${S.quiz[m].tries}.`):tx(`ทำแล้ว ${S.quiz[m].tries} ครั้ง กดสุ่มชุดใหม่เพื่อทำอีกครั้ง ระบบจะสุ่ม 5 ข้อใหม่ตามเกณฑ์เดิม (ยาก 1 ปานกลาง 2 ง่าย 2) เฉลยละเอียดจะแสดงเมื่อสอบผ่าน`,`Attempt ${S.quiz[m].tries}. Draw a new set to try again: 5 new questions with the same mix (1 hard, 2 medium, 2 easy). Full explanations appear once you pass.`)}</span></span><span style="flex:1"></span><button class="btn ${pass?'ghost':''}" data-retry="${m}">${pass?tx('ทำอีกครั้ง','Retake'):tx('สุ่มข้อสอบชุดใหม่','Draw a new set')}</button><a class="btn ${pass?'':'ghost'}" href="#mod-${m}">${tx('กลับไปที่โมดูล','Back to module')}</a></section>`}
+  const showSol=run.done&&Q.filter((q,i)=>run.ans[i]===q.a).length>=QPASS;
+  return `<div class="crumb"><a href="#learn">${tx('เรียนออนไลน์','Online learning')}</a> / <a href="#mod-${m}">Module ${m}</a> / ${tx('แบบทดสอบ','Quiz')}</div>
+  <div><h1>${tx('แบบทดสอบ','Quiz')} Module ${m}</h1><p class="lead">${md(m)} · ${tx(`สุ่ม ${Q.length} ข้อจากคลัง ${BANK.length} ข้อ (ยาก 1 ปานกลาง 2 ง่าย 2) ต้องถูกอย่างน้อย ${QPASS} ข้อจึงผ่าน`,`${Q.length} questions drawn from a bank of ${BANK.length} (1 hard, 2 medium, 2 easy); ${QPASS} correct to pass`)}</p></div>${srcNote()}${top}
+  <section class="card">${Q.map((q,i)=>`<div class="q"><div class="t"><span class="n">${i+1}</span>${esc(q.q)} ${q.l?`<span class="chip mute">${lang==='en'?(DIFF[q.l]||q.l):esc(q.l)}</span>`:''}</div><div class="opts">${run.ord[i].map(k=>{const cls=run.done?(showSol?(k===q.a?'right':run.ans[i]===k?'wrong':''):(run.ans[i]===k?(k===q.a?'right':'wrong'):'')):'';return `<button class="opt ${cls}" data-q="${i}" data-k="${k}" aria-pressed="${run.ans[i]===k}" ${run.done?'disabled':''}>${esc(q.c[k])}</button>`}).join('')}</div>${showSol?`<div class="sol"><b>${tx('เฉลย','Explanation')}</b> ${esc(q.s)}</div>`:''}</div>`).join('')}</section>
+  ${run.done?'':`<div class="row"><button class="btn" data-submit="${m}" ${n<Q.length?'disabled':''}>${tx('ส่งคำตอบ','Submit')}</button><span class="note">${tx(`ตอบแล้ว ${n} จาก ${Q.length} ข้อ`,`${n} of ${Q.length} answered`)}</span></div>`}`;
+}
+function analysis(){
+  const s=stat();
+  const it=[['transcript',tx('วิเคราะห์ใบระเบียนผลการศึกษา','Analyse transcripts'),tx('7 หลักสูตร หลักสูตรละ 5 ฉบับ ตรวจเทียบเล่ม SER รายวิชา รายวิชาบังคับก่อน และข้อบังคับการศึกษา','Seven programs, five transcripts each, checked against the SER, course list, prerequisites and regulations.'),`${trAll()}/35 ${tx('ฉบับ','done')}`],
+   ['cases',tx('การประเมินผลการตรวจ','Finding-level assessment'),tx('Quiz & Poll 10 สถานการณ์คละเกณฑ์ ผู้อบรมสแกน QR แล้วโหวตระดับข้อค้นพบจากมือถือ','Quiz & Poll: ten mixed situations; participants scan a QR code and vote a finding level by phone.'),tx('10 สถานการณ์','10 situations')],
+   ['serlab',tx('ชุดฝึก SER จำลอง 7 หลักสูตร','Mock SER lab: 7 programs'),tx('ฝึกครบ 6 ขั้น ตั้งแต่ Pre-visit 1 จดหมายขอเอกสาร Pre-visit 2 แผนตรวจเยี่ยม ตรวจเยี่ยมจำลอง จนถึงข้อค้นพบสุดท้าย','Six steps: Pre-visit 1, request letter, Pre-visit 2, visit plan, mock visit and final findings.'),`${window.serlabDone?serlabDone():0}/7 ${tx('หลักสูตร','programs')}`]];
+  return `<div><h1>${tx('ฝึกวิเคราะห์','Analysis practice')}</h1><p class="lead">${tx('งานฝึกก่อนและระหว่าง Onsite กรณีศึกษารายเกณฑ์ข้อ 1–8 ย้ายไปอยู่ใน Onsite แล้ว เพื่อทำก่อนประเมินเกณฑ์เดียวกันในเล่ม SER วัสดุ','Practice before and during Onsite. The criterion 1–8 case sets now live in Onsite, done just before rating the same criterion in the materials SER.')}</p></div>
+  <section class="road" style="grid-template-columns:repeat(auto-fit,minmax(250px,1fr))">${it.map((a,i)=>`<a class="stop" href="#${a[0]}"><span class="no">${String.fromCharCode(65+i)}</span><h3>${a[1]}</h3><span class="note">${a[2]}</span><span class="row" style="margin-top:10px"><span class="chip">${a[3]}</span></span></a>`).join('')}</section>`;
+}
+const serT=i=>lang==='en'?SERT[i]:D.ser[i].t;
+function ser(){
+  const p=D.ser[serTab];
+  return `<div class="crumb"><a href="#analysis">${tx('ฝึกวิเคราะห์','Analysis practice')}</a> / ${tx('SER จำลอง','Mock SER')}</div>
+  <div><h1>${tx('วิเคราะห์ SER จำลอง','Analyse the mock SER')}</h1><p class="lead">${tx('หลักสูตรวิศวกรรมโยธา มหาวิทยาลัยทดลองเรียน เป็นหลักสูตรสมมติที่ใส่ข้อผิดพลาดไว้ ชุดนี้มี 3 ส่วน คือข้อมูลพื้นฐาน เกณฑ์ข้อ 1 และเกณฑ์ข้อ 2 ตารางในต้นฉบับแสดงเป็นข้อความเรียงบรรทัด','A fictional civil engineering program with planted errors. This set has three parts: background, criterion 1 and criterion 2. Tables from the source appear as line-by-line text.')}</p></div>${srcNote()}
+  <section class="two"><div class="card"><div class="pad tabs" role="tablist">${D.ser.map((x,i)=>`<button class="tab" role="tab" aria-selected="${i===serTab}" data-ser="${i}">${esc(serT(i))}</button>`).join('')}</div><div class="reader">${esc(p.x)}</div></div>
+  <div style="display:flex;flex-direction:column;gap:16px"><form class="card pad form" id="f-ser"><h2>${tx('บันทึกข้อค้นพบ','Log a finding')}</h2>
+    <label>${tx('ส่วนของรายงาน','Report part')}<select id="s-part">${D.ser.map((x,i)=>`<option value="${i}" ${i===serTab?'selected':''}>${esc(serT(i))}</option>`).join('')}</select></label>
+    <label>${tx('สิ่งที่พบและหลักฐาน','What you found, with evidence')}<textarea id="s-text" required></textarea></label>
+    <label>${tx('ระดับเบื้องต้น','Provisional level')}<select id="s-lv">${Object.entries(LV).map(([k,v])=>`<option value="${k}">${L(v)}</option>`).join('')}</select></label>
+    <label>${tx('เอกสารหรือคำอธิบายที่ต้องขอเพิ่ม','Documents or explanations to request')}<input id="s-ask"></label>
+    <div><button class="btn" type="submit">${tx('เพิ่มข้อค้นพบ','Add finding')}</button></div></form>
+  <div class="card pad"><h2>${tx('ทะเบียนข้อค้นพบของฉัน','My findings log')} (${S.ser.length})</h2>${S.ser.length?S.ser.map((f,i)=>`<div class="find"><span class="row"><span class="lvk ${f.lv}">${L(LV[f.lv])}</span><span class="note">${esc(serT(+f.part||0))}</span></span><span>${esc(f.text)}</span>${f.ask?`<span class="note">${tx('ขอเพิ่ม','Request')}: ${esc(f.ask)}</span>`:''}<span><button class="x" data-del="${i}">${tx('ลบ','Delete')}</button></span></div>`).join(''):`<p class="note">${tx('ยังไม่มีข้อค้นพบ','No findings yet.')}</p>`}</div>
+  <div class="card pad"><h2>${tx('ประเด็นตั้งต้นสำหรับเทียบ','Starter issues to compare')}</h2><p class="note">${tx('รายการนี้มาจากการอ่านของผู้จัดทำระบบ ยังไม่ใช่เฉลยของวิทยากร เปิดดูได้เมื่อบันทึกข้อค้นพบแล้ว 5 ข้อ','Drafted by the system builder, not yet the facilitators’ answer key. Unlocks after you log 5 findings.')}</p>${showKey&&S.ser.length>=5?`<ul class="dots" style="margin-top:10px">${SERKEY.map(k=>`<li><b>${L(k[0])}</b> ${esc(L(k[1]))}</li>`).join('')}</ul>`:`<p><button class="btn ghost" data-key ${S.ser.length<5?'disabled':''}>${tx('เปิดประเด็นตั้งต้น','Show starter issues')}</button></p>`}</div></div></section>`;
+}
+/* ---------- Transcript analysis: 7 mock programs × 5 transcripts ---------- */
+const TRX=window.TRX||null, TRK=(window.SERLAB_MODE!=='trainee'&&window.TRXKEY)||null;
+const TRP=['ChE','IE','ENV','ME','EE','CE','MT'];
+const TRC=[['cr',W('หน่วยกิตรวมและครบทุกหมวดวิชา','Total credits and every category'),'หน่วยกิตและเกณฑ์สำเร็จการศึกษา'],
+ ['gpa',W('GPAX และ GPA รายวิชาเฉพาะสาขา','GPAX and major GPA'),'หน่วยกิตและเกณฑ์สำเร็จการศึกษา'],
+ ['pre',W('รายวิชาบังคับก่อน (prerequisite)','Prerequisites'),'รายวิชาบังคับก่อน'],
+ ['co',W('รายวิชาที่ต้องเรียนพร้อมกัน (corequisite)','Corequisites'),'รายวิชาที่ต้องเรียนพร้อมกัน'],
+ ['load',W('ภาระหน่วยกิตต่อภาค','Credit load per term'),'ภาระหน่วยกิตต่อภาค'],
+ ['pro',W('สถานภาพรอพินิจและการพ้นสภาพ','Probation and dismissal'),'สถานภาพรอพินิจ'],
+ ['wr',W('การถอน การเรียนซ้ำ และภาคฤดูร้อน','Withdrawals, repeats and summer terms'),'การถอน การเรียนซ้ำ และภาคฤดูร้อน'],
+ ['dur',W('ระยะเวลาการศึกษา','Time to degree'),'ระยะเวลาการศึกษา'],
+ ['oth',W('ฝึกงาน ภาษาอังกฤษ และกิจกรรม','Internship, English and activities'),null],
+ ['hon',W('เกียรตินิยม','Honours'),'เกียรตินิยม']];
+const TRO=[['',W('— เลือก —','— choose —')],['ok',W('เป็นไปตามเกณฑ์','Meets')],['bad',W('พบประเด็น','Issue found')],['ask',W('ต้องขอข้อมูลเพิ่ม','Need more evidence')]];
+const TRV=['',W('สำเร็จการศึกษาถูกต้องตามเกณฑ์','Graduated correctly'),W('สำเร็จการศึกษา แต่มีประเด็นต้องตรวจสอบ','Graduated, with issues to check'),W('ไม่ควรสำเร็จการศึกษา','Should not have graduated'),W('ยังไม่สำเร็จการศึกษา','Not yet graduated')];
+const TRS={'1':W('ภาคการศึกษาที่ 1','Semester 1'),'2':W('ภาคการศึกษาที่ 2','Semester 2'),'S':W('ภาคฤดูร้อน','Summer')};
+const OFF={'1':'1','2':'2','S':'ฤดูร้อน'};
+const trw=k=>(S.trw=S.trw||{})[k]||(S.trw[k]={c:{},v:'',n:'',q:''});
+const trDone=p=>TRX?TRX.progs[p].tr.filter(t=>{const w=(S.trw||{})[p+'-'+t.id];return w&&w.v}).length:0;
+const trAll=()=>TRP.reduce((a,p)=>a+trDone(p),0);
+let trKey={}, trSel=null;
+const gfmt=x=>x==null?'–':Number(x).toFixed(2);
+function trCourses(P){
+  const order=['1','2','3','4','5','6','S','7','8'];
+  return order.filter(s=>P.courses.some(c=>c.s===s)).map(s=>{const cs=P.courses.filter(c=>c.s===s),cr=cs.reduce((a,c)=>a+(P.major==='MME'&&c.c==='MME 493'?0:c.cr),0);
+    const yr=s==='S'?tx('ปีที่ 3 ภาคฤดูร้อน','Year 3, summer'):tx(`ปีที่ ${Math.ceil(+s/2)} ภาคการศึกษาที่ ${+s%2?1:2}`,`Year ${Math.ceil(+s/2)}, semester ${+s%2?1:2}`);
+    return `<tr class="gr"><td colspan="7">${yr} · ${cr} ${tx('หน่วยกิต','credits')}</td></tr>`+cs.map(c=>`<tr data-cc="${esc(c.c)}"><td class="n"><b>${esc(c.c)}</b></td><td>${esc(c.n)}${c.nt?`<div class="note">${esc(c.nt)}</div>`:''}</td><td class="n">${c.cr} (${esc(c.lps)})</td><td class="n">${c.cat}</td><td>${c.pre.length?c.pre.map(esc).join(', '):'–'}</td><td>${c.co.length?c.co.map(esc).join(', '):'–'}</td><td class="n">${c.off.split('').map(o=>OFF[o]).join(', ')}</td></tr>`).join('')}).join('');
+}
+function trFlow(P){
+  const cols=['1','2','3','4','5','6','S','7','8'].filter(s=>P.courses.some(c=>c.s===s));
+  const bw=150,bh=40,gx=46,gy=10,top=34,pos={};let H=0;
+  cols.forEach((s,i)=>{P.courses.filter(c=>c.s===s).forEach((c,j)=>{pos[c.c]={x:16+i*(bw+gx),y:top+j*(bh+gy)};H=Math.max(H,top+(j+1)*(bh+gy))})});
+  const Wd=16+cols.length*(bw+gx);
+  let e='';P.courses.forEach(c=>{const b=pos[c.c];[[c.pre,'p'],[c.co,'c']].forEach(([l,k])=>l.forEach(x=>{const a=pos[x];if(!a)return;
+    const x1=a.x+bw,y1=a.y+bh/2,x2=b.x,y2=b.y+bh/2;
+    const d=k==='c'?`M${a.x+bw/2},${a.y+bh} L${b.x+bw/2},${b.y}`:x2>x1?`M${x1},${y1} C${x1+gx*.8},${y1} ${x2-gx*.8},${y2} ${x2},${y2}`:`M${a.x+bw/2},${a.y+bh} L${b.x+bw/2},${b.y}`;
+    e+=`<path class="fe ${k}" data-f="${esc(x)}" data-t="${esc(c.c)}" d="${d}" marker-end="url(#ah)"/>`}))});
+  const box=c=>{const b=pos[c.c],cl=c.cat==='C'?(c.c.startsWith(P.major)?'mj':c.ar==='M'?'ms':c.ar==='G'?'ge':'bs'):'el';
+    return `<g class="fb ${cl}" data-fc="${esc(c.c)}" tabindex="0" role="button" aria-label="${esc(c.c+' '+c.n)}"><rect x="${b.x}" y="${b.y}" width="${bw}" height="${bh}" rx="7"/><text x="${b.x+8}" y="${b.y+16}" class="t1">${esc(c.c)} · ${c.cr}</text><text x="${b.x+8}" y="${b.y+31}" class="t2">${esc(c.n.length>19?c.n.slice(0,18)+'…':c.n)}</text></g>`};
+  const hd=cols.map((s,i)=>`<text x="${16+i*(bw+gx)+bw/2}" y="20" text-anchor="middle" class="fh">${s==='S'?tx('ฤดูร้อน ปี 3','Summer Y3'):tx(`ปี ${Math.ceil(+s/2)} ภาค ${+s%2?1:2}`,`Y${Math.ceil(+s/2)} S${+s%2?1:2}`)}</text>`).join('');
+  return `<svg class="flow" viewBox="0 0 ${Wd} ${H+10}" width="${Wd}" height="${H+10}" role="img" aria-label="${tx('ผังลำดับรายวิชา','Course flow')}"><defs><marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8z" fill="#6E6873"/></marker></defs>${hd}${e}${P.courses.map(box).join('')}</svg>`;
+}
+function trDoc(P,t){
+  const s=t.stu, last=t.terms[t.terms.length-1];
+  const term=x=>`<div class="tt"><div class="th">${L(TRS[x.s])} / ${x.y}</div><table><tbody>${x.rows.map(r=>`<tr><td class="n">${esc(r.c)}${r.r?'R':''}</td><td>${esc(r.n)}</td><td class="n">${r.cr}</td><td class="n g ${r.g==='F'?'gf':r.g==='W'?'gw':''}">${r.g}</td></tr>`).join('')}</tbody></table>
+    <div class="ts">${tx('หน่วยกิตลงทะเบียน','Registered')} ${x.reg} · CA ${x.ca} · GPA ${gfmt(x.gpa)}<br>CAX ${x.cax} · GPAX ${gfmt(x.gpax)}${x.st?` · ${tx('สถานภาพ','Status')}: <b>${x.st}</b>`:''}</div></div>`;
+  return `<article class="trdoc" id="trdoc">
+  <header class="trh"><div><b>${esc(P.uni)}</b><br>${tx('ใบระเบียนผลการศึกษา (Academic Transcript)','Academic transcript')}<br><span class="note">${tx('เอกสารสมมติเพื่อการฝึกอบรมผู้ตรวจประเมิน','Fictional document for evaluator training')}</span></div>
+   <dl><dt>${tx('ชื่อ','Name')}</dt><dd>${esc(s.name)}</dd><dt>${tx('รหัสประจำตัว','Student ID')}</dt><dd>${esc(s.id)}</dd><dt>${tx('ปริญญา','Degree')}</dt><dd>วิศวกรรมศาสตรบัณฑิต (${esc(P.th)})<br>Bachelor of Engineering (${esc(P.en)})</dd><dt>${tx('หลักสูตร','Curriculum')}</dt><dd>${esc(P.cur)}</dd><dt>${tx('เข้าศึกษา','Admitted')}</dt><dd>${tx('ปีการศึกษา','Academic year')} ${s.entry}</dd>
+   <dt>${tx('สภามหาวิทยาลัยอนุมัติปริญญา','Degree conferred')}</dt><dd>${s.grad?esc(s.grad):'–'}</dd><dt>${tx('เกียรตินิยม','Honours')}</dt><dd>${s.hon?esc(s.hon):'–'}</dd></dl></header>
+  <div class="terms">${t.terms.map(term).join('')}</div>
+  <footer class="trf"><span>${tx('หน่วยกิตที่สอบผ่าน','Credits earned')} <b>${t.final.earned}</b></span><span>CAX <b>${t.final.cax}</b></span><span>GPAX <b>${gfmt(t.final.gpax)}</b></span><span>WUT-TEP <b>${s.tep}</b></span><span>${tx('กิจกรรมเสริมหลักสูตร','Co-curricular')} <b>${s.act}</b> ${tx('ชั่วโมง','hours')}</span>${s.note?`<span class="note">${esc(s.note)}</span>`:''}</footer>
+  <p class="note">CA ${tx('หน่วยกิตที่คิดค่าระดับคะแนนในภาค','graded credits this term')} · CAX ${tx('หน่วยกิตสะสมที่คิดค่าระดับคะแนน (ครั้งล่าสุด)','cumulative graded credits (latest attempt)')} · R ${tx('ลงทะเบียนเรียนซ้ำ','repeat')} · W ${tx('ถอนรายวิชา','withdrawn')} · S ${tx('ผ่าน','satisfactory')}</p></article>`;
+}
+function trKeyHTML(p,t){
+  const k=(TRK[p]||[]).find(x=>x.id===t.id); if(!k) return '';
+  const lv={ok:['ok',W('เป็นไปตามเกณฑ์','Meets')],warn:['warn',W('ข้อสังเกต','Observation')],bad:['bad',W('พบประเด็น','Issue')]};
+  return `<section class="card pad trkey"><h2>${tx('เฉลยสำหรับวิทยากร','Facilitator key')}</h2><p><b>${esc(k.verdict)}</b></p>
+  <ul class="dots">${k.story.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
+  <div class="tw"><table><thead><tr><th>${tx('ประเด็นตรวจ','Check')}</th><th>${tx('ผล','Result')}</th><th>${tx('รายละเอียด','Detail')}</th></tr></thead><tbody>${k.find.map(f=>`<tr><td><b>${esc(f.t)}</b></td><td><span class="chip ${lv[f.lv][0]}">${L(lv[f.lv][1])}</span></td><td><ul class="dots tb">${f.d.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></td></tr>`).join('')}</tbody></table></div>
+  <h3>${tx('คำถามที่ควรถามหลักสูตร','Questions for the program')}</h3><ul class="dots">${k.ask.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></section>`;
+}
+function trSheet(p,t){
+  const k=p+'-'+t.id, w=trw(k), key=TRK&&trKey[k]?(TRK[p]||[]).find(x=>x.id===t.id):null;
+  const exp=r=>{if(!key||!r[2])return '';const f=key.find.filter(f=>f.t===r[2]||(r[0]==='pro'&&f.t==='การพ้นสภาพ'));const b=f.some(f=>f.lv==='bad');return `<span class="chip ${b?'bad':'ok'}">${tx('เฉลย','Key')}: ${b?tx('พบประเด็น','Issue'):tx('เป็นไปตามเกณฑ์','Meets')}</span>`};
+  return `<section class="card pad trws"><h2>${tx('แบบตรวจใบระเบียน','Transcript checklist')} · ${esc(t.id)}</h2>
+  <div class="tw"><table><thead><tr><th>${tx('รายการตรวจ','Check')}</th><th>${tx('ผลของฉัน','My result')}</th>${key?`<th>${tx('เทียบเฉลย','Key')}</th>`:''}</tr></thead><tbody>${TRC.map(r=>`<tr><td>${L(r[1])}</td><td><select data-trc="${k}|${r[0]}" aria-label="${esc(L(r[1]))}">${TRO.map(o=>`<option value="${o[0]}" ${w.c[r[0]]===o[0]?'selected':''}>${L(o[1])}</option>`).join('')}</select></td>${key?`<td>${exp(r)}</td>`:''}</tr>`).join('')}</tbody></table></div>
+  <label class="fl">${tx('ข้อค้นพบและหลักฐาน (ระบุรายวิชาและภาคการศึกษา)','Findings and evidence (name the course and term)')}<textarea rows="4" data-trn="${k}|n">${esc(w.n)}</textarea></label>
+  <label class="fl">${tx('คำถามที่จะถามหลักสูตรหรือนายทะเบียน','Questions for the program or registrar')}<textarea rows="3" data-trn="${k}|q">${esc(w.q)}</textarea></label>
+  <label class="fl">${tx('สรุปผลการตรวจ','Conclusion')}<select data-trn="${k}|v">${TRV.map((v,i)=>`<option value="${i?i:''}" ${String(w.v)===String(i||'')?'selected':''}>${i?L(v):tx('— เลือก —','— choose —')}</option>`).join('')}</select></label>
+  <div class="row" style="margin-top:10px">${TRK?`<button class="btn ghost" data-trkey="${k}">${trKey[k]?tx('ซ่อนเฉลย','Hide key'):tx('แสดงเฉลย','Show key')}</button>`:`<span class="note">${tx('เฉลยอยู่กับวิทยากร ใช้แบบตรวจนี้อภิปรายในกลุ่มก่อน','The key is with your facilitator; discuss this checklist in your group first.')}</span>`}<button class="btn ghost" data-trprint="1">${tx('พิมพ์ใบระเบียน','Print transcript')}</button></div></section>${key?trKeyHTML(p,t):''}`;
+}
+function transcript(){
+  const head=`<div class="crumb"><a href="#analysis">${tx('ฝึกวิเคราะห์','Analysis practice')}</a> / ${tx('ใบระเบียน','Transcripts')}</div>
+  <div><h1>${tx('วิเคราะห์ใบระเบียนผลการศึกษา','Analyse transcripts')}</h1><p class="lead">${tx('เลือกหลักสูตร แล้วใช้เล่ม SER และเอกสารรายวิชาเป็นฐาน ตรวจใบระเบียน 5 ฉบับ ฉบับละแบบ: ไม่มีปัญหา เรียนเกิน 4 ปี ลงทะเบียนไม่เป็นไปตามเงื่อนไขรายวิชา ถอนแล้วเรียนภาคฤดูร้อน และสถานภาพรอพินิจ','Pick a program, then use its SER and course document to check five transcripts, one of each kind: clean, more than four years, prerequisite breaches, withdrawal then summer, and probation.')}</p></div>`;
+  if(!TRX) return head+`<section class="card pad"><span class="chip warn">${tx('ไม่พบไฟล์ข้อมูลใบระเบียน','Transcript data not found')}</span></section>`;
+  const p=TRP.includes(S.trp)?S.trp:'ChE', P=TRX.progs[p], d=S.trd||'course';
+  const tabs=[['course',tx('รายวิชาและแผนการศึกษา','Courses and study plan')],['flow',tx('ผังลำดับรายวิชา','Course flow')],['rules',tx('ข้อบังคับและเกณฑ์สำเร็จ','Rules and graduation')],['ser',tx('เล่ม SER','SER')]].concat(P.tr.map((t,i)=>[t.id,`${tx('ใบระเบียน','Transcript')} ${i+1}`]));
+  const sw=t=>{const w=(S.trw||{})[p+'-'+t];return w&&w.v?' ✓':''};
+  let body='';
+  if(d==='course') body=`<section class="card pad"><h2>${tx('รายวิชาตามแผนการศึกษา','Courses by term')} · ${esc(P.th)}</h2><p class="note">${esc(P.cur)} · ${tx('รวม','Total')} ${P.total} ${tx('หน่วยกิต','credits')} · ${tx('ประเภท C บังคับ A เลือกบังคับ F เลือกเสรี · หน่วยกิต (บรรยาย-ปฏิบัติ-ศึกษาด้วยตนเอง) · คอลัมน์ "เปิดสอน" คือภาคที่เปิดสอนรายวิชานั้น','C required, A restricted elective, F free elective · credits (lecture-lab-self study) · "Offered" lists the terms the course runs')}</p>
+   <div class="tw"><table class="trc"><thead><tr><th>${tx('รหัส','Code')}</th><th>${tx('รายวิชา','Course')}</th><th>${tx('หน่วยกิต','Credits')}</th><th>${tx('ประเภท','Type')}</th><th>${tx('รายวิชาบังคับก่อน','Prerequisite')}</th><th>${tx('เรียนพร้อมกัน','Corequisite')}</th><th>${tx('เปิดสอน','Offered')}</th></tr></thead><tbody>${trCourses(P)}</tbody></table></div></section>`;
+  else if(d==='flow') body=`<section class="card pad"><h2>${tx('ผังลำดับรายวิชา','Course flow')} · ${esc(P.th)}</h2><p class="note">${tx('เส้นทึบคือรายวิชาบังคับก่อน เส้นประคือรายวิชาที่ต้องเรียนพร้อมกัน แตะรายวิชาเพื่อดูสายรายวิชาที่ต้องผ่านก่อนและรายวิชาที่ต่อยอด','Solid lines are prerequisites, dashed lines corequisites. Tap a course to trace what it needs and what it unlocks.')}</p>
+   <div class="flg"><span class="fk mj">${tx('วิชาเฉพาะสาขา','Major')}</span><span class="fk bs">${tx('พื้นฐานวิศวกรรม','Engineering basics')}</span><span class="fk ms">${tx('คณิตศาสตร์และวิทยาศาสตร์','Maths and science')}</span><span class="fk ge">${tx('ศึกษาทั่วไป','General education')}</span><span class="fk el">${tx('วิชาเลือก','Electives')}</span></div>
+   <div class="tw flw">${trFlow(P)}</div><p class="note" id="flinfo">${tx('ยังไม่ได้เลือกรายวิชา','No course selected')}</p></section>`;
+  else if(d==='rules') body=`<div class="two"><section class="card pad"><h2>${tx('เกณฑ์การสำเร็จการศึกษา','Graduation requirements')}</h2><p class="note">${tx('จาก SER ของหลักสูตร','From the program SER')}</p><ul class="dots">${P.grad.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></section>
+   <section class="card pad"><h2>${tx('สาระสำคัญของข้อบังคับการศึกษา','Key academic regulations')}</h2><p class="note">${esc(P.uni)} ${tx('ว่าด้วยการศึกษาระดับปริญญาตรี พ.ศ. 2562 (ฉบับสมมติ) คำร้องขอยกเว้นรายวิชาบังคับก่อนใช้แบบ','undergraduate regulations 2019 (fictional). Prerequisite waivers use form')} ${esc(P.form)}</p><ul class="dots">${TRX.reg.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></section></div>`;
+  else if(d==='ser'){const docx=(window.SERLAB_FILES&&window.SERLAB_FILES[p]||[])[0];
+   body=`<section class="card pad"><div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:8px"><h2 style="margin:0">${tx('เล่ม SER ฉบับผู้อบรม','SER, trainee edition')} · ${esc(P.th)}</h2><span class="row" style="gap:8px"><a class="btn ghost" href="trx/ser/${p}.html" target="_blank" rel="noopener">${tx('เปิดเต็มจอ','Open full page')} ↗</a>${docx?fileBtn([docx[1],W('ไฟล์ .docx','.docx file')]):''}</span></div>
+   <p class="note">${tx('ส่วนที่ใช้กับใบระเบียน: เกณฑ์ข้อ 1 (การติดตามผลการเรียน การสำเร็จการศึกษา วิธีอ่านใบระเบียน) และเกณฑ์ข้อ 5 (ตาราง 5.1 และ 5.2)','Parts used with transcripts: criterion 1 (progress monitoring, graduation, reading the transcript) and criterion 5 (tables 5.1 and 5.2)')}</p>
+   <iframe class="serf" src="trx/ser/${p}.html" title="SER ${esc(P.th)}" loading="lazy"></iframe></section>`}
+  else {const t=P.tr.find(x=>x.id===d)||P.tr[0];
+   body=`<section class="card pad"><span class="chip">${esc(t.id)}</span> <b>${esc(t.title)}</b> <span class="note">· ${esc(t.desc)}</span></section><div class="tw">${trDoc(P,t)}</div>${trSheet(p,t)}`}
+  return head+`<section class="card pad"><h2 style="margin-top:0">${tx('เลือกหลักสูตร','Choose a program')}</h2><div class="tabs" role="tablist">${TRP.map(x=>`<button class="tab" role="tab" aria-selected="${x===p}" data-trp="${x}">${esc(TRX.progs[x].th)} <span class="note">${trDone(x)}/5</span></button>`).join('')}</div></section>
+  <section class="card pad"><div class="tabs" role="tablist">${tabs.map(([k,n])=>`<button class="tab" role="tab" aria-selected="${k===d}" data-trd="${k}">${n}${/^T\d$/.test(k)?sw(k):''}</button>`).join('')}</div></section>${body}`;
+}
+view.addEventListener('click',e=>{const b=e.target.closest('[data-trp],[data-trd],[data-trkey],[data-trprint],[data-fc]');if(!b)return;const d=b.dataset;
+  if(d.trp){S.trp=d.trp;save();render(true)}
+  else if(d.trd){S.trd=d.trd;save();render(true)}
+  else if(d.trkey){trKey[d.trkey]=!trKey[d.trkey];render(true)}
+  else if(d.trprint){document.body.classList.add('pr1');setTimeout(()=>{window.print();document.body.classList.remove('pr1')},50)}
+  else if(d.fc){flowPick(d.fc)}});
+view.addEventListener('keydown',e=>{const g=e.target.closest&&e.target.closest('[data-fc]');if(g&&(e.key==='Enter'||e.key===' ')){e.preventDefault();flowPick(g.dataset.fc)}});
+function flowPick(code){
+  const P=TRX.progs[TRP.includes(S.trp)?S.trp:'ChE'], C={};P.courses.forEach(c=>C[c.c]=c);
+  const up=new Set(),dn=new Set();const U=x=>(C[x]?C[x].pre.concat(C[x].co):[]).forEach(y=>{if(!up.has(y)){up.add(y);U(y)}});
+  const D=x=>P.courses.filter(c=>c.pre.includes(x)||c.co.includes(x)).forEach(c=>{if(!dn.has(c.c)){dn.add(c.c);D(c.c)}});
+  if(trSel===code){trSel=null}else{trSel=code;U(code);D(code)}
+  document.querySelectorAll('.flow .fb').forEach(g=>{const c=g.dataset.fc;g.classList.toggle('sel',c===trSel);g.classList.toggle('up',up.has(c));g.classList.toggle('dn',dn.has(c));g.classList.toggle('dim',!!trSel&&c!==trSel&&!up.has(c)&&!dn.has(c))});
+  document.querySelectorAll('.flow .fe').forEach(p=>{const on=!!trSel&&((up.has(p.dataset.f)||p.dataset.f===trSel)&&(up.has(p.dataset.t)||p.dataset.t===trSel)||(dn.has(p.dataset.t)&&(dn.has(p.dataset.f)||p.dataset.f===trSel)));p.classList.toggle('on',on);p.classList.toggle('dim',!!trSel&&!on)});
+  const c=C[code],i=$('#flinfo');if(i)i.innerHTML=trSel?`<b>${esc(c.c)} ${esc(c.n)}</b> · ${c.cr} ${tx('หน่วยกิต','credits')} · ${tx('บังคับก่อน','prerequisite')}: ${c.pre.join(', ')||'–'} · ${tx('เรียนพร้อมกัน','corequisite')}: ${c.co.join(', ')||'–'} · ${tx('ต้องผ่านก่อนทั้งสาย','full chain before')} ${up.size} · ${tx('รายวิชาที่ต่อยอด','unlocks')} ${dn.size}${c.nt?' · '+esc(c.nt):''}`:tx('ยังไม่ได้เลือกรายวิชา','No course selected');
+}
+view.addEventListener('change',e=>{const d=e.target.dataset;
+  if(d.trc){const [k,r]=d.trc.split('|');trw(k).c[r]=e.target.value;save()}
+  else if(d.trn){const [k,f]=d.trn.split('|');trw(k)[f]=e.target.value;save();if(f==='v')render(true)}});
+view.addEventListener('input',e=>{const d=e.target.dataset;if(d.trn&&d.trn.endsWith('|n')||d.trn&&d.trn.endsWith('|q')){const [k,f]=d.trn.split('|');trw(k)[f]=e.target.value;save()}});
+
+/* Quiz & Poll screens on the public site (phones must reach them) */
+const WS_WEB='https://apinans.github.io/TABEE/';
+const wsURL=k=>WS_WEB+'assesstrain'+(k==='mix'?'':k)+'/';
+const wsBtn=(k,label)=>window.SERLAB_MODE==='trainee'?`<p class="note">${tx('วิทยากรจะเปิดจอ Quiz & Poll และให้สแกน QR ด้วยมือถือในวันอบรม','Your facilitator opens the Quiz & Poll screen and you scan its QR code with your phone on the day.')}</p>`:`<p class="row" style="gap:10px;flex-wrap:wrap"><a class="btn" href="${wsURL(k)}" target="_blank" rel="noopener">${label} ↗</a><span class="note">${wsURL(k).replace('https://','')}</span></p>`;
+function wsTab(){
+  const W=window.TR_WS||[];
+  return `<section class="card pad"><h2>Quiz &amp; Poll · ${tx('การประเมินผลการตรวจ','Finding-level assessment')}</h2>
+  <p>${tx('กิจกรรมกลุ่มสำหรับวัน Onsite: 10 สถานการณ์ระดับยากที่คละเกณฑ์ วิทยากรเปิดจอ Quiz & Poll บนจอหน้าห้อง ผู้อบรมสแกน QR แล้วเลือกระดับข้อค้นพบจากมือถือ คำตอบแสดงบนจอเมื่อหมดเวลา จากนั้นวิทยากรจึงกดเฉลย','A group activity for the onsite days: 10 hard, mixed-criteria situations. The facilitator opens the Quiz & Poll screen, participants scan its QR code and vote a finding level by phone; answers appear when time is up, then the facilitator reveals the key.')}</p>
+  <ul class="note" style="margin:8px 0 14px 18px"><li>${tx('ตั้งเวลา 30 วินาที 1 2 3 5 นาที หรือกำหนดเอง มีปุ่ม Start / Stop / เฉลย / ทำข้อนี้ใหม่ / ตารางคะแนน / ส่งออกผล','Timer of 30 s, 1, 2, 3 or 5 min, or your own, with Start / Stop / Reveal / Redo / Scoreboard / Export')}</li><li>${tx('จอ Quiz & Poll อยู่บนเว็บสาธารณะ (GitHub Pages) เพื่อให้มือถือผู้อบรมเข้าร่วมได้ เลือกชุดคำถามอื่นได้จากเมนูบนหัวจอ','The Quiz & Poll screen lives on a public site (GitHub Pages) so phones can join; switch question sets from the menu at the top.')}</li></ul>
+  ${wsBtn('mix',tx('เปิดจอ Quiz & Poll · การประเมินผลการตรวจ','Open Quiz & Poll · finding-level assessment'))}</section>
+  <section class="card"><div class="pad"><h2>${tx('10 สถานการณ์ของการประเมินผลการตรวจ','The 10 assessment situations')}</h2></div>${W.map((w,j)=>`<div class="q cq"><figure class="cimg" id="wsf${j}"><img loading="lazy" src="wimg/w${j+1}.jpg" alt="" onerror="this.parentNode.classList.add('noimg')"><figcaption>AI-generated illustration (Gemini)</figcaption><div class="slot">${tx('รอภาพ','Image slot')} W-${String(j+1).padStart(2,'0')}</div></figure><div class="cb"><div class="t"><span class="n">${j+1}</span><b>${esc(w.t)}</b> <span class="note">· ${esc(w.c)}</span></div><p style="margin:6px 0 10px;max-width:74ch">${esc(w.q)}</p><div class="lv">${Object.entries(LV).map(([k,l])=>`<button class="opt ${(S.ws||{})[j]===k?'pick':''}" data-ws="${j}" data-k="${k}">${L(l)}</button>`).join('')}</div></div></div>`).join('')}</section>`;
+}
+function cases(){
+  return `<div class="crumb"><a href="#analysis">${tx('ฝึกวิเคราะห์','Analysis practice')}</a> / ${tx('การประเมินผลการตรวจ','Finding-level assessment')}</div>
+  <div><h1>${tx('การประเมินผลการตรวจ','Finding-level assessment')}</h1><p class="lead">${tx('10 สถานการณ์คละเกณฑ์สำหรับทำร่วมกันบนจอ ส่วนกรณีศึกษารายเกณฑ์ข้อ 1–8 ย้ายไปอยู่ใน Onsite เพื่อทำก่อนประเมินเกณฑ์เดียวกันในเล่ม SER สมมติ','Ten mixed situations to run together on screen. The criterion 1–8 case sets now sit in Onsite, done just before rating the same criterion in the mock SER.')} <a href="#crit-1">${tx('ไปที่ประเมินรายเกณฑ์','Go to criterion 1')} ›</a></p></div>
+  ${wsTab()}`;
+}
+function record(){
+  const s=stat(), all=QM.length;
+  const rows=[
+   [tx('โมดูลเรียนล่วงหน้า','Pre-work modules'),tx('ได้ไม่น้อยกว่า 70% ทุกโมดูล','At least 70% in every module'),tx(`ผ่าน ${s.qp} จาก ${all} โมดูล`,`${s.qp} of ${all} modules passed`),s.qp===all],
+   [tx('ชุดกรณีศึกษารายเกณฑ์','Case studies by criterion'),tx('ถูกไม่น้อยกว่า 80%','At least 80% correct'),tx(`ถูก ${s.cr} จาก ${TOTAL_CASES} กรณี (ทำแล้ว ${s.ca})`,`${s.cr} of ${TOTAL_CASES} correct (${s.ca} done)`),s.ca===TOTAL_CASES&&s.casePct>=CASEPASS],
+   [tx('งานวิเคราะห์หลักสูตรจำลอง','Mock-program analysis'),tx('พบประเด็นไม่น้อยกว่า 75% และพี่เลี้ยงให้ผ่าน','Finds at least 75% of planted issues; mentor approves'),tx('ทำใน Onsite · ประเมิน SER หลักสูตรจำลอง รอพี่เลี้ยงตรวจ','Done in Onsite · mock SER evaluation; awaiting mentor'),null],
+   ['Mock-up visit',tx('เข้าร่วมครบ ส่งการบ้าน และ rubric ไม่มีข้อที่ต้องปรับปรุง','Full attendance, homework submitted, no rubric item at "needs improvement"'),tx(`ทำแล้ว ${s.od} จาก ${s.on} ช่วง รอวิทยากรประเมิน`,`${s.od} of ${s.on} sessions done; awaiting facilitator`),null],
+   [tx('สังเกตการณ์การตรวจจริง','Observation visit'),tx('1 ครั้ง และส่งบันทึกภายใน 2 สัปดาห์','One visit, report within 2 weeks'),tx('ยังไม่เริ่ม','Not started'),null]];
+  return `<div><h1>${tx('ผลของฉัน','My record')}</h1><p class="lead">${tx('เทียบกับเกณฑ์ขึ้นทะเบียน PEV ที่เอกสารออกแบบระบบตั้งไว้ เกณฑ์ชุดนี้ยังรอความเห็นชอบของคณะอนุกรรมการ TABEE','Compared with the PEV registration criteria in the system design document. These criteria still await TABEE subcommittee approval.')}</p></div>
+  <section class="card"><div class="tw"><table><thead><tr><th>${tx('ขั้น','Stage')}</th><th>${tx('เกณฑ์ผ่าน','Pass criterion')}</th><th>${tx('ผลของฉัน','My result')}</th><th>${tx('สถานะ','Status')}</th></tr></thead><tbody>${rows.map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td><td class="n"><span class="chip ${r[3]===true?'ok':r[3]===false?'warn':'mute'}">${r[3]===true?tx('ผ่าน','Passed'):r[3]===false?tx('ยังไม่ผ่าน','Not yet'):tx('รอผู้ประเมิน','Awaiting assessor')}</span></td></tr>`).join('')}</tbody></table></div></section>
+  <section class="card"><div class="pad"><h2>${tx('คะแนนแบบทดสอบรายโมดูล','Quiz scores by module')}</h2></div><div class="tw"><table><thead><tr><th>${tx('โมดูล','Module')}</th><th>${tx('คะแนนดีที่สุด','Best score')}</th><th>${tx('จำนวนครั้ง','Attempts')}</th><th></th></tr></thead><tbody>${QM.map(m=>{const r=S.quiz[m];return `<tr><td>Module ${m} ${md(m)}</td><td class="n">${r?Math.round(r.best*QN/100)+'/'+QN:tx('ยังไม่ทำ','Not taken')}</td><td class="n">${r?r.tries:''}</td><td class="n"><a href="#quiz-${m}">${r?tx('ทำอีกครั้ง','Retake'):tx('เริ่มทำ','Start')}</a></td></tr>`}).join('')}</tbody></table></div></section>
+  <p class="note">${tx('การส่งผลให้ทะเบียน PEV ยังไม่เชื่อมต่อ จะทำเมื่อสร้าง Studio ทะเบียนและจัดคณะ PEV','Results are not yet sent to the PEV register; that comes with the PEV Registry studio.')}</p>`;
+}
+const TM=window.TR_MOD||{};
+const PHASES=[[W('ระยะที่ 1 รากฐานและระบบ','Phase 1 Foundation and system'),[0,1,2,3,4,5]],[W('ระยะที่ 2 หัวใจของ OBE','Phase 2 The heart of OBE'),[6,7,8,9,10,11,12]],[W('ระยะที่ 3 ทรัพยากรและการสนับสนุน','Phase 3 Resources and support'),[13,14,15]],[W('โมดูลเสริม: วันตรวจเยี่ยมและการเตรียมตัว Onsite (อ่านใน Studio)','Supplementary: the visit day and on-site preparation (read in the studio)'),[16,17]]];
+const SLIDE={0:['ep1',1,14],1:['ep1',15,29],2:['ep2',1,15],3:['ep3',1,18],4:['ep4',1,15],5:['ep5',1,18],6:['ep6',1,15],7:['ep7',1,14],8:['ep8a',1,14],9:['ep8b',1,14],10:['ep9',1,14],11:['ep10',1,15],12:['ep11',1,15],13:['ep12',1,11],14:['ep13',1,10],15:['ep14',1,10]};
+const modEp=m=>EP.find(e=>e.mods.includes(m));
+const ALLM=PHASES.flatMap(p=>p[1]);
+const pg=(f,i)=>`sl/${f}/p-${String(i).padStart(2,'0')}.jpg`;
+let mTab='read', slIdx={};
+const LL=a=>Array.isArray(a)?a[lang==='en'?1:0]:L(a);
+const isRead=m=>!!S.read[m];
+
+function learn(){
+  const done=ALLM.filter(m=>isRead(m)).length;
+  return `<div><h1>${tx('เรียนออนไลน์','Online learning')}</h1><p class="lead">${tx(`${ALLM.length} โมดูล จัดเป็น 3 ระยะตามโครงสร้างของ TABEE และเพิ่มโมดูลเสริม 2 โมดูล เรื่องวันตรวจเยี่ยมและการเตรียมตัวเข้าอบรม Onsite แต่ละโมดูลมีบทอ่าน สไลด์ PDF วิดีโอ หลักฐานและคำถามที่ PEV ใช้ ประเด็นที่พบบ่อย และแบบทดสอบ ซึ่งสุ่ม 5 ข้อต่อครั้ง ต้องถูกอย่างน้อย 4 ข้อจึงผ่าน`,`${ALLM.length} modules in TABEE’s three phases, plus two supplementary modules on the visit day and on-site preparation. Each has a reading, PDF slides, a video, the evidence and questions a PEV uses, common issues and a quiz of 5 randomly drawn questions; 4 correct to pass.`)}</p>
+  <p class="row" style="margin-top:12px"><span class="chip">${tx(`อ่านแล้ว ${done}/${ALLM.length}`,`${done}/${ALLM.length} read`)}</span><span class="chip">${tx(`ผ่านแบบทดสอบ ${QM.filter(passed).length}/${QM.length}`,`${QM.filter(passed).length}/${QM.length} quizzes passed`)}</span><a class="chip mute" href="${VFOLDER}">${tx('โฟลเดอร์วิดีโอ','Video folder')} ↗</a></p></div>
+  ${PHASES.map(ph=>`<section class="phase"><h2>${L(ph[0])}</h2><div class="mods">${ph[1].map(m=>{const c=TM[m]||{},e=modEp(m),q=QZ[m];const st=passed(m)?`<span class="chip ok">${tx('ผ่านแบบทดสอบ','Quiz passed')}</span>`:S.quiz[m]?`<span class="chip warn">${tx('ยังไม่ผ่าน','Not passed')}</span>`:isRead(m)?`<span class="chip ok">${tx('อ่านแล้ว','Read')}</span>`:'';
+    return `<a class="mod" href="#mod-${m}">${e?`<img src="covers/${e.n}.jpg" alt="" width="560" height="315" loading="lazy">`:`<span class="mx"><b>${m}</b><span>${tx('อ่านใน Studio','Studio reading')}</span></span>`}<span class="b"><span class="mn">Module ${m}</span><h3>${md(m)}</h3><span class="note">${esc(LL(c.goal||['','']))}</span><span class="row">${e?`<span class="chip mute">EP.${e.n}</span>`:''}${SLIDE[m]?`<span class="chip mute">PDF ${SLIDE[m][2]-SLIDE[m][1]+1} ${tx('หน้า','pp')}</span>`:''}${q?`<span class="chip mute">${q.length} ${tx('ข้อ','Qs')}</span>`:''}${st}</span></span></a>`}).join('')}</div></section>`).join('')}`;
+}
+function body(c){
+  const tbl=t=>`<div class="tw"><table><thead><tr>${t.cols.map(x=>`<th>${esc(LL(x))}</th>`).join('')}</tr></thead><tbody>${t.rows.map(r=>`<tr>${r.map((x,i)=>`<td${i===0?' class="k1"':''}>${x&&x.b?`<ul class="dots tb">${x.b.map(y=>`<li>${esc(LL(y))}</li>`).join('')}</ul>`:esc(LL(x))}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  const li=a=>a.map(x=>`<li>${esc(LL(x))}</li>`).join('');
+  const act=(a,i)=>`<section class="card pad sec act" id="act-${esc(a.code)}"><div class="row" style="gap:8px"><span class="chip">${esc(LL(a.day))}</span><span class="chip mute">${esc(LL(a.t))}</span><span class="chip mute">${tx('ช่วง','Slot')} ${esc(a.code)}</span></div>
+   <h2><span class="sn">${i+1}</span>${esc(LL(a.h))}</h2>
+   <figure class="aimg"><img src="v16/${esc(a.code)}.jpg" onerror="this.onerror=null;this.src='v16/${esc(a.code)}.svg'" alt="${tx('ภาพประกอบช่วง','Illustration for slot')} ${esc(a.code)}" width="1600" height="900" loading="lazy"><figcaption>${tx('ภาพประกอบสร้างด้วย AI (Gemini)','AI-generated illustration (Gemini)')}</figcaption></figure>
+   <p class="who"><b>${tx('ผู้เข้าร่วม','Who')}</b> ${esc(LL(a.who))}<br><b>${tx('รูปแบบ','Format')}</b> ${esc(LL(a.fmt))}</p>
+   <div class="ag"><div><h3>${tx('วัตถุประสงค์','Purpose')}</h3><ul class="dots">${li(a.obj)}</ul></div><div><h3>${tx('สิ่งที่จะเกิดขึ้น','What happens')}</h3><ul class="dots">${li(a.hap)}</ul></div><div class="do"><h3>${tx('สิ่งที่ PEV ต้องทำ','What the PEV does')}</h3><ul class="dots">${li(a.do)}</ul></div></div>
+   ${a.tip?`<p class="note tip">${esc(LL(a.tip))}</p>`:''}
+   <details class="qg"><summary>${tx('แนวคำถาม','Question guide')} · ${a.q.reduce((n,g)=>n+g.l.length,0)} ${tx('ข้อ','questions')}</summary>${a.q.map(g=>`<h4${g.abet?' class="ab"':''}>${esc(LL(g.h))}</h4><ol>${g.l.map(x=>`<li>${esc(LL(x))}</li>`).join('')}</ol>`).join('')}</details></section>`;
+  return c.sec.map((s,i)=>s.act?act(s.act,i):`<section class="card pad sec"${/คลังคำถาม|Question bank/.test(s.h[0])?' id="qbank"':''}><h2><span class="sn">${i+1}</span>${esc(LL(s.h))}</h2>${s.p?`<p>${esc(LL(s.p))}</p>`:''}${s.tbl?tbl(s.tbl):''}${s.b?`<ul class="dots">${s.b.map(b=>`<li>${esc(LL(b))}</li>`).join('')}</ul>`:''}${s.files?`<p class="row" style="gap:8px;flex-wrap:wrap;margin-top:10px">${s.files.filter(f=>!f[2]).map(f=>fileBtn([f[0],W(f[1][0],f[1][1])])).join('')}</p>${window.SERLAB_MODE!=='trainee'?`<p class="note" style="margin-top:12px">${tx('สำหรับวิทยากร','Facilitators only')}</p><p class="row" style="gap:8px;flex-wrap:wrap">${s.files.filter(f=>f[2]).map(f=>fileBtn([f[0],W(f[1][0],f[1][1])])).join('')}</p>`:''}`:''}</section>`).join('');
+}
+function slides(m){
+  const s=SLIDE[m]; if(!s) return `<section class="card pad"><p>${tx('โมดูลนี้เป็นบทอ่านเสริม ไม่มีสไลด์และวิดีโอของ TABEE','This supplementary module is a reading only; TABEE has no slides or video for it.')}</p></section>`;
+  const [f,a,b]=s, i=Math.min(b,Math.max(a,slIdx[m]||a)), e=modEp(m);
+  return `<section class="card viewer"><div class="stage"><img src="${pg(f,i)}" alt="${tx('สไลด์หน้า','Slide')} ${i}" width="1200" height="675"></div>
+   <div class="vbar"><button class="btn ghost" data-sl="-1" ${i<=a?'disabled':''} aria-label="${tx('หน้าก่อน','Previous')}">‹</button><span class="pgno">${i-a+1} / ${b-a+1}</span><button class="btn ghost" data-sl="1" ${i>=b?'disabled':''} aria-label="${tx('หน้าถัดไป','Next')}">›</button><span style="flex:1"></span><a class="btn" href="slides/${f}.pdf#page=${i}" target="_blank" rel="noopener">${tx('เปิดไฟล์ PDF','Open the PDF')} ↗</a></div>
+   <div class="thumbs">${Array.from({length:b-a+1},(_,k)=>a+k).map(p=>`<button data-slp="${p}" aria-label="${tx('หน้า','Page')} ${p}" ${p===i?'aria-current="true"':''}><img src="${pg(f,p)}" alt="" loading="lazy" width="120" height="68"></button>`).join('')}</div></section>
+   <p class="note">${f==='ep1'?tx(`ไฟล์ PDF ของ EP.1 รวม Module 0 และ 1 ไว้ด้วยกัน Module ${m} อยู่ที่หน้า ${a}–${b}`,`The EP.1 PDF holds Modules 0 and 1; Module ${m} is on pages ${a}–${b}.`):''} ${tx('สไลด์ภาษาไทยของ TABEE แปลงเป็น PDF จากไฟล์ล่าสุด','TABEE’s Thai slides, converted to PDF from the latest files.')} ${esc(e?e.deck:'')}</p>`;
+}
+function mod(m){
+  const c=TM[m]; if(!c) return learn();
+  const e=modEp(m), q=QZ[m], r=S.quiz[m], k=ALLM.indexOf(m), prev=ALLM[k-1], next=ALLM[k+1];
+  const tabs=[['read',tx('บทอ่าน','Reading')],['slides',tx('สไลด์ PDF','PDF slides')],['ev',tx('หลักฐานและคำถาม','Evidence & questions')],['iss',tx('ประเด็นที่พบบ่อย','Common issues')],['terms',tx('คำศัพท์และอ้างอิง','Terms & sources')]];
+  if(!tabs.some(t=>t[0]===mTab)) mTab='read';
+  let panel='';
+  if(mTab==='read') panel=body(c);
+  else if(mTab==='slides') panel=slides(m);
+  else if(mTab==='ev') panel=`<section class="card"><div class="tw"><table><thead><tr><th>${esc(LL(c.evh[0]))}</th><th>${esc(LL(c.evh[1]))}</th></tr></thead><tbody>${c.ev.map(x=>`<tr><td class="k1">${esc(LL(x[0]))}</td><td>${esc(LL(x[1]))}</td></tr>`).join('')}</tbody></table></div></section>`;
+  else if(mTab==='iss') panel=`<section class="card pad"><p class="note" style="margin-top:0">${tx('รายการนี้ไม่ครบทุกกรณี บางข้อไม่ได้เป็นข้อบกพร่องในตัวเอง แต่เป็นสัญญาณให้หาหลักฐานเพิ่ม ทุกข้อค้นพบต้องอ้างข้อกำหนดของเกณฑ์ที่ไม่เป็นไปตามนั้น (แนวเดียวกับ Common Issues ของ ABET)','Not exhaustive. Some items are not shortcomings in themselves but signals to look for more evidence; every finding must cite the requirement not met (as in ABET’s Common Issues).')}</p><ul class="dots warnlist">${c.iss.map(x=>`<li>${esc(LL(x))}</li>`).join('')}</ul></section>`;
+  else panel=`<section class="two"><div class="card"><div class="tw"><table><thead><tr><th>${tx('คำศัพท์','Term')}</th><th>${tx('ความหมาย','Meaning')}</th></tr></thead><tbody>${c.terms.map(t=>`<tr><td class="k1">${esc(t[0])}</td><td>${esc(LL(t[1]))}</td></tr>`).join('')}</tbody></table></div></div><div class="card pad"><h2>${tx('แหล่งอ้างอิง','Sources')}</h2><ul class="dots" style="margin-top:8px">${c.ref.map(x=>`<li>${esc(LL(x))}</li>`).join('')}</ul><p class="note">${tx('เทียบกับการอบรมของ ABET','ABET counterpart')}: ${esc(LL(c.abet))}</p></div></section>`;
+  return `<div class="crumb"><a href="#learn">${tx('เรียนออนไลน์','Online learning')}</a> / Module ${m}</div>
+  <div><p class="row" style="margin:0 0 6px"><span class="chip">Module ${m}</span>${e?`<span class="chip mute">EP.${e.n} · ${e.slides} ${tx('สไลด์','slides')}</span>`:`<span class="chip warn">${tx('โมดูลเสริม ไม่มีวิดีโอ','Supplementary, no video')}</span>`}<span class="chip mute" title="${esc(LL(c.abet))}">${tx('เทียบ','Maps to')} ${esc(LL(c.abet).split(':')[0])}</span></p><h1>${md(m)}</h1><p class="lead">${esc(LL(c.goal))}</p></div>
+  <section class="two"><div style="display:flex;flex-direction:column;gap:14px">
+    ${e&&YT[m]?(ytLive()?`<button type="button" class="vid" data-vid="${m}" aria-label="${tx('เล่นวิดีโอ','Play video')} Module ${m}"><img src="covers/${e.n}.jpg" alt="" width="560" height="315"><span class="btn">▶ ${tx('ดูวิดีโอ','Watch')} Module ${m}</span></button><div class="vprog2" aria-label="${tx('ดูแล้ว','Watched')} ${vidPct(m)}%"><i style="width:${vidPct(m)}%"></i></div><p class="note" style="margin:0">${vidDone(m)?tx(`ดูครบแล้ว ${vidPct(m)}% · ทำแบบทดสอบได้`,`Watched ${vidPct(m)}% · quiz unlocked`):tx(`ดูแล้ว ${vidPct(m)}% · ต้องดูถึง 90% โดยไม่กรอข้ามส่วนที่ยังไม่ได้ดู จึงทำแบบทดสอบได้ เร่งความเร็วได้สูงสุด x2`,`Watched ${vidPct(m)}% · reach 90% without skipping ahead to unlock the quiz; up to 2× speed`)}${e.mods.length>1?' · '+tx(`วิดีโอนี้ครอบคลุม Module ${e.mods.join(' และ ')}`,`This video covers Modules ${e.mods.join(' and ')}`):''}</p>`:`<a href="https://youtu.be/${YT[m]}" class="vid" target="_blank" rel="noopener" aria-label="${tx('เปิดวิดีโอบน YouTube','Open the video on YouTube')}"><img src="covers/${e.n}.jpg" alt="" width="560" height="315"><span class="btn">▶ ${tx('เปิดบน YouTube','Open on YouTube')} ↗</span></a><p class="note" style="margin:0">${ytBroken?tx('เล่นวิดีโอในหน้านี้ไม่ได้ จึงเปิดบน YouTube แทน แบบทดสอบไม่ล็อก','The video could not play here, so it opens on YouTube; the quiz is not locked.'):tx('เปิด Studio จากไฟล์ในเครื่อง YouTube จึงไม่ยอมเล่นวิดีโอในหน้านี้ กดเพื่อดูบน YouTube แบบทดสอบไม่ล็อก เมื่อเปิดจากเว็บ (GitHub Pages) วิดีโอจะเล่นในหน้านี้และนับเวลาดู','Opened as a local file, so YouTube will not play the video inside this page; tap to watch on YouTube (the quiz is not locked). From the website (GitHub Pages) the video plays here with watch tracking.')}</p>`):`<div class="card pad mxbig"><b>${tx('บทอ่านเพิ่มเติมของ TABEE','Additional TABEE reading')}</b><span class="note">${tx('เนื้อหานี้ไม่มีในวิดีโอ ปรับจาก','Not covered by the videos; adapted from')} ${esc(LL(c.abet))}</span></div>`}
+    ${DECKS['m'+m]?`<div class="card pad"><h2>${tx('สไลด์ประกอบโมดูล','Module slide deck')}</h2><p class="note" style="margin:6px 0 10px">${tx('ไฟล์ HTML ไฟล์เดียว เปิดในเบราว์เซอร์ กดลูกศรซ้ายขวาเพื่อเลื่อน กด T เพื่อดูสารบัญ','One HTML file; open it in a browser, use the arrow keys to move and T for contents.')}</p>${deckBtn('m'+m,'btn',tx('เปิดสไลด์','Open the slides'))}</div>`:''}
+    <label class="row card pad" style="gap:10px"><input type="checkbox" data-read="${m}" ${isRead(m)?'checked':''} style="width:20px;height:20px;accent-color:var(--brand)"> ${e?tx('อ่านบทอ่าน ดูวิดีโอ และสไลด์ของโมดูลนี้แล้ว','I have read the reading and watched the video and slides'):tx('อ่านบทอ่านของโมดูลนี้แล้ว','I have finished this reading')}</label>
+  </div><div style="display:flex;flex-direction:column;gap:14px">
+    <div class="card pad"><h2>${tx('เมื่อจบโมดูลนี้ ท่านจะ','By the end you will')}</h2><ul class="dots" style="margin-top:8px">${c.obj.map(o=>`<li>${esc(LL(o))}</li>`).join('')}</ul></div>
+    <div class="card pad"><h2>${tx('แบบทดสอบ','Quiz')}</h2><p class="note" style="margin:6px 0 4px">${tx('ก่อนทำ ลองตอบให้ได้ว่า','Before you start, can you answer:')}</p><ul class="dots">${c.chk.map(o=>`<li>${esc(LL(o))}</li>`).join('')}</ul>
+     ${q?`<div class="row" style="justify-content:space-between;margin-top:12px"><span class="note">${tx(`สุ่ม ${QN} ข้อจากคลัง ${q.length} ข้อ · ถูก ${QPASS} ข้อจึงผ่าน`,`${QN} drawn from ${q.length} · ${QPASS} to pass`)}${r?` · ${tx('ดีที่สุด','best')} ${Math.round(r.best*QN/100)}/${QN}`:''}</span>${quizLocked(m)?`<span class="btn ghost locked" aria-disabled="true">🔒 ${tx('ดูวิดีโอให้ถึง 90% ก่อน','Watch 90% first')}</span>`:`<a class="btn ${r?'ghost':''}" href="#quiz-${m}">${r?tx('ทำอีกครั้ง','Retake'):tx('ทำแบบทดสอบ','Take the quiz')}</a>`}</div>`:`<p class="note">${tx('Module 0 ไม่มีแบบทดสอบ','Module 0 has no quiz.')}</p>`}</div>
+  </div></section>
+  <div class="tabs mt" role="tablist">${tabs.map(t=>`<button class="tab" role="tab" aria-selected="${t[0]===mTab}" data-mt="${t[0]}">${t[1]}</button>`).join('')}</div>
+  ${panel}
+  <nav class="pn">${prev!==undefined?`<a href="#mod-${prev}">‹ Module ${prev} ${md(prev)}</a>`:'<span></span>'}${next!==undefined?`<a href="#mod-${next}">Module ${next} ${md(next)} ›</a>`:`<a href="#analysis">${tx('ไปขั้นฝึกวิเคราะห์','Go to analysis practice')} ›</a>`}</nav>`;
+}
+
+/* ---------- Onsite: two days on ABET's PEVC Simulated Visit Training outline, run with TABEE's forms and rules ---------- */
+const HO={
+ T1:W('T1-1 โครงการอบรมและกติกากลุ่ม','T1-1 Training outline and ground rules'),
+ T3a:W('T3-1 แบบฝึกตรวจคำชี้แจงและ Course Portfolio ของหลักสูตรจำลอง','T3-1 Exercise: mock program’s replies and course portfolios'),T3b:W('T3-2 เฉลยแบบฝึก T3-1 (สำหรับวิทยากร)','T3-2 Answer key to T3-1 (facilitators)'),T3c:W('T3-3 รายการแฟ้มบริหารห้องปฏิบัติการและความปลอดภัย','T3-3 Lab management and safety file list'),
+ T4a:W('T4-1 กำหนดการตรวจเยี่ยม 2 วันตามข้อ 5.2','T4-1 Two-day visit agenda (section 5.2)'),T4b:W('T4-2 PEV-Worksheet TH Ver.3','T4-2 PEV-Worksheet TH Ver.3'),
+ T5a:W('T5-1 แนวรับมือสถานการณ์สัมภาษณ์ที่ยาก','T5-1 Handling difficult interview situations'),T5b:W('T5-2 ตารางคำถามสำหรับผู้บริหาร อาจารย์ และ IAB รายเกณฑ์','T5-2 Questions for leaders, faculty and IAB, by criterion'),T5c:W('T5-3 คำถามสำหรับนักศึกษา บัณฑิต ศิษย์เก่า และผู้ใช้บัณฑิต','T5-3 Questions for students, graduates, alumni and employers'),
+ T6:W('T6-1 ข้อมูลเพิ่มเติมจากหลักสูตรจำลองระหว่างตรวจ','T6-1 Extra information from the mock program'),
+ T7a:W('T7-1 นิยามระดับ D W C R S','T7-1 Definitions of D, W, C, R, S'),T7b:W('T7-2 ตัวอย่างแบบรายการ Fact Finding Report','T7-2 Sample Fact Finding Report'),T7c:W('T7-3 Rubric คำแถลงข้อเท็จจริง 6 ข้อ','T7-3 Six-item fact-statement rubric'),T7d:W('T7-4/5 แบบฝึกวิจารณ์คำแถลงและเฉลย','T7-4/5 Statement critique exercise and key'),
+ T9a:W('T9-1 สถานการณ์ตัดสินและคำชี้แจง','T9-1 Judgment scenarios and instructions'),T9b:W('T9-2 บันทึกวิทยากรสำหรับสถานการณ์ตัดสิน','T9-2 Facilitator notes for the scenarios'),
+ T10:W('T10-1 ตัวอย่างการแถลงใน Exit meeting','T10-1 Sample exit meeting statement'),
+ T11a:W('T11-1 ตัวอย่างแบบรายงานผลการรับรอง (เอกสารผนวก 4)','T11-1 Sample accreditation report (Appendix 4)'),T11b:W('T11-2/3 แบบฝึกเขียนข้อสังเกต (R) และเฉลย','T11-2/3 Remark-writing exercise and key'),
+ T12:W('T12-1 แบบสมรรถนะ PEV','T12-1 PEV competency model'),T13:W('T13-1 ขั้นตอนหลังตรวจเยี่ยมถึง Decision Meeting','T13-1 From visit to Decision Meeting'),T14:W('T14-1 แนวปฏิบัติ Decision Meeting','T14-1 Decision Meeting guideline'),T15:W('T15-1 ขั้นถัดไปสู่การขึ้นทะเบียน','T15-1 Next steps to registration')};
+/* ---------- Onsite: one mock program (Materials & Metallurgical Engineering), evaluated end to end in PEV Studio ---------- */
+const ONS_INS=(window.SERLAB_MODE||'instructor')==='instructor';
+const PEVS_URL=(window.STUDIO_LINKS||{}).pevStudio||'pev-studio/';
+const CRN=[W('นิสิตนักศึกษา','Students'),W('วัตถุประสงค์หลักสูตร','Program educational objectives'),W('ผลลัพธ์การศึกษา','Program outcomes'),W('การพัฒนาต่อเนื่อง','Continuous improvement'),W('หลักสูตร','Curriculum'),W('คณาจารย์','Faculty'),W('สิ่งอำนวยความสะดวก','Facilities'),W('การสนับสนุนของสถาบันการศึกษา','Institutional support')];
+const CRITEMS=[12,8,3,11,8,12,11,14];
+const ONSF={
+ starter:['files/MT-onsite/PEV Studio - MT Onsite starter.json',W('ไฟล์เริ่มต้น PEV Studio (.json) · เปิดด้วยปุ่ม Open','PEV Studio starter file (.json) · load with Open')],
+ trainee:[['files/MT-onsite/SER_วัสดุ_ฉบับผู้อบรม.docx',W('SER ฉบับผู้อบรม','SER, trainee edition')],['files/MT-onsite/เอกสารประกอบ_1-5_SER_วัสดุ.docx',W('เอกสารประกอบ 1–5','Supporting documents 1–5')],['files/MT-onsite/ใบระเบียนผลการศึกษา_SER_วัสดุ.docx',W('ใบระเบียนผลการศึกษา','Transcripts')]],
+ inst:[['files/MT-onsite/คู่มือวิทยากร_SER_วัสดุ.docx',W('คู่มือวิทยากร (เฉลย บัตรบทบาท เกณฑ์ให้คะแนน)','Facilitator guide (key, role cards, scoring)')],['files/MT-onsite/ซองเอกสารเพิ่มเติม_SER_วัสดุ.docx',W('ซองเอกสารเพิ่มเติม ช-1 ถึง ช-6 (ปล่อยหลังจดหมายขอเอกสาร)','Envelope ช-1 to ช-6 (release after the request letter)')],['files/MT-onsite/ไฟล์แนบ_ซองเอกสารเพิ่มเติม_SER_วัสดุ.docx',W('ไฟล์แนบของซองเอกสาร','Envelope attachments')]]};
+/* where to read for each criterion (neutral: no answers) */
+const CRREAD=[W('SER เกณฑ์ข้อ 1 ทุกหัวข้อ และใบระเบียนผลการศึกษา 3 ราย เทียบกับเกณฑ์อนุมัติจบ','SER criterion 1, every item, and the three transcripts against the graduation rules'),
+ W('SER เกณฑ์ข้อ 2 โดยเฉพาะตารางการทบทวน PEO และผู้มีส่วนได้ส่วนเสียที่ให้ข้อมูล','SER criterion 2, especially the PEO review table and who gave input'),
+ W('SER เกณฑ์ข้อ 3 และตารางเครื่องมือประเมินผลลัพธ์ที่เชื่อมกับเกณฑ์ข้อ 4','SER criterion 3 and the assessment-tool table linked to criterion 4'),
+ W('SER เกณฑ์ข้อ 4 ตารางผลการประเมินรายตัวชี้วัด และตารางการปิดวงจร','SER criterion 4, the results-by-indicator table and the closing-the-loop table'),
+ W('SER เกณฑ์ข้อ 5 ตารางหน่วยกิตรายหมวด โครงงานรวบยอดและทางเลือกที่ใช้แทน และเอกสารประกอบ 1–5','SER criterion 5, credit tables, the capstone and any alternative to it, and supporting documents 1–5'),
+ W('SER เกณฑ์ข้อ 6 ตารางคณาจารย์ ภาระงาน และการพัฒนา','SER criterion 6, faculty tables, workload and development'),
+ W('SER เกณฑ์ข้อ 7 ตารางห้องปฏิบัติการ และหัวข้อความปลอดภัย','SER criterion 7, laboratory tables and the safety section'),
+ W('SER เกณฑ์ข้อ 8 งบประมาณ บุคลากรสายสนับสนุน และการบริหาร','SER criterion 8, budget, support staff and leadership')];
+/* facilitator key, from the MT facilitator guide (tables 2, 4, 8, 10, 11) */
+const KEYC=[
+ {iss:'MT-1 การตรวจสอบสำเร็จการศึกษาของแผนสหกิจศึกษาทำโดยเจ้าหน้าที่ 1 คน ไม่มีแบบตรวจและผู้ทวนสอบ',l:['N','N','C'],env:'ไม่มี (ขอได้ แต่ตอบว่าจะเตรียมให้ดูวันตรวจ)',src:'เจ้าหน้าที่หลักสูตร · สุ่มแฟ้มผู้สำเร็จการศึกษาแผนสหกิจศึกษา 3–5 ราย'},
+ {iss:'MT-2 การทบทวน PEO ใช้แบบสำรวจศิษย์เก่าที่ตอบ 19 จาก 127 คน และผู้ใช้บัณฑิตเป็นสถานประกอบการสหกิจศึกษาทั้งหมด',l:['C','C','C'],env:'ช-3 รายละเอียดผู้ตอบแบบสำรวจ',src:'ผู้ใช้บัณฑิตและศิษย์เก่า · ถามแทรกกับประธานหลักสูตร'},
+ {iss:'MT-3 รูบริก R-10.2 ใช้ถ้อยคำกว้าง ระดับ 2 และ 3 แยกกันไม่ชัด',l:['N','R','R'],env:'ช-5 รูบริกกลาง 9 ฉบับ',src:'เอกสารเพียงพอ ไม่ต้องใช้โควตาสัมภาษณ์'},
+ {iss:'MT-4 ตัวชี้วัด 8.2 ของกลุ่มสหกิจศึกษาต่ำกว่าเป้าหมาย 2 ปีติดต่อกัน มาตรการยังไม่เริ่ม',l:['C','C','C'],env:'ช-4 ความคืบหน้าของมาตรการ',src:'อาจารย์นิเทศและผู้ประสานงานสหกิจศึกษา (ถามแทรก)'},
+ {iss:'MT-5 นักศึกษาร้อยละ 40 ใช้สหกิจศึกษาแทนโครงงานรวบยอด การปฏิบัติจริงเป็นงานควบคุมคุณภาพประจำ ประเมินโดยพนักงานที่ปรึกษาฝ่ายเดียว · MT-7 หน่วยกิตคณิตศาสตร์และวิทยาศาสตร์ 30 หน่วยกิตพอดี (ประเด็นหลอก)',l:['C','W','D'],env:'ช-1 ใบให้คะแนนรูบริก MME 493 · ช-2 รายงานสหกิจศึกษาฉบับเต็ม · ช-6 รายวิชาหมวดคณิตศาสตร์และวิทยาศาสตร์ (ปิดประเด็นหลอก)',src:'นักศึกษาสหกิจศึกษา · พนักงานที่ปรึกษา · อาจารย์นิเทศ · ประธานหลักสูตร · ห้องเอกสารของภาควิชา'},
+ {iss:'ไม่มีประเด็นฝัง',l:['N','N','N'],env:'–',src:'–'},
+ {iss:'MT-6 ในโรงหล่อ ผู้สังเกตการณ์ยืนใกล้จุดเทน้ำโลหะโดยไม่สวมอุปกรณ์ป้องกัน กฎมีแต่ไม่บังคับใช้',l:['N','N','W'],env:'ไม่มี (ขอบันทึกความปลอดภัยได้คำตอบว่าอบรมครบ ไม่มีอุบัติเหตุ)',src:'โรงหล่อในคาบ MME 321 · วิศวกรประจำโรงหล่อ · นักศึกษาชั้นปีที่ 3'},
+ {iss:'ไม่มีประเด็นฝัง',l:['N','N','N'],env:'–',src:'–'}];
+const ONSGRP=[W('นักศึกษาสหกิจศึกษา','Co-op students'),W('พนักงานที่ปรึกษา','Workplace supervisors'),W('อาจารย์นิเทศและผู้ประสานงานสหกิจศึกษา','Faculty supervisor and co-op coordinator'),W('ประธานหลักสูตร','Program chair'),W('เจ้าหน้าที่หลักสูตร','Program staff'),W('วิศวกรประจำโรงหล่อ','Foundry engineer'),W('นักศึกษาชั้นปีที่ 3','Third-year students'),W('ผู้ใช้บัณฑิตและศิษย์เก่า','Employers and alumni')];
+const ONSPLC=[W('ห้องเอกสารของภาควิชา (รายงานสหกิจศึกษาและใบให้คะแนน)','Department document room (co-op reports and score sheets)'),W('โรงหล่อ ในคาบ MME 321','Foundry during MME 321'),W('โรงหล่อ นอกเวลาเรียน','Foundry outside class'),W('ห้องปฏิบัติการอื่นและห้องโครงงานรวบยอด','Other labs and the capstone room')];
+const KIND={m:'Mock-up',b:'Brainstorm',l:W('บรรยายและงาน','Talk and task'),w:'PEV Studio'};
+const AGD=[W('ก่อนอบรม','Before the training'),W('วันที่ 1 · ประเมินเอกสาร · 08:00–17:30','Day 1 · document review · 08:00–17:30'),W('วันที่ 2 · ตรวจเยี่ยมจำลองถึงการตัดสิน · 08:00–15:30','Day 2 · mock visit to decision · 08:00–15:30')];
+const AG=[
+ {d:0,id:'p1',t:W('1–2 สัปดาห์ก่อน','1–2 weeks before'),k:'l',h:W('เรียนออนไลน์ให้ครบ','Finish the online modules'),x:W('Module 0–17 และแบบทดสอบ โดยเฉพาะ Module 16 วันตรวจเยี่ยม ซึ่งเป็นแนวคำถามที่จะใช้ในวันที่ 2','Modules 0–17 and quizzes, especially Module 16, whose question guides you will use on Day 2'),ps:'',out:''},
+ {d:0,id:'p2',t:W('1 สัปดาห์ก่อน · 3–4 ชม.','1 week before · 3–4 h'),k:'w',h:W('อ่านเล่ม SER วัสดุทั้งเล่ม และทำ Auto Check','Read the whole materials SER and run Auto Check'),x:W('เปิด PEV Studio กด Open เลือกไฟล์เริ่มต้น แล้วทำขั้น 1 Auto Check อ่าน SER ฉบับผู้อบรม เอกสารประกอบ 1–5 และใบระเบียน จดตำแหน่งที่สงสัยไว้ กด Save เก็บไฟล์มาวันอบรม','Open PEV Studio, load the starter file and run step 1 Auto Check. Read the trainee SER, supporting documents 1–5 and the transcripts; note anything doubtful. Save the file and bring it.'),ps:'1 · Auto Check',out:W('คอลัมน์ Auto','Auto column')},
+ {d:1,id:'s1',t:'08:00–08:30',k:'l',h:W('เปิดการอบรม กติกา ความลับ และ COI','Opening, ground rules, confidentiality and COI'),x:W('จัดทีม 3 คน (ประธาน + PEV 2 คน) แต่ละทีมใส่ชื่อในขั้น “หลักสูตรและคณะผู้ตรวจ” ใช้ไฟล์ของคนหนึ่งเป็นไฟล์ทีม','Teams of three (chair plus two PEVs) enter their names under “Program & team”; one member’s file becomes the team file.'),ps:W('หลักสูตรและคณะผู้ตรวจ','Program & team'),out:''},
+ {d:1,id:'s2',t:'08:30–12:00',k:'w',h:W('ประเมินรายเกณฑ์ ข้อ 1–4 (Pre-visit 1)','Criterion by criterion, 1–4 (Pre-visit 1)'),x:W('ทุกเกณฑ์ทำ 2 ขั้น: อุ่นเครื่องด้วยกรณีศึกษาของเกณฑ์นั้น 5 กรณี (10 นาที) แล้วประเมินเกณฑ์เดียวกันในเล่มวัสดุ ตอบ 2 คำถาม: ระบบที่ออกแบบไว้เป็นไปตามเกณฑ์หรือไม่ และมีสัญญาณใดว่าการปฏิบัติจริงอาจไม่ตรงกับระบบ (30–40 นาที) พัก 15 นาทีหลังข้อ 2','Two steps per criterion: warm up with that criterion’s five cases (10 min), then rate the same criterion in the materials SER by answering two questions: does the designed system meet the criterion, and what signals suggest practice may differ (30–40 min). Break after criterion 2.'),ps:'2 · Pre-visit 1',out:W('คอลัมน์ PV1 ข้อ 1–4','PV1 column, criteria 1–4'),crit:[1,2,3,4]},
+ {d:1,id:'b1',t:'12:00–13:00',k:'z',h:W('พักกลางวัน','Lunch')},
+ {d:1,id:'s3',t:'13:00–15:00',k:'w',h:W('ประเมินรายเกณฑ์ ข้อ 5–8 (Pre-visit 1)','Criterion by criterion, 5–8 (Pre-visit 1)'),x:W('ทำแบบเดียวกับช่วงเช้า เกณฑ์ข้อ 5 ใช้เวลามากที่สุด เพราะต้องอ่านเอกสารประกอบ 1–5 ประกอบ','Same as the morning. Criterion 5 takes longest because it needs supporting documents 1–5.'),ps:'2 · Pre-visit 1',out:W('คอลัมน์ PV1 ครบ 8 เกณฑ์','PV1 column, all eight criteria'),crit:[5,6,7,8]},
+ {d:1,id:'s4',t:'15:00–15:45',k:'w',h:W('รวมผลทีมและจดหมายขอเอกสาร','Team consolidation and the request letter'),x:W('ทีมตกลงระดับ PV1 แล้วเขียนคำขอไม่เกิน 8 รายการ ทุกรายการต้องระบุเกณฑ์และตำแหน่งใน SER ที่เป็นสัญญาณ วิทยากรตอบตามรายการและปล่อยซองเอกสารเฉพาะรายการที่ขอตรง','The team agrees PV1 levels and writes at most eight requests, each tied to a criterion and an SER location. The facilitator answers item by item and releases only the envelope documents that were asked for.'),ps:'3 · ขอเอกสารเพิ่มเติม',out:W('แบบรายการขอเอกสารเพิ่มเติม (.docx)','Document request form (.docx)')},
+ {d:1,id:'s5',t:'15:45–17:00',k:'w',h:W('Pre-visit 2 และแผนตรวจเยี่ยม','Pre-visit 2 and the visit plan'),x:W('อ่านเอกสารในซองแล้วตอบ 3 คำถามต่อประเด็น: เอกสารยืนยันหรือหักล้างสัญญาณ สิ่งใดยังไม่รู้ และใครหรือที่ใดในวันตรวจให้คำตอบได้ จากนั้นเลือกสัมภาษณ์ 4 จาก 8 กลุ่ม และดูสถานที่ 2 จาก 4 แห่ง','Read the envelope and answer three questions per issue: does it confirm or refute the signal, what is still unknown, and who or where on the visit can answer it. Then choose 4 of 8 interview groups and 2 of 4 places.'),ps:'4 · Pre-visit 2 → 5 · แผนตรวจเยี่ยม → 6 · นัดตรวจเยี่ยม → 7 · ประเด็นและคำถาม',out:W('คอลัมน์ PV2 แผนตรวจเยี่ยม แบบขอนัด และรายการคำถามรายกลุ่ม','PV2 column, visit plan, appointment form and questions by group')},
+ {d:1,id:'s6',t:'17:00–17:30',k:'b',h:W('สรุปวันที่ 1','Day 1 debrief'),x:W('ทุกทีมเปิดตาราง “ผลรายเกณฑ์ในแต่ละรอบ” ของ PEV Studio เทียบคอลัมน์ PV1 และ PV2 ข้ามทีม ใช้กระดาน Brainstorm รอบที่ 1–2','Teams compare their PV1 and PV2 columns across teams using PEV Studio’s round grid and Brainstorm rounds 1–2.'),ps:W('ภาพรวม · ผลรายเกณฑ์ในแต่ละรอบ','Overview · results by round'),out:''},
+ {d:2,id:'v1',t:'08:00–08:20',k:'w',h:W('ประชุมคณะก่อนตรวจ','Team meeting before the visit'),x:W('ทบทวนแผนและคำถามของทีม แบ่งว่าใครถามกลุ่มไหน ตรวจว่าทุกประเด็นที่ค้างมีแหล่งคำตอบในแผน','Review the plan and questions, split who asks which group, and check every open issue has a source in the plan.'),ps:'7 · ประเด็นและคำถาม',out:''},
+ {d:2,id:'v2',t:'08:20–10:00',k:'m',h:W('ตรวจเยี่ยมจำลอง: สถานที่และการสัมภาษณ์','Mock visit: places and interviews'),x:W('ดูสถานที่ 2 แห่งตามแผน แล้วสัมภาษณ์ 4 กลุ่ม ผู้สวมบทบาทพูดเองได้เฉพาะภาพรวม และให้ข้อเท็จจริงสำคัญเมื่อถูกถามตรงประเด็นเท่านั้น ใช้แนวคำถามของ Module 16 ประกอบ บันทึกข้อเท็จจริงลง PEV Studio ทันที','See the two planned places, then interview four groups. Role-players volunteer only the general picture and give key facts only when asked the right question. Use the Module 16 question guides and log facts in PEV Studio straight away.'),ps:'Visit Day 1',out:W('คอลัมน์ Day 1','Day 1 column')},
+ {d:2,id:'b2',t:'10:00–10:15',k:'z',h:W('พัก','Break')},
+ {d:2,id:'v3',t:'10:15–10:45',k:'m',h:W('ประชุมคณะและชี้แจงกับประธานหลักสูตร','Team meeting and clarification with the program chair'),x:W('ทีมให้ระดับหลังการตรวจ แล้วแจ้งข้อเท็จจริงกับประธานหลักสูตรที่สวมบทบาท รับคำชี้แจงหรือหลักฐานเพิ่ม ไม่บอกระดับ ไม่ให้คำแนะนำ','The team rates after the visit, then shares facts with the role-played program chair and accepts clarification or new evidence, without giving levels or advice.'),ps:'Visit Day 2',out:W('คอลัมน์ Day 2','Day 2 column')},
+ {d:2,id:'v4',t:'10:45–11:30',k:'m',h:W('Exit Statement และ Exit meeting จำลอง','Exit statement and mock exit meeting'),x:W('เขียนข้อค้นพบให้ครบ 3 ส่วน คือข้อของเกณฑ์ สิ่งที่พบพร้อมหลักฐาน และผลต่อการเป็นไปตามเกณฑ์ โดยไม่กำหนดวิธีแก้ ประธานทีมอ่านใน Exit meeting','Write each finding in three parts (the criterion, what was found with evidence, the effect on meeting the criterion) with no remedy. The team chair reads it at the exit meeting.'),ps:'Exit Statement',out:W('คอลัมน์ Exit และ Exit Statement','Exit column and statement')},
+ {d:2,id:'v5',t:'11:30–12:00',k:'b',h:W('เทียบกับเฉลย','Compare with the key'),x:W('วิทยากรเปิดเฉลยรายเกณฑ์ทีละรอบ ทีมดูว่าระดับเปลี่ยนเพราะหลักฐานใด และพลาดตรงไหน ใช้กระดาน Brainstorm รอบที่ 3','The facilitator reveals the key round by round; teams trace which evidence moved each level and where they missed. Brainstorm round 3.'),ps:W('เปรียบเทียบทุกรอบ','Compare rounds'),out:''},
+ {d:2,id:'b3',t:'12:00–13:00',k:'z',h:W('พักกลางวัน','Lunch')},
+ {d:2,id:'v6',t:'13:00–14:00',k:'w',h:W('Fact Finding Report และคำชี้แจงของหลักสูตร','Fact Finding Report and the program’s reply'),x:W('ทีมทำ Fact Finding Report วิทยากรส่งคำชี้แจงของหลักสูตรสมมติเป็นเอกสาร ทีมพิจารณาว่าคำชี้แจงเปลี่ยนระดับได้หรือไม่','Teams write the Fact Finding Report; the facilitator hands over the program’s written reply and teams decide whether it changes any level.'),ps:'Fact Finding Report → หลักสูตรชี้แจงหลัง FFR',out:W('คอลัมน์ Draft','Draft column')},
+ {d:2,id:'v7',t:'14:00–15:00',k:'m',h:W('Decision Meeting จำลอง','Mock Decision Meeting'),x:W('แต่ละทีมนำเสนอผลด้วยสไลด์ Program Decision ที่ PEV Studio สร้าง ที่ประชุมพิจารณาผลการรับรองตามตารางในเอกสารขั้นตอนและวิธีการรับรองฯ','Each team presents the Program Decision slides generated by PEV Studio; the meeting decides using the result table in TABEE’s procedure.'),ps:W('สร้างเอกสาร · Program Decision','Generate documents · Program Decision'),out:W('คอลัมน์ Screen และ Final','Screen and Final columns')},
+ {d:2,id:'v8',t:'15:00–15:30',k:'l',h:W('ประเมินและปิดการอบรม','Assessment and closing'),x:W('วิทยากรให้คะแนนตามเกณฑ์ 20 คะแนนในคู่มือวิทยากร (ระดับสุดท้าย 5 การอ้างหลักฐาน 4 จดหมาย 4 แผน 4 การเขียนข้อค้นพบ 3) ผู้อบรมส่งไฟล์ PEV Studio ของทีม','The facilitator scores out of 20 using the guide (final levels 5, evidence 4, letter 4, plan 4, writing 3); teams submit their PEV Studio file.'),ps:'Save',out:W('ไฟล์งานของทีม (.json)','Team file (.json)')}];
+/* slide decks (HTML files in decks/). In a Claude artifact a sibling page cannot open in a tab, so the button saves the file instead */
+const DECKS={m16:'m16-visit-day',m17:'m17-onsite-prep',p1:'on-p-prework',p2:'on-p-prework',s1:'on-s1-opening',s2:'on-s2-criteria-1-4',s3:'on-s3-criteria-5-8',s4:'on-s4-request-letter',s5:'on-s5-pv2-plan',s6:'on-s6-day1-debrief',v1:'on-v1-team-meeting',v2:'on-v2-mock-visit',v3:'on-v3-team-clarify',v4:'on-v4-exit',v5:'on-v5-compare-key',v6:'on-v6-ffr',v7:'on-v7-decision',v8:'on-v8-closing'};
+const deckBtn=(k,cls,label)=>DECKS[k]?`<a class="${cls}" href="decks/${DECKS[k]}.html" target="_blank" rel="noopener">${label||tx('สไลด์','Slides')} ↗</a>`:'';
+const AGW=AG.filter(a=>a.k!=='z');
+const BS=[W('สัญญาณจาก SER ที่ทำให้ขอเอกสาร (PV1)','SER signals behind the requests (PV1)'),W('ระดับของทีมหลังเปิดซองเอกสาร (PV2)','Team levels after the envelope (PV2)'),W('ระดับเปลี่ยนเพราะหลักฐานใดในวันตรวจ','Which visit evidence moved a level')];
+const caseDone=i=>Object.keys(S.cases[i]||{}).length;
+const lvChip=k=>`<span class="lvk ${k}">${L(LV[k])}</span>`;
+function caseSet(i){
+  const c=D.cases[i], a=S.cases[i]||{};
+  return `<section class="card"><div class="pad"><h2>${lang==='en'?CASET[i]:esc(c.t)}</h2></div>${c.items.map((it,j)=>{const v=a[j];return `<div class="q cq"><figure class="cimg"><a href="ci/c${i+1}-${j+1}.jpg" target="_blank" rel="noopener"><img loading="lazy" src="ci/c${i+1}-${j+1}.jpg" alt="${tx('ภาพประกอบกรณีที่ ','Illustration for case ')}${j+1}"></a><figcaption>AI-generated illustration (Gemini)</figcaption></figure><div class="cb"><div class="t"><span class="n">${j+1}</span>${esc(it.q)}</div><div class="lv">${Object.entries(LV).map(([k,l])=>`<button class="opt ${v?(k===it.a?'right':v===k?'wrong':''):''}" data-case="${j}" data-k="${k}" ${v?'disabled':''}>${L(l)}</button>`).join('')}</div>${v?`<div class="sol"><b>${v===it.a?tx('ตรงกับเฉลย','Matches the answer'):tx('เฉลยคือ ','The answer is ')+lvChip(it.a)}</b> ${esc(it.s)}</div>`:''}</div></div>`}).join('')}</section>`;
+}
+const ONS_HASF=!!(window.SERLAB_FILES&&Object.keys(window.SERLAB_FILES).length);
+const fileBtn=(f,cls)=>`<a class="btn ${cls||'ghost'}" href="${encodeURI(f[0])}" data-dl="${esc(f[0].split('/').pop())}" download>${L(f[1])} ↓</a>`;
+/* inside a Claude artifact a plain download link is blocked: save through the downloads capability */
+
+function onsite(){
+  const notes=S.bs[bsTab]||[];
+  const row=a=>a.k==='z'?`<div class="ag br"><span class="tm">${L(a.t)}</span><span class="note">${L(a.h)}</span></div>`:`<div class="ag"><span class="tm">${L(a.t)}</span><span class="agb"><span class="row" style="gap:8px"><input type="checkbox" aria-label="${tx('ทำแล้ว','Done')}: ${esc(L(a.h))}" data-done="${a.id}" ${S.done['o:'+a.id]?'checked':''}><b>${L(a.h)}</b><span class="k ${a.k}">${L(KIND[a.k])}</span></span><span class="note">${L(a.x)}</span>${a.crit?`<span class="row ho">${a.crit.map(n=>`<a class="chip ${caseDone(n-1)>=D.cases[n-1].items.length?'ok':''}" href="#crit-${n}">${tx('ข้อ','C')}${n} ${esc(L(CRN[n-1]))} ↗</a>`).join('')}</span>`:''}<span class="row ho">${deckBtn(a.id,'chip',tx('สไลด์ประกอบช่วงนี้','Slides for this session'))}</span>${a.ps?`<span class="ps"><b>PEV Studio</b> ${esc(L(a.ps))}${a.out?` → <span>${esc(L(a.out))}</span>`:''}</span>`:''}</span></div>`;
+  const tiles=CRN.map((c,i)=>{const n=i+1,dn=caseDone(i),tot=D.cases[i].items.length;return `<a class="stop crt" href="#crit-${n}"><span class="no">${n}</span><h3>${L(c)}</h3><span class="note">${tx(`อุ่นเครื่อง ${dn}/${tot} กรณี · ${CRITEMS[i]} ข้อใน PEV Studio`,`Warm-up ${dn}/${tot} cases · ${CRITEMS[i]} PEV Studio items`)}</span></a>`}).join('');
+  return `<div><h1>${tx('Onsite: ประเมิน SER หลักสูตรสมมติตั้งแต่ต้นจนจบ','Onsite: one mock SER, from first read to decision')}</h1><p class="lead">${tx('ทุกทีมประเมินเล่ม SER หลักสูตรวิศวกรรมวัสดุและโลหการ (สมมติ) เล่มเดียวกันใน PEV Studio วันที่ 1 ประเมินเอกสารทีละเกณฑ์ โดยทำกรณีศึกษาของเกณฑ์นั้นก่อน วันที่ 2 ตรวจเยี่ยมจำลองด้วยผู้สวมบทบาท จนถึง Exit meeting และ Decision Meeting ตาราง “ผลรายเกณฑ์ในแต่ละรอบ” ของ PEV Studio คือที่บันทึกผลของทุกช่วง','Every team evaluates the same mock SER (Materials and Metallurgical Engineering) in PEV Studio. Day 1 reviews the documents criterion by criterion, each preceded by that criterion’s case studies. Day 2 runs the mock visit with role-players through to the exit and decision meetings. PEV Studio’s round grid records every session.')}</p></div>
+  <section class="card pad mtp"><div class="mtl"><span class="chip">${tx('หลักสูตรสมมติ','Mock program')}</span><h2>${tx('วิศวกรรมศาสตรบัณฑิต สาขาวิชาวิศวกรรมวัสดุและโลหการ','B.Eng. Materials and Metallurgical Engineering')}</h2><p class="note">${tx('มหาวิทยาลัยเทคโนโลยีวนาธาร (สมมติ) · หลักสูตรปรับปรุง พ.ศ. 2564 · ขอรับรองวงรอบ 6 ปี เริ่มปีการศึกษา 2569','Wanathan University of Technology (fictional) · 2021 curriculum · six-year cycle from academic year 2026')}</p>
+   <ol class="howto"><li>${tx('เปิด PEV Studio แล้วกด <b>Open</b> เลือกไฟล์เริ่มต้น เล่ม SER เอกสารประกอบ และใบระเบียนจะอยู่ในขั้น “เอกสารหลักสูตร (SER)” ครบ','Open PEV Studio and press <b>Open</b> with the starter file; the SER, supporting documents and transcripts appear under “Program documents”.')}</li><li>${tx('กด <b>Save</b> ทุกครั้งที่จบช่วง ไฟล์ .json คือหลักฐานงานของทีม','Press <b>Save</b> at the end of every session; the .json file is the team’s record.')}</li><li>${tx('ซองเอกสาร ช-1 ถึง ช-6 ได้จากวิทยากรหลังส่งจดหมายขอเอกสารเท่านั้น อัปโหลดเข้า PEV Studio เอง','Envelope documents ช-1 to ช-6 come from the facilitator only after the request letter; upload them into PEV Studio yourselves.')}</li></ol></div>
+   <div class="mtf"><a class="btn" href="${PEVS_URL}" target="_blank" rel="noopener">${tx('เปิด PEV Studio','Open PEV Studio')} ↗</a>${fileBtn(ONSF.starter,'')}<span class="note" style="margin-top:6px">PDF</span>${ONSF.trainee.map(f=>fileBtn([f[0].replace('MT-onsite/','MT-onsite/pdf/').replace('.docx','.pdf'),W(f[1].th+' (PDF)',f[1].en+' (PDF)')])).join('')}${ONS_INS?ONSF.inst.map(f=>fileBtn([f[0].replace('MT-onsite/','MT-onsite/pdf/').replace('.docx','.pdf'),W(f[1].th.split(' (')[0]+' (PDF · วิทยากร)',f[1].en.split(' (')[0]+' (PDF · facilitator)')])).join(''):''}${ONS_HASF?ONSF.trainee.map(f=>fileBtn(f)).join('')+(ONS_INS?`<span class="note" style="margin-top:6px">${tx('สำหรับวิทยากร','Facilitators only')}</span>${ONSF.inst.map(f=>fileBtn(f)).join('')}`:''):`<span class="note">${tx('ไฟล์ .docx ของเล่ม SER เอกสารประกอบ ใบระเบียน และซองเอกสาร อยู่ในชุดไฟล์ zip ของ Studio ส่วนไฟล์เริ่มต้นมีข้อความของ SER เอกสารประกอบ และใบระเบียนครบแล้ว','The .docx files (SER, supporting documents, transcripts, envelope) ship in the Studio zip; the starter file already holds the text of the SER, supporting documents and transcripts.')}</span>`}</div></section>
+  <section><h2 class="h2s">${tx('ประเมินรายเกณฑ์ · อุ่นเครื่องด้วยกรณีศึกษาของเกณฑ์นั้นก่อน','Criterion by criterion · warm up with that criterion’s cases first')}</h2><div class="road crts">${tiles}</div></section>
+  <div class="row"><span class="k w">PEV Studio</span><span class="k m">Mock-up</span><span class="k b">Brainstorm</span><span class="k l">${L(KIND.l)}</span></div>
+  ${[0,1,2].map(d=>`<section class="card"><div class="day">${L(AGD[d])}</div>${AG.filter(a=>a.d===d).map(row).join('')}</section>`).join('')}
+  <section class="card pad"><h2>${tx('Mock-up ในวันตรวจเยี่ยม','Mock-ups on the visit day')}</h2><p class="note">${tx('ผู้สวมบทบาทและสถานที่ชุดนี้ตรงกับขั้น “แผนตรวจเยี่ยม” ของ PEV Studio ทีมเลือกได้ 4 จาก 8 กลุ่ม และ 2 จาก 4 แห่ง การเลือกให้ตรงกับประเด็นที่ยังค้างหลัง PV2 คือส่วนหนึ่งของการประเมิน','These role-players and places match PEV Studio’s visit-plan step. Teams pick 4 of 8 groups and 2 of 4 places; choosing them to fit the issues still open after PV2 is part of the assessment.')}</p>
+   <div class="two" style="margin-top:12px"><div><h3>${tx('กลุ่มผู้ให้สัมภาษณ์ (8)','Interview groups (8)')}</h3><ol class="dots">${ONSGRP.map(g=>`<li>${L(g)}</li>`).join('')}</ol></div><div><h3>${tx('สถานที่ (4)','Places (4)')}</h3><ol class="dots">${ONSPLC.map(g=>`<li>${L(g)}</li>`).join('')}</ol></div></div></section>
+  ${ONS_INS?`<section class="card"><div class="pad"><h2>${tx('เฉลยตามรอบ (เฉพาะวิทยากร)','Key by round (facilitators only)')}</h2><p class="note">${tx('จากคู่มือวิทยากร ตารางที่ 2 และ 11 ใช้เทียบกับคอลัมน์ PV1 PV2 และ Day 2/Exit ใน PEV Studio ของแต่ละทีม ระดับยังเป็นร่าง รอผู้ตรวจอาวุโสรับรอง','From the facilitator guide, tables 2 and 11. Compare with each team’s PV1, PV2 and Day 2/Exit columns. Levels are drafts awaiting senior-PEV endorsement.')}</p></div><div class="tw"><table><thead><tr><th>${tx('เกณฑ์','Criterion')}</th><th>PV1</th><th>PV2</th><th>${tx('หลังตรวจเยี่ยม','After visit')}</th><th>${tx('ประเด็น','Issue')}</th><th>${tx('ซองที่ปล่อย','Envelope')}</th><th>${tx('ยืนยันกับ','Confirm with')}</th></tr></thead><tbody>${KEYC.map((k,i)=>`<tr><td class="k1">${i+1} ${esc(L(CRN[i]))}</td>${k.l.map(x=>`<td>${lvChip(x)}</td>`).join('')}<td>${esc(k.iss)}</td><td>${esc(k.env)}</td><td>${esc(k.src)}</td></tr>`).join('')}</tbody></table></div></section>`:''}
+  <section class="card pad"><h2>${tx('กระดาน Brainstorm','Brainstorm board')}</h2>
+   <p>${tx('ใช้กระดานออนไลน์บนจอหน้าห้อง: แต่ละรอบมี QR ให้ผู้อบรมสแกนแล้วพิมพ์ความเห็นจากมือถือโดยไม่ต้องใส่ชื่อ ความเห็นขึ้นเป็นโพสต์อิททันที ตั้งเวลา เปิดและปิดรับได้ เมื่อหมดเวลาระบบจัดกลุ่มให้ และส่งออก Excel ได้','Use the online board on the room screen: each round has its own QR code; participants type anonymously on their phones and notes appear at once. Set the timer, open and close the board, group the notes when time is up, and export to Excel.')}</p>
+   ${window.SERLAB_MODE==='trainee'?`<p class="note">${tx('วิทยากรจะเปิดกระดานบนจอหน้าห้อง ให้สแกน QR ของรอบนั้นด้วยมือถือ','Your facilitator opens the board on the room screen; scan that round’s QR code with your phone.')}</p>`:`<p class="row" style="gap:10px;flex-wrap:wrap">${BS.map((t,i)=>`<a class="btn ${i?'ghost':''}" href="${WS_WEB}brainstorm/#/${3+3*i}" target="_blank" rel="noopener">${tx('รอบ','Round')} ${i+1} ↗</a>`).join('')}<span class="note">${(WS_WEB+'brainstorm/').replace('https://','')}</span></p>`}
+   <h3 style="margin-top:18px">${tx('โน้ตในเครื่องนี้ (สำรอง)','Notes on this device (backup)')}</h3><p class="note">${tx('ใช้เมื่อไม่มีอินเทอร์เน็ต คนคุมเครื่องพิมพ์แทนกลุ่ม โน้ตเก็บในเบราว์เซอร์เครื่องนี้เท่านั้น','For when there is no internet: one person types for the group; notes stay in this browser only.')}</p>
+   <div class="tabs" role="tablist" style="margin-top:12px">${BS.map((t,i)=>`<button class="tab" role="tab" aria-selected="${i===bsTab}" data-bs="${i}">${tx('รอบ','Round')} ${i+1}: ${L(t)}</button>`).join('')}</div>
+   <form class="row" id="f-bs" style="margin-top:14px"><input id="bs-text" aria-label="${tx('ความเห็น','Note')}" placeholder="${tx('พิมพ์ความเห็นหนึ่งเรื่อง','Type one point')}" required style="flex:1;min-width:200px;background:var(--paper);border:1.5px solid var(--rule);border-radius:999px;padding:9px 16px"><button class="btn" type="submit">${tx('ติดโน้ต','Add note')}</button></form>
+   <div class="board">${notes.map((n,i)=>`<div class="sticky"><span>${esc(n)}</span><button class="x" data-bsdel="${i}">${tx('ลบ','Delete')}</button></div>`).join('')||`<p class="note">${tx('ยังไม่มีโน้ตในรอบนี้','No notes in this round yet.')}</p>`}</div></section>
+  <p class="note">${tx('การประเมินผลการตรวจ (Quiz & Poll 10 สถานการณ์คละเกณฑ์) อยู่ที่ ฝึกวิเคราะห์ › การประเมินผลการตรวจ ใช้เสริมในช่วงสรุปได้','The finding-level assessment (Quiz & Poll, 10 mixed situations) sits under Analysis practice and can be used in the debriefs.')} <a href="#cases">${tx('การประเมินผลการตรวจ','Finding-level assessment')} ↗</a></p>`;
+}
+function crit(n){
+  const i=n-1; if(!CRN[i]) return onsite();
+  caseTab=i;
+  const dn=caseDone(i), tot=D.cases[i].items.length, k=KEYC[i];
+  return `<div class="crumb"><a href="#onsite">Onsite</a> / ${tx('ประเมินรายเกณฑ์','Criterion by criterion')} / ${tx('ข้อ','Criterion')} ${n}</div>
+  <div><p class="row" style="margin:0 0 6px"><span class="chip">${tx('เกณฑ์ข้อ','Criterion')} ${n}</span><span class="chip mute">${tx('หลักสูตรวิศวกรรมวัสดุและโลหการ (สมมติ)','Materials and Metallurgical Engineering (mock)')}</span></p><h1>${esc(L(CRN[i]))}</h1><p class="lead">${tx('ทำ 2 ขั้นตามลำดับ: อุ่นเครื่องด้วยกรณีศึกษาของเกณฑ์นี้ แล้วประเมินเกณฑ์เดียวกันในเล่ม SER วัสดุด้วย PEV Studio','Two steps in order: warm up with this criterion’s cases, then rate the same criterion in the materials SER with PEV Studio.')}</p></div>
+  <ol class="csteps"><li class="${dn>=tot?'ok':''}"><b>1</b><span><b>${tx('อุ่นเครื่อง','Warm-up')}</b><br>${tx(`กรณีศึกษา ${dn}/${tot}`,`${dn}/${tot} cases`)}</span></li><li><b>2</b><span><b>${tx('ประเมินในเล่ม SER','Rate in the SER')}</b><br>PEV Studio · 2 · Pre-visit 1</span></li><li><b>3</b><span><b>${tx('สัญญาณ → คำขอ','Signal → request')}</b><br>PEV Studio · 3 · ${tx('ขอเอกสาร','Request')}</span></li></ol>
+  <h2 class="h2s">1 · ${tx('อุ่นเครื่อง: กรณีศึกษาเกณฑ์ข้อ','Warm-up: cases for criterion')} ${n}</h2>
+  <p class="note" style="margin-top:-8px">${tx('อ่านสถานการณ์แล้วเลือกระดับ เฉลยแสดงทันทีและเปลี่ยนคำตอบไม่ได้ ผลนับรวมในเกณฑ์ผ่านชุดกรณีศึกษา 80%','Choose a level for each situation. The answer shows at once and is locked; results count toward the 80% case-study pass mark.')}</p>
+  <section class="card pad wsq"><h3 style="margin-top:0">${tx('ทำอุ่นเครื่องร่วมกันแบบ Quiz & Poll','Run the warm-up together as a Quiz & Poll')}</h3><p class="note" style="margin:4px 0 8px">${tx(`กรณีศึกษา ${tot} ข้อของเกณฑ์นี้บนจอหน้าห้อง ผู้อบรมสแกน QR แล้วโหวตจากมือถือ ตั้งเวลาได้ กด Start / Stop แล้วเฉลย`,`This criterion's ${tot} cases on the room screen; participants scan the QR code and vote by phone. Set the timer, press Start / Stop, then reveal.`)}</p>${wsBtn(n,tx(`เปิดจอ Quiz & Poll · อุ่นเครื่องเกณฑ์ข้อ ${n}`,`Open Quiz & Poll · criterion ${n} warm-up`))}</section>
+  ${srcNote()}${caseSet(i)}
+  <h2 class="h2s">2 · ${tx('ประเมินเกณฑ์ข้อ','Rate criterion')} ${n} ${tx('ในเล่ม SER วัสดุ','in the materials SER')}</h2>
+  <section class="card pad"><div class="two"><div><h3>${tx('อ่านตรงไหน','Where to read')}</h3><p style="margin:6px 0 0">${esc(L(CRREAD[i]))}</p>
+   <h3 style="margin-top:14px">${tx('ตอบ 2 คำถาม','Answer two questions')}</h3><ol class="dots"><li>${tx('ระบบที่หลักสูตรออกแบบไว้เป็นไปตามเกณฑ์ข้อนี้หรือไม่ อ้างตารางหรือหัวข้อ','Does the designed system meet this criterion? Cite the table or item.')}</li><li>${tx('มีสัญญาณใดในเล่มว่าการปฏิบัติจริงอาจไม่ตรงกับระบบนั้น ถ้ามี ใส่เป็นคำขอเอกสารของเกณฑ์นี้ ถ้าต้องดูของจริง จดไว้สำหรับแผนตรวจเยี่ยม','What signals suggest practice may differ from that system? Turn them into requests for this criterion, or note them for the visit plan if only the real thing will show it.')}</li></ol></div>
+   <div><h3>${tx('บันทึกใน PEV Studio','Record in PEV Studio')}</h3><ul class="dots"><li>${tx(`ขั้น 2 · Pre-visit 1 › เกณฑ์ข้อ ${n} มี ${CRITEMS[i]} ข้อ ให้ระดับพร้อมหลักฐาน`,`Step 2 · Pre-visit 1 › criterion ${n} has ${CRITEMS[i]} items; rate each with evidence`)}</li><li>${tx(`ขั้น 3 · ขอเอกสารเพิ่มเติม › เกณฑ์ข้อ ${n} (ทั้งเล่มรวมไม่เกิน 8 รายการ)`,`Step 3 · Document request › criterion ${n} (at most eight requests in all)`)}</li></ul>
+   <label class="note" for="cn-${n}" style="display:block;margin-top:12px">${tx('บันทึกของฉัน (เก็บในเครื่องนี้)','My notes (kept on this device)')}</label><textarea id="cn-${n}" data-cn="${n}" rows="4" style="width:100%;box-sizing:border-box;margin-top:4px;background:var(--paper);border:1.5px solid var(--rule);border-radius:12px;padding:10px 12px;font:inherit">${esc((S.cn||{})[n]||'')}</textarea>
+   <p class="row" style="margin-top:10px"><a class="btn" href="${PEVS_URL}" target="_blank" rel="noopener">${tx('เปิด PEV Studio','Open PEV Studio')} ↗</a></p></div></div></section>
+  ${ONS_INS?`<section class="card pad keyb"><h2>${tx('เฉลยของเกณฑ์นี้ (เฉพาะวิทยากร)','Key for this criterion (facilitators only)')}</h2><p style="margin:6px 0">${esc(k.iss)}</p><p class="row" style="gap:10px">PV1 ${lvChip(k.l[0])} PV2 ${lvChip(k.l[1])} ${tx('หลังตรวจเยี่ยม','After visit')} ${lvChip(k.l[2])}</p><p class="note">${tx('ซองที่ปล่อย','Envelope')}: ${esc(k.env)}<br>${tx('ยืนยันกับ','Confirm with')}: ${esc(k.src)}</p></section>`:''}
+  <nav class="pn">${n>1?`<a href="#crit-${n-1}">‹ ${tx('ข้อ','Criterion')} ${n-1} ${esc(L(CRN[n-2]))}</a>`:`<a href="#onsite">‹ Onsite</a>`}${n<8?`<a href="#crit-${n+1}">${tx('ข้อ','Criterion')} ${n+1} ${esc(L(CRN[n]))} ›</a>`:`<a href="#onsite">Onsite ›</a>`}</nav>`;
+}
+
+function render(keep){
+  const id=(location.hash||'#path').slice(1), y=keep?window.scrollY:0;
+  nav(id);
+  const m=id.match(/^(ep|quiz|mod)-(\d+)$/);
+  const cm=id.match(/^crit-(\d)$/);
+  view.innerHTML=m?(m[1]==='ep'?ep(+m[2]):m[1]==='mod'?mod(+m[2]):quiz(+m[2])):cm?crit(+cm[1]):({learn,analysis,serlab,transcript,cases,onsite,record}[id]||home)();
+  window.scrollTo(0,y);
+}
+document.querySelector('.lang').addEventListener('click',e=>{const b=e.target.closest('[data-lang]');if(!b)return;lang=b.dataset.lang;try{localStorage.setItem('tabee-lang',lang)}catch(_){}render(true)});
+view.addEventListener('click',e=>{
+  const t=e.target.closest('button'); if(!t) return; const d=t.dataset;
+  if(d.vid!==undefined){openVid(+d.vid);return}
+  if(d.vbypass){S.vbypass=true;save();render(true);return}
+  if(d.q!==undefined&&!run.done){run.ans[+d.q]=+d.k;render(true)}
+  else if(d.submit){const m=+d.submit,Q=run.set.map(i=>QZ[m][i]),ok=Q.filter((q,i)=>run.ans[i]===q.a).length,pct=Math.round(ok/Q.length*100),r=S.quiz[m]||{best:0,tries:0};r.best=Math.max(r.best,pct);r.tries++;S.quiz[m]=r;run.done=true;save();render()}
+  else if(d.retry){run=null;render()}
+  else if(d.ct!==undefined){caseTab=+d.ct;render(true)}
+  else if(d.ws!==undefined){S.ws=S.ws||{};S.ws[+d.ws]=S.ws[+d.ws]===d.k?undefined:d.k;save();render(true)}
+  else if(d.case!==undefined){(S.cases[caseTab]=S.cases[caseTab]||{})[+d.case]=d.k;save();render(true)}
+  else if(d.ser!==undefined){serTab=+d.ser;render(true)}
+  else if(d.del!==undefined){S.ser.splice(+d.del,1);save();render(true)}
+  else if(d.key!==undefined){showKey=true;render(true)}
+  else if(d.bs!==undefined){bsTab=+d.bs;render(true)}
+  else if(d.bsdel!==undefined){S.bs[bsTab].splice(+d.bsdel,1);save();render(true)}
+  else if(d.mt!==undefined){mTab=d.mt;render(true)}
+  else if(d.sl!==undefined){const m=+location.hash.slice(5),s=SLIDE[m];slIdx[m]=Math.min(s[2],Math.max(s[1],(slIdx[m]||s[1])+(+d.sl)));render(true)}
+  else if(d.slp!==undefined){const m=+location.hash.slice(5);slIdx[m]=+d.slp;render(true)}
+});
+view.addEventListener('change',e=>{const d=e.target.dataset;
+  if(d.watch){S.watched[d.watch]=e.target.checked;save()}
+  else if(d.read){S.read[d.read]=e.target.checked;save()}
+  else if(d.done){S.done['o:'+d.done]=e.target.checked;save()}
+  else if(d.tx){S.tx[d.tx]=e.target.value;save()}
+  else if(d.cn){S.cn=S.cn||{};S.cn[d.cn]=e.target.value;save()}});
+view.addEventListener('submit',e=>{e.preventDefault();
+  if(e.target.id==='f-ser'){S.ser.push({part:$('#s-part').value,text:$('#s-text').value.trim(),lv:$('#s-lv').value,ask:$('#s-ask').value.trim()});save();render(true)}
+  else if(e.target.id==='f-bs'){(S.bs[bsTab]=S.bs[bsTab]||[]).push($('#bs-text').value.trim());save();render(true);$('#bs-text').focus()}});
+window.addEventListener('hashchange',()=>{if(!/^#quiz-/.test(location.hash))run=null;if(/^#mod-/.test(location.hash))mTab='read';render()});
+document.addEventListener('keydown',e=>{if(mTab!=='slides'||!/^#mod-/.test(location.hash)||/input|textarea|select/i.test(e.target.tagName))return;const b=document.querySelector(e.key==='ArrowRight'?'[data-sl="1"]':e.key==='ArrowLeft'?'[data-sl="-1"]':null);if(b&&!b.disabled)b.click()});
+/* sidebar: drawer on small screens, phase memory, in-page jumps */
+const sideEl=$('#side'), scrim=$('#scrim'), menuB=$('#menu');
+function drawer(open){document.body.classList.toggle('drawer',open);scrim.hidden=!open;menuB.setAttribute('aria-expanded',open);if(open){const c=$('#sideClose');c&&c.focus()}}
+menuB.addEventListener('click',()=>drawer(true));
+scrim.addEventListener('click',()=>{drawer(false);menuB.focus()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.body.classList.contains('drawer')){drawer(false);menuB.focus()}});
+sideEl.addEventListener('click',e=>{
+  if(e.target.closest('#sideClose')){drawer(false);menuB.focus();return}
+  const j=e.target.closest('[data-jump]');
+  if(j){const el=document.getElementById(j.dataset.jump);if(el){drawer(false);el.scrollIntoView({behavior:'smooth',block:'start'})}return}
+  if(e.target.closest('a'))drawer(false);
+});
+sideEl.addEventListener('toggle',e=>{const d=e.target.closest('details[data-ph]');if(d&&sideOpen)sideOpen[d.dataset.ph]=d.open},true);
+$('#vclose').addEventListener('click',closeVid);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#vdock').hidden)closeVid()});
+render();
+</script>
+</body>
+</html>
