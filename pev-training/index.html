@@ -116,6 +116,7 @@ ul.dots{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
 .tabs{display:flex;gap:6px;flex-wrap:wrap}
 .tab{all:unset;box-sizing:border-box;cursor:pointer;font:500 14px var(--f-d);padding:6px 14px;border-radius:999px;border:1.5px solid var(--rule)}
 .tab[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.psel{font:600 15px var(--f-d);background:var(--paper);color:var(--ink);border:1.5px solid var(--brand);border-radius:999px;padding:7px 14px;max-width:100%}
 .tab:focus-visible{outline:3px solid var(--spark);outline-offset:2px}
 .score{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
 .score .num{font:800 44px/1 var(--f-d);font-variant-numeric:tabular-nums}
@@ -363,6 +364,42 @@ body.vopen{overflow:hidden}
 .trkey{border-color:#E1B7B7;background:#FFFBFA}
 @media (max-width:760px){.trh{grid-template-columns:1fr}.terms{grid-template-columns:1fr}.trdoc{min-width:0;padding:14px}}
 @media print{body.pr1 .side,body.pr1 .bar,body.pr1 #view>*:not(.tw),body.pr1 .scrim,body.pr1 #vdock{display:none!important}body.pr1 .mainc,body.pr1 .shell{display:block;margin:0}body.pr1 .trdoc{border:0;min-width:0}body.pr1 .tw{overflow:visible}}
+
+/* onsite: kinds of work, order-of-work cards */
+.k{text-decoration:none;display:inline-block}
+.k.w,.ag .k.w{background:#1d4f91;color:#fff}.k.m,.ag .k.m{background:#a3122c;color:#fff}.k.b,.ag .k.b{background:#b45309;color:#fff}.k.l,.ag .k.l{background:#0f766e;color:#fff}
+a.k:hover{filter:brightness(1.15)}a.k:focus-visible,.ktab:focus-visible{outline:3px solid var(--spark);outline-offset:2px}
+.kleg{gap:8px;flex-wrap:wrap;align-items:center}
+.osteps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start}
+.ostep{display:flex;flex-direction:column;overflow:hidden}
+.ostep .oh{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--tint);color:var(--ink);text-decoration:none}
+.ostep .on{flex:none;width:38px;height:38px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font:800 19px var(--f-d)}
+.ostep .ot{flex:1;min-width:0;display:flex;flex-direction:column}.ostep .ot b{font:700 16.5px var(--f-d)}.ostep .ot small{color:var(--soft);font-size:13px}
+.olist{list-style:none;margin:0;padding:6px 16px 12px;display:flex;flex-direction:column}
+.olist li{display:flex;gap:8px;align-items:flex-start;justify-content:space-between;padding:8px 0;border-top:1px solid var(--rule)}.olist li:first-child{border-top:0}
+.olist li>a:first-child{flex:1;min-width:0;display:flex;flex-direction:column;text-decoration:none;color:var(--ink)}.olist li>a:first-child:hover .ol{color:var(--brand)}
+.olist .tm,.klist .tm{font:500 12px ui-monospace,Menlo,monospace;color:var(--soft)}.olist .ol{font-size:14.5px;line-height:1.4}
+.olist .k{flex:none;margin-top:2px;font-size:11.5px;padding:2px 8px}
+.ktabs{gap:8px;flex-wrap:wrap;margin:12px 0 0}
+.ktab{all:unset;box-sizing:border-box;cursor:pointer;font:600 14px var(--f-d);padding:7px 16px;border-radius:10px 10px 0 0;opacity:.55}
+.ktab[aria-selected="true"]{opacity:1;padding-bottom:10px}
+.kpanel{border:2px solid;border-radius:0 12px 12px 12px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.kp-w{border-color:#1d4f91}.kp-m{border-color:#a3122c}.kp-b{border-color:#b45309}.kp-l{border-color:#0f766e}
+.klist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.klist li{display:grid;grid-template-columns:170px 1fr auto;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--rule)}
+.klist li a{text-decoration:none}.klist li>a:not(.chip){color:var(--ink)}.klist li>a:not(.chip):hover{color:var(--brand)}
+.ag.flash{animation:agf 1.6s ease}@keyframes agf{0%,60%{background:var(--tint)}100%{background:transparent}}
+.mkdk{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between}
+@media (max-width:980px){.osteps{grid-template-columns:1fr}}
+@media (max-width:640px){.klist li{grid-template-columns:1fr}}
+
+/* picture slots: overview boxes, hero, module 16-17 covers (files appear when uploaded) */
+.hero.noimg{grid-template-columns:1fr}.hero img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+.stop{isolation:isolate}.stop .sbg{position:absolute;inset:auto 0 0 0;height:150px;z-index:-1;background-size:cover;background-position:center;display:none}
+.stop.pic{padding-bottom:160px}.stop.pic .sbg{display:block}
+.stop.pic .sbg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--sheet) 0%,transparent 38%)}
+.mx[hidden]{display:none}
+.mcov{margin:0}.mcov img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:16px;border:1px solid var(--rule)}.mcov figcaption{font-size:12.5px;color:var(--soft);margin-top:4px}
 </style>
 </head>
 <body>
@@ -504,7 +541,7 @@ const mSt=m=>(m===0?isRead(m):passed(m))?'d':(isRead(m)||S.quiz[m]||S.watched[m]
 function sideHTML(id){
   const s=stat(), mm=(id.match(/^(?:mod|quiz|ep)-(\d+)$/)||[])[1], cur=mm===undefined?null:(id.startsWith('ep-')?((EP.find(e=>e.n===+mm)||{mods:[]}).mods[0]):+mm);
   const sl=window.serlabDone?serlabDone():0, rd=ALLM.filter(isRead).length;
-  const pct=Math.round(100*[rd/ALLM.length,s.qp/QM.length,s.ca/TOTAL_CASES,sl/7,s.on?s.od/s.on:0].reduce((a,b)=>a+b,0)/5);
+  const pct=Math.round(100*[rd/ALLM.length,s.qp/QM.length,s.ca/TOTAL_CASES,anDone()/16,s.on?s.od/s.on:0].reduce((a,b)=>a+b,0)/5);
   const st=(n,of)=>n>=of&&of>0?'d':n>0?'p':'t';
   if(!sideOpen){sideOpen={};PHASES.forEach((ph,i)=>sideOpen[i]=cur!==null&&ph[1].includes(cur))}
   else if(cur!==null) PHASES.forEach((ph,i)=>{if(ph[1].includes(cur))sideOpen[i]=true});
@@ -520,18 +557,22 @@ function sideHTML(id){
   <nav aria-label="${tx('แถบนำทาง Studio','Studio navigation')}">
   ${grp('01',tx('เส้นทาง','Path'),item('path',tx('ภาพรวม','Overview'),st(pct,100),'',id==='path'||id===''))}
   ${grp('02',tx('เรียนออนไลน์','Online learning'),item('learn',tx('ทุกโมดูล','All modules'),st(s.qp,QM.length),`${s.qp}/${QM.length}`,id==='learn')+ph)}
-  ${grp('03',tx('ฝึกวิเคราะห์','Analysis practice'),item('transcript',tx('ใบระเบียนผลการศึกษา','Transcripts'),st(trAll(),35),`${trAll()}/35`,id==='transcript')+item('cases',tx('การประเมินผลการตรวจ','Finding-level assessment'),'t','',id==='cases')+item('serlab',tx('ชุดฝึก SER 7 หลักสูตร','Mock SER lab'),st(sl,7),`${sl}/7`,id==='serlab'))}
-  ${grp('04',tx('อบรม Onsite','On-site training'),item('onsite',tx('กำหนดการ 2 วัน · SER วัสดุ','Two days · materials SER'),st(s.od,s.on),`${s.od}/${s.on}`,id==='onsite')+`<details class="ph" data-ph="crit"${sideOpen.crit||/^crit-/.test(id)?' open':''}><summary><span class="lb">${tx('ประเมินรายเกณฑ์ 1–8','Criteria 1–8')}</span><span class="mt2">${s.ca}/${TOTAL_CASES}</span></summary>${CRN.map((c,i)=>{const on=id==='crit-'+(i+1),dn=caseDone(i),tot=D.cases[i].items.length;return `<a class="it m${on?' on':''}" href="#crit-${i+1}"${on?' aria-current="page"':''}>${ico[dn>=tot?'d':dn?'p':'t']}<span class="mn">${tx('ข้อ','C')}${i+1}</span><span class="lb">${esc(L(c))}</span></a>`}).join('')}</details>`)}
+  ${grp('03',tx('ฝึกวิเคราะห์','Analysis practice'),item('transcript',tx('ใบระเบียนผลการศึกษา','Transcripts'),st(trDone(trCur()),5),`${trDone(trCur())}/5`,id==='transcript')+item('cases',tx('การประเมินผลการตรวจ','Finding-level assessment'),st(wsN(),10),`${wsN()}/10`,id==='cases')+item('serlab',tx('ชุดฝึก SER จำลอง','Mock SER lab'),st(slOne(),1),`${slOne()}/1`,id==='serlab'))}
+  ${grp('04',tx('อบรม Onsite','On-site training'),item('onsite',tx('เริ่มที่นี่ · ลำดับงาน','Start here · order of work'),st(s.od,s.on),`${s.od}/${s.on}`,id==='onsite')
+   +[0,1,2].map(d=>`<a class="it${id==='on-'+d?' on':''}" href="#on-${d}"${id==='on-'+d?' aria-current="page"':''}>${ico[st(dayDone(d),dayN(d))]}<span class="mn" style="width:auto">${d+1} ·</span><span class="lb">${L(DAYS[d])}</span><span class="mt2">${dayDone(d)}/${dayN(d)}</span></a>`
+     +(d===1?`<details class="ph" data-ph="crit"${sideOpen.crit||/^crit-/.test(id)?' open':''}><summary><span class="lb">${tx('ประเมินรายเกณฑ์ 1–8','Criteria 1–8')}</span><span class="mt2">${s.ca}/${TOTAL_CASES}</span></summary>${CRN.map((c,i)=>{const on=id==='crit-'+(i+1),dn=caseDone(i),tot=D.cases[i].items.length;return `<a class="it m${on?' on':''}" href="#crit-${i+1}"${on?' aria-current="page"':''}>${ico[dn>=tot?'d':dn?'p':'t']}<span class="mn">${tx('ข้อ','C')}${i+1}</span><span class="lb">${esc(L(c))}</span></a>`}).join('')}</details>`:'')
+     +(d===2?`<details class="ph" data-ph="mock"${sideOpen.mock||/^mock/.test(id)?' open':''}><summary><span class="lb">${tx('Mock-up แต่ละช่วง','Mock-up sessions')}</span><span class="mt2">${M16A().length}</span></summary><a class="it m${id==='mock'?' on':''}" href="#mock"><span class="mn">▦</span><span class="lb">${tx('ทุกช่วง','All sessions')}</span></a>${M16A().map(a=>{const on=id==='mock-'+a.code;return `<a class="it m${on?' on':''}" href="#mock-${a.code}"${on?' aria-current="page"':''}><span class="mn">${a.code}</span><span class="lb">${esc(LL(a.h))}</span></a>`}).join('')}</details>`:'')).join('')
+   +item('on-bs',tx('กระดาน Brainstorm','Brainstorm board'),'t','',id==='on-bs')+(ONS_INS?item('on-key',tx('เฉลยตามรอบ (วิทยากร)','Key by round (facilitators)'),'t','',id==='on-key'):''))}
   ${grp('05',tx('ผลของฉัน','My record'),item('record',tx('สรุปผลและเกณฑ์ผ่าน','Results and pass rules'),'t','',id==='record'))}
   </nav>
   <p class="saved"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="#6FBF8E" stroke-width="2" fill="none" stroke-linecap="round"/></svg>${tx('บันทึกในเครื่องนี้อัตโนมัติ','Saved on this device')}</p>`;
 }
 function nav(id){
-  const g=/^(ep|quiz|mod)/.test(id)?'learn':['serlab','transcript','cases'].includes(id)?'analysis':/^crit-/.test(id)?'onsite':id;
+  const g=/^(ep|quiz|mod)/.test(id)?'learn':['serlab','transcript','cases'].includes(id)?'analysis':/^(crit-|on-|mock)/.test(id)?'onsite':id;
   $('#side').innerHTML=sideHTML(id);
   {const on=$('#side .it.on');if(on){const r=on.getBoundingClientRect(),sb=$('#side').getBoundingClientRect();if(r.top<sb.top+120||r.bottom>sb.bottom-20)on.scrollIntoView({block:'center'})}}
   const mm=id.match(/^(ep|quiz|mod)-(\d+)$/);
-  $('#crumbt').textContent=/^crit-/.test(id)?tx('Onsite · เกณฑ์ข้อ ','Onsite · criterion ')+id.slice(5):mm?(mm[1]==='ep'?'EP.'+mm[2]:'Module '+mm[2]+(mm[1]==='quiz'?tx(' · แบบทดสอบ',' · Quiz'):'')):({path:tx('ภาพรวม','Overview'),learn:tx('เรียนออนไลน์','Online learning'),analysis:tx('ฝึกวิเคราะห์','Analysis practice'),transcript:tx('ใบระเบียนผลการศึกษา','Transcripts'),cases:tx('การประเมินผลการตรวจ','Finding-level assessment'),serlab:tx('ชุดฝึก SER จำลอง','Mock SER lab'),onsite:'Onsite',record:tx('ผลของฉัน','My record')}[id]||tx('ภาพรวม','Overview'));
+  $('#crumbt').textContent=/^on-[012]$/.test(id)?'Onsite · '+L(DAYS[+id.slice(3)]):/^mock/.test(id)?'Onsite · Mock-up'+(id.length>5?' '+id.slice(5):''):id==='on-bs'?'Onsite · Brainstorm':id==='on-key'?tx('Onsite · เฉลยตามรอบ','Onsite · key'):/^crit-/.test(id)?tx('Onsite · เกณฑ์ข้อ ','Onsite · criterion ')+id.slice(5):mm?(mm[1]==='ep'?'EP.'+mm[2]:'Module '+mm[2]+(mm[1]==='quiz'?tx(' · แบบทดสอบ',' · Quiz'):'')):({path:tx('ภาพรวม','Overview'),learn:tx('เรียนออนไลน์','Online learning'),analysis:tx('ฝึกวิเคราะห์','Analysis practice'),transcript:tx('ใบระเบียนผลการศึกษา','Transcripts'),cases:tx('การประเมินผลการตรวจ','Finding-level assessment'),serlab:tx('ชุดฝึก SER จำลอง','Mock SER lab'),onsite:'Onsite',record:tx('ผลของฉัน','My record')}[id]||tx('ภาพรวม','Overview'));
   $('#menu').setAttribute('aria-label',tx('เปิดเมนู','Open menu'));
   $('#stops').setAttribute('aria-label',tx('ขั้นของการอบรม','Training stages'));
   $('#stops').innerHTML=[['path','',tx('เส้นทาง','Path')],['learn','1',tx('เรียนออนไลน์','Online')],['analysis','2',tx('ฝึกวิเคราะห์','Analysis')],['onsite','3','Onsite'],['record','4',tx('ผลของฉัน','My record')]]
@@ -544,12 +585,13 @@ function home(){
   const s=stat();
   const stops=[
    ['learn','1',tx('เรียนออนไลน์','Online learning'),`${s.qp}/${QM.length}`,tx('แบบทดสอบที่ผ่าน','quizzes passed'),s.qp/QM.length,tx(`${ALLM.length} โมดูล บทอ่าน สไลด์ PDF วิดีโอ 14 ตอน และแบบทดสอบ`,`${ALLM.length} modules: readings, PDF slides, 14 videos and quizzes`)],
-   ['analysis','2',tx('ฝึกวิเคราะห์','Analysis practice'),`${s.ca}/${TOTAL_CASES}`,tx('กรณีศึกษาที่ทำแล้ว','cases done'),s.ca/TOTAL_CASES,tx('ใบระเบียน การประเมินผลการตรวจ และชุดฝึก SER 7 หลักสูตร','Transcripts, finding-level assessment and the 7-program mock SER lab')],
+   ['analysis','2',tx('ฝึกวิเคราะห์','Analysis practice'),`${anDone()}/16`,tx('งานที่ทำแล้ว','tasks done'),anDone()/16,tx('ใบระเบียน 5 ฉบับ การประเมินผลการตรวจ 10 ข้อ และชุดฝึก SER 1 หลักสูตร','Five transcripts, ten finding-level situations and one mock SER')],
    ['onsite','3','Onsite',`${s.od}/${s.on}`,tx('ช่วงที่ทำแล้ว','sessions done'),s.od/s.on,tx('ตรวจเยี่ยมจำลอง 2 วันตามโครงของ ABET','Two-day simulated visit on ABET’s outline')],
    ['record','4',tx('ผลของฉัน','My record'),'',tx('เทียบเกณฑ์ขึ้นทะเบียน','Against registration criteria'),0,tx('สรุปผลทุกขั้นเพื่อเสนอขึ้นทะเบียน PEV','All results, ready for PEV registration')]];
-  const next=s.qp<QM.length?0:s.ca<TOTAL_CASES?1:s.od<s.on?2:3;
-  return `<section class="hero"><div><h1>${tx('เส้นทางสู่การเป็นผู้ตรวจประเมิน TABEE','Your path to becoming a TABEE program evaluator')}</h1><p class="lead">${tx('เรียนจากสื่อของ TABEE 14 ตอน ฝึกวิเคราะห์กับหลักสูตรจำลอง แล้วเข้า Mock-up visit ก่อนสังเกตการณ์การตรวจจริง','Learn from TABEE’s 14 episodes, practise on a mock program, then join the mock-up visit before observing a real one.')}</p><p style="margin-top:18px"><a class="btn" href="#${stops[next][0]}">${tx('ทำต่อ','Continue')}: ${stops[next][2]}</a></p></div><img src="covers/0.jpg" alt="${tx('ปกสื่อการเรียนรู้ออนไลน์ของ TABEE จำนวน 14 ตอน','Cover of TABEE’s 14-episode online course')}" width="560" height="315"></section>
-  <section class="road">${stops.map((a,i)=>`<a class="stop ${i===next?'on':''}" href="#${a[0]}"><span class="no">${a[1]}</span><h3>${a[2]}</h3><span class="note">${a[6]}</span>${a[3]?`<span class="big">${a[3]}</span><span class="note">${a[4]}</span><span class="meter"><i style="width:${Math.round(a[5]*100)}%"></i></span>`:`<span class="note" style="margin-top:8px">${a[4]}</span>`}</a>`).join('')}</section>
+  const next=s.qp<QM.length?0:anDone()<16?1:s.od<s.on?2:3;
+  return `<section class="hero"><div><h1>${tx('เส้นทางสู่การเป็นผู้ตรวจประเมิน TABEE','Your path to becoming a TABEE program evaluator')}</h1><p class="lead">${tx('เรียนจากสื่อของ TABEE 14 ตอน ฝึกวิเคราะห์กับหลักสูตรจำลอง แล้วเข้า Mock-up visit ก่อนสังเกตการณ์การตรวจจริง','Learn from TABEE’s 14 episodes, practise on a mock program, then join the mock-up visit before observing a real one.')}</p><p style="margin-top:18px"><a class="btn" href="#${stops[next][0]}">${tx('ทำต่อ','Continue')}: ${stops[next][2]}</a></p></div><img src="home/hero.jpg" alt="${tx('คณะผู้ตรวจประเมินทำงานร่วมกับหลักสูตรวิศวกรรมศาสตร์','Program evaluators at work with an engineering program')}" width="1600" height="900" onload="document.getElementById('ainote').hidden=false" onerror="this.closest('.hero').classList.add('noimg');this.remove()"></section>
+  <section class="road">${stops.map((a,i)=>`<a class="stop ${i===next?'on':''}" href="#${a[0]}"><span class="sbg" style="background-image:url(home/box-${i+1}.jpg)"><img src="home/box-${i+1}.jpg" alt="" hidden onload="this.closest('.stop').classList.add('pic');document.getElementById('ainote').hidden=false" onerror="this.parentNode.remove()"></span><span class="no">${a[1]}</span><h3>${a[2]}</h3><span class="note">${a[6]}</span>${a[3]?`<span class="big">${a[3]}</span><span class="note">${a[4]}</span><span class="meter"><i style="width:${Math.round(a[5]*100)}%"></i></span>`:`<span class="note" style="margin-top:8px">${a[4]}</span>`}</a>`).join('')}</section>
+  <p class="note" id="ainote" hidden>${tx('ภาพประกอบสร้างด้วย AI (Gemini)','AI-generated illustrations (Gemini)')}</p>
   <p class="note">${tx('ผลการเรียนเก็บในเบราว์เซอร์เครื่องนี้เท่านั้น ยังไม่ส่งถึงวิทยากรหรือเจ้าหน้าที่','Progress is saved in this browser only. It is not yet sent to facilitators or staff.')}</p>`;
 }
 function ep(n){const e=EP.find(x=>x.n===n);location.replace('#mod-'+(e?e.mods[0]:''));return ''}
@@ -585,9 +627,9 @@ function quiz(m){
 }
 function analysis(){
   const s=stat();
-  const it=[['transcript',tx('วิเคราะห์ใบระเบียนผลการศึกษา','Analyse transcripts'),tx('7 หลักสูตร หลักสูตรละ 5 ฉบับ ตรวจเทียบเล่ม SER รายวิชา รายวิชาบังคับก่อน และข้อบังคับการศึกษา','Seven programs, five transcripts each, checked against the SER, course list, prerequisites and regulations.'),`${trAll()}/35 ${tx('ฉบับ','done')}`],
-   ['cases',tx('การประเมินผลการตรวจ','Finding-level assessment'),tx('Quiz & Poll 10 สถานการณ์คละเกณฑ์ ผู้อบรมสแกน QR แล้วโหวตระดับข้อค้นพบจากมือถือ','Quiz & Poll: ten mixed situations; participants scan a QR code and vote a finding level by phone.'),tx('10 สถานการณ์','10 situations')],
-   ['serlab',tx('ชุดฝึก SER จำลอง 7 หลักสูตร','Mock SER lab: 7 programs'),tx('ฝึกครบ 6 ขั้น ตั้งแต่ Pre-visit 1 จดหมายขอเอกสาร Pre-visit 2 แผนตรวจเยี่ยม ตรวจเยี่ยมจำลอง จนถึงข้อค้นพบสุดท้าย','Six steps: Pre-visit 1, request letter, Pre-visit 2, visit plan, mock visit and final findings.'),`${window.serlabDone?serlabDone():0}/7 ${tx('หลักสูตร','programs')}`]];
+  const it=[['transcript',tx('วิเคราะห์ใบระเบียนผลการศึกษา','Analyse transcripts'),tx('เลือก 1 หลักสูตร ตรวจใบระเบียน 5 ฉบับ เทียบเล่ม SER รายวิชา รายวิชาบังคับก่อน และข้อบังคับการศึกษา ค่าเริ่มต้นคือวิศวกรรมวัสดุและโลหการ','Pick one program and check five transcripts against the SER, course list, prerequisites and regulations. Default: Materials and Metallurgical Engineering.'),`${trDone(trCur())}/5 ${tx('ฉบับ','done')}`],
+   ['cases',tx('การประเมินผลการตรวจ','Finding-level assessment'),tx('Quiz & Poll 10 สถานการณ์คละเกณฑ์ ผู้อบรมสแกน QR แล้วโหวตระดับข้อค้นพบจากมือถือ','Quiz & Poll: ten mixed situations; participants scan a QR code and vote a finding level by phone.'),`${wsN()}/10 ${tx('สถานการณ์','situations')}`],
+   ['serlab',tx('ชุดฝึก SER จำลอง','Mock SER lab'),tx('เลือก 1 หลักสูตร (ค่าเริ่มต้นคือวิศวกรรมวัสดุและโลหการ) ฝึกครบ 6 ขั้น ตั้งแต่ Pre-visit 1 จดหมายขอเอกสาร Pre-visit 2 แผนตรวจเยี่ยม ตรวจเยี่ยมจำลอง จนถึงข้อค้นพบสุดท้าย','Pick one program (default: Materials and Metallurgical Engineering). Six steps: Pre-visit 1, request letter, Pre-visit 2, visit plan, mock visit and final findings.'),`${slOne()}/1 ${tx('หลักสูตร','program')}`]];
   return `<div><h1>${tx('ฝึกวิเคราะห์','Analysis practice')}</h1><p class="lead">${tx('งานฝึกก่อนและระหว่าง Onsite กรณีศึกษารายเกณฑ์ข้อ 1–8 ย้ายไปอยู่ใน Onsite แล้ว เพื่อทำก่อนประเมินเกณฑ์เดียวกันในเล่ม SER วัสดุ','Practice before and during Onsite. The criterion 1–8 case sets now live in Onsite, done just before rating the same criterion in the materials SER.')}</p></div>
   <section class="road" style="grid-template-columns:repeat(auto-fit,minmax(250px,1fr))">${it.map((a,i)=>`<a class="stop" href="#${a[0]}"><span class="no">${String.fromCharCode(65+i)}</span><h3>${a[1]}</h3><span class="note">${a[2]}</span><span class="row" style="margin-top:10px"><span class="chip">${a[3]}</span></span></a>`).join('')}</section>`;
 }
@@ -626,6 +668,10 @@ const OFF={'1':'1','2':'2','S':'ฤดูร้อน'};
 const trw=k=>(S.trw=S.trw||{})[k]||(S.trw[k]={c:{},v:'',n:'',q:''});
 const trDone=p=>TRX?TRX.progs[p].tr.filter(t=>{const w=(S.trw||{})[p+'-'+t.id];return w&&w.v}).length:0;
 const trAll=()=>TRP.reduce((a,p)=>a+trDone(p),0);
+const trCur=()=>TRP.includes(S.trp)?S.trp:'MT';
+const wsN=()=>Object.values(S.ws||{}).filter(Boolean).length;
+const slOne=()=>Math.min(1,window.serlabDone?serlabDone():0);
+const anDone=()=>trDone(trCur())+wsN()+slOne();
 let trKey={}, trSel=null;
 const gfmt=x=>x==null?'–':Number(x).toFixed(2);
 function trCourses(P){
@@ -680,9 +726,9 @@ function trSheet(p,t){
 }
 function transcript(){
   const head=`<div class="crumb"><a href="#analysis">${tx('ฝึกวิเคราะห์','Analysis practice')}</a> / ${tx('ใบระเบียน','Transcripts')}</div>
-  <div><h1>${tx('วิเคราะห์ใบระเบียนผลการศึกษา','Analyse transcripts')}</h1><p class="lead">${tx('เลือกหลักสูตร แล้วใช้เล่ม SER และเอกสารรายวิชาเป็นฐาน ตรวจใบระเบียน 5 ฉบับ ฉบับละแบบ: ไม่มีปัญหา เรียนเกิน 4 ปี ลงทะเบียนไม่เป็นไปตามเงื่อนไขรายวิชา ถอนแล้วเรียนภาคฤดูร้อน และสถานภาพรอพินิจ','Pick a program, then use its SER and course document to check five transcripts, one of each kind: clean, more than four years, prerequisite breaches, withdrawal then summer, and probation.')}</p></div>`;
+  <div><h1>${tx('วิเคราะห์ใบระเบียนผลการศึกษา','Analyse transcripts')}</h1><p class="lead">${tx('เลือก 1 หลักสูตร (ค่าเริ่มต้นคือวิศวกรรมวัสดุและโลหการ) แล้วใช้เล่ม SER และเอกสารรายวิชาเป็นฐาน ตรวจใบระเบียน 5 ฉบับ ฉบับละแบบ: ไม่มีปัญหา เรียนเกิน 4 ปี ลงทะเบียนไม่เป็นไปตามเงื่อนไขรายวิชา ถอนแล้วเรียนภาคฤดูร้อน และสถานภาพรอพินิจ','Pick one program (Materials and Metallurgical Engineering by default), then use its SER and course document to check five transcripts, one of each kind: clean, more than four years, prerequisite breaches, withdrawal then summer, and probation.')}</p></div>`;
   if(!TRX) return head+`<section class="card pad"><span class="chip warn">${tx('ไม่พบไฟล์ข้อมูลใบระเบียน','Transcript data not found')}</span></section>`;
-  const p=TRP.includes(S.trp)?S.trp:'ChE', P=TRX.progs[p], d=S.trd||'course';
+  const p=trCur(), P=TRX.progs[p], d=S.trd||'course';
   const tabs=[['course',tx('รายวิชาและแผนการศึกษา','Courses and study plan')],['flow',tx('ผังลำดับรายวิชา','Course flow')],['rules',tx('ข้อบังคับและเกณฑ์สำเร็จ','Rules and graduation')],['ser',tx('เล่ม SER','SER')]].concat(P.tr.map((t,i)=>[t.id,`${tx('ใบระเบียน','Transcript')} ${i+1}`]));
   const sw=t=>{const w=(S.trw||{})[p+'-'+t];return w&&w.v?' ✓':''};
   let body='';
@@ -699,7 +745,7 @@ function transcript(){
    <iframe class="serf" src="trx/ser/${p}.html" title="SER ${esc(P.th)}" loading="lazy"></iframe></section>`}
   else {const t=P.tr.find(x=>x.id===d)||P.tr[0];
    body=`<section class="card pad"><span class="chip">${esc(t.id)}</span> <b>${esc(t.title)}</b> <span class="note">· ${esc(t.desc)}</span></section><div class="tw">${trDoc(P,t)}</div>${trSheet(p,t)}`}
-  return head+`<section class="card pad"><h2 style="margin-top:0">${tx('เลือกหลักสูตร','Choose a program')}</h2><div class="tabs" role="tablist">${TRP.map(x=>`<button class="tab" role="tab" aria-selected="${x===p}" data-trp="${x}">${esc(TRX.progs[x].th)} <span class="note">${trDone(x)}/5</span></button>`).join('')}</div></section>
+  return head+`<section class="card pad"><div class="row" style="gap:12px;flex-wrap:wrap;align-items:center"><h2 style="margin:0">${tx('หลักสูตรที่เลือก','Your program')}</h2><select class="psel" data-trpsel aria-label="${tx('เลือกหลักสูตร','Choose a program')}">${['MT'].concat(TRP.filter(x=>x!=='MT')).map(x=>`<option value="${x}"${x===p?' selected':''}>${esc(TRX.progs[x].th)}${x==='MT'?tx(' (ค่าเริ่มต้น)',' (default)'):''} · ${trDone(x)}/5</option>`).join('')}</select><span class="chip ${trDone(p)>=5?'ok':''}">${tx('ตรวจแล้ว','Checked')} ${trDone(p)}/5</span></div><p class="note" style="margin:8px 0 0">${tx('ทำ 1 หลักสูตร 5 ฉบับก็ครบ หลักสูตรอื่นเลือกฝึกเพิ่มได้','One program, five transcripts, completes this task. Other programs are optional extra practice.')}</p></section>
   <section class="card pad"><div class="tabs" role="tablist">${tabs.map(([k,n])=>`<button class="tab" role="tab" aria-selected="${k===d}" data-trd="${k}">${n}${/^T\d$/.test(k)?sw(k):''}</button>`).join('')}</div></section>${body}`;
 }
 view.addEventListener('click',e=>{const b=e.target.closest('[data-trp],[data-trd],[data-trkey],[data-trprint],[data-fc]');if(!b)return;const d=b.dataset;
@@ -710,7 +756,7 @@ view.addEventListener('click',e=>{const b=e.target.closest('[data-trp],[data-trd
   else if(d.fc){flowPick(d.fc)}});
 view.addEventListener('keydown',e=>{const g=e.target.closest&&e.target.closest('[data-fc]');if(g&&(e.key==='Enter'||e.key===' ')){e.preventDefault();flowPick(g.dataset.fc)}});
 function flowPick(code){
-  const P=TRX.progs[TRP.includes(S.trp)?S.trp:'ChE'], C={};P.courses.forEach(c=>C[c.c]=c);
+  const P=TRX.progs[trCur()], C={};P.courses.forEach(c=>C[c.c]=c);
   const up=new Set(),dn=new Set();const U=x=>(C[x]?C[x].pre.concat(C[x].co):[]).forEach(y=>{if(!up.has(y)){up.add(y);U(y)}});
   const D=x=>P.courses.filter(c=>c.pre.includes(x)||c.co.includes(x)).forEach(c=>{if(!dn.has(c.c)){dn.add(c.c);D(c.c)}});
   if(trSel===code){trSel=null}else{trSel=code;U(code);D(code)}
@@ -719,7 +765,8 @@ function flowPick(code){
   const c=C[code],i=$('#flinfo');if(i)i.innerHTML=trSel?`<b>${esc(c.c)} ${esc(c.n)}</b> · ${c.cr} ${tx('หน่วยกิต','credits')} · ${tx('บังคับก่อน','prerequisite')}: ${c.pre.join(', ')||'–'} · ${tx('เรียนพร้อมกัน','corequisite')}: ${c.co.join(', ')||'–'} · ${tx('ต้องผ่านก่อนทั้งสาย','full chain before')} ${up.size} · ${tx('รายวิชาที่ต่อยอด','unlocks')} ${dn.size}${c.nt?' · '+esc(c.nt):''}`:tx('ยังไม่ได้เลือกรายวิชา','No course selected');
 }
 view.addEventListener('change',e=>{const d=e.target.dataset;
-  if(d.trc){const [k,r]=d.trc.split('|');trw(k).c[r]=e.target.value;save()}
+  if(d.trpsel!==undefined){S.trp=e.target.value;S.trd='course';save();render(true)}
+  else if(d.trc){const [k,r]=d.trc.split('|');trw(k).c[r]=e.target.value;save()}
   else if(d.trn){const [k,f]=d.trn.split('|');trw(k)[f]=e.target.value;save();if(f==='v')render(true)}});
 view.addEventListener('input',e=>{const d=e.target.dataset;if(d.trn&&d.trn.endsWith('|n')||d.trn&&d.trn.endsWith('|q')){const [k,f]=d.trn.split('|');trw(k)[f]=e.target.value;save()}});
 
@@ -734,7 +781,7 @@ function wsTab(){
   <p>${tx('กิจกรรมกลุ่มสำหรับวัน Onsite: 10 สถานการณ์ระดับยากที่คละเกณฑ์ วิทยากรเปิดจอ Quiz & Poll บนจอหน้าห้อง ผู้อบรมสแกน QR แล้วเลือกระดับข้อค้นพบจากมือถือ คำตอบแสดงบนจอเมื่อหมดเวลา จากนั้นวิทยากรจึงกดเฉลย','A group activity for the onsite days: 10 hard, mixed-criteria situations. The facilitator opens the Quiz & Poll screen, participants scan its QR code and vote a finding level by phone; answers appear when time is up, then the facilitator reveals the key.')}</p>
   <ul class="note" style="margin:8px 0 14px 18px"><li>${tx('ตั้งเวลา 30 วินาที 1 2 3 5 นาที หรือกำหนดเอง มีปุ่ม Start / Stop / เฉลย / ทำข้อนี้ใหม่ / ตารางคะแนน / ส่งออกผล','Timer of 30 s, 1, 2, 3 or 5 min, or your own, with Start / Stop / Reveal / Redo / Scoreboard / Export')}</li><li>${tx('จอ Quiz & Poll อยู่บนเว็บสาธารณะ (GitHub Pages) เพื่อให้มือถือผู้อบรมเข้าร่วมได้ เลือกชุดคำถามอื่นได้จากเมนูบนหัวจอ','The Quiz & Poll screen lives on a public site (GitHub Pages) so phones can join; switch question sets from the menu at the top.')}</li></ul>
   ${wsBtn('mix',tx('เปิดจอ Quiz & Poll · การประเมินผลการตรวจ','Open Quiz & Poll · finding-level assessment'))}</section>
-  <section class="card"><div class="pad"><h2>${tx('10 สถานการณ์ของการประเมินผลการตรวจ','The 10 assessment situations')}</h2></div>${W.map((w,j)=>`<div class="q cq"><figure class="cimg" id="wsf${j}"><img loading="lazy" src="wimg/w${j+1}.jpg" alt="" onerror="this.parentNode.classList.add('noimg')"><figcaption>AI-generated illustration (Gemini)</figcaption><div class="slot">${tx('รอภาพ','Image slot')} W-${String(j+1).padStart(2,'0')}</div></figure><div class="cb"><div class="t"><span class="n">${j+1}</span><b>${esc(w.t)}</b> <span class="note">· ${esc(w.c)}</span></div><p style="margin:6px 0 10px;max-width:74ch">${esc(w.q)}</p><div class="lv">${Object.entries(LV).map(([k,l])=>`<button class="opt ${(S.ws||{})[j]===k?'pick':''}" data-ws="${j}" data-k="${k}">${L(l)}</button>`).join('')}</div></div></div>`).join('')}</section>`;
+  <section class="card"><div class="pad"><h2>${tx('10 สถานการณ์ของการประเมินผลการตรวจ','The 10 assessment situations')} <span class="chip ${wsN()>=10?'ok':''}">${tx('ตอบแล้ว','Answered')} ${wsN()}/10</span></h2></div>${W.map((w,j)=>`<div class="q cq"><figure class="cimg" id="wsf${j}"><img loading="lazy" src="wimg/w${j+1}.jpg" alt="" onerror="this.parentNode.classList.add('noimg')"><figcaption>AI-generated illustration (Gemini)</figcaption><div class="slot">${tx('รอภาพ','Image slot')} W-${String(j+1).padStart(2,'0')}</div></figure><div class="cb"><div class="t"><span class="n">${j+1}</span><b>${esc(w.t)}</b> <span class="note">· ${esc(w.c)}</span></div><p style="margin:6px 0 10px;max-width:74ch">${esc(w.q)}</p><div class="lv">${Object.entries(LV).map(([k,l])=>`<button class="opt ${(S.ws||{})[j]===k?'pick':''}" data-ws="${j}" data-k="${k}">${L(l)}</button>`).join('')}</div></div></div>`).join('')}</section>`;
 }
 function cases(){
   return `<div class="crumb"><a href="#analysis">${tx('ฝึกวิเคราะห์','Analysis practice')}</a> / ${tx('การประเมินผลการตรวจ','Finding-level assessment')}</div>
@@ -769,19 +816,19 @@ function learn(){
   return `<div><h1>${tx('เรียนออนไลน์','Online learning')}</h1><p class="lead">${tx(`${ALLM.length} โมดูล จัดเป็น 3 ระยะตามโครงสร้างของ TABEE และเพิ่มโมดูลเสริม 2 โมดูล เรื่องวันตรวจเยี่ยมและการเตรียมตัวเข้าอบรม Onsite แต่ละโมดูลมีบทอ่าน สไลด์ PDF วิดีโอ หลักฐานและคำถามที่ PEV ใช้ ประเด็นที่พบบ่อย และแบบทดสอบ ซึ่งสุ่ม 5 ข้อต่อครั้ง ต้องถูกอย่างน้อย 4 ข้อจึงผ่าน`,`${ALLM.length} modules in TABEE’s three phases, plus two supplementary modules on the visit day and on-site preparation. Each has a reading, PDF slides, a video, the evidence and questions a PEV uses, common issues and a quiz of 5 randomly drawn questions; 4 correct to pass.`)}</p>
   <p class="row" style="margin-top:12px"><span class="chip">${tx(`อ่านแล้ว ${done}/${ALLM.length}`,`${done}/${ALLM.length} read`)}</span><span class="chip">${tx(`ผ่านแบบทดสอบ ${QM.filter(passed).length}/${QM.length}`,`${QM.filter(passed).length}/${QM.length} quizzes passed`)}</span><a class="chip mute" href="${VFOLDER}">${tx('โฟลเดอร์วิดีโอ','Video folder')} ↗</a></p></div>
   ${PHASES.map(ph=>`<section class="phase"><h2>${L(ph[0])}</h2><div class="mods">${ph[1].map(m=>{const c=TM[m]||{},e=modEp(m),q=QZ[m];const st=passed(m)?`<span class="chip ok">${tx('ผ่านแบบทดสอบ','Quiz passed')}</span>`:S.quiz[m]?`<span class="chip warn">${tx('ยังไม่ผ่าน','Not passed')}</span>`:isRead(m)?`<span class="chip ok">${tx('อ่านแล้ว','Read')}</span>`:'';
-    return `<a class="mod" href="#mod-${m}">${e?`<img src="covers/${e.n}.jpg" alt="" width="560" height="315" loading="lazy">`:`<span class="mx"><b>${m}</b><span>${tx('อ่านใน Studio','Studio reading')}</span></span>`}<span class="b"><span class="mn">Module ${m}</span><h3>${md(m)}</h3><span class="note">${esc(LL(c.goal||['','']))}</span><span class="row">${e?`<span class="chip mute">EP.${e.n}</span>`:''}${SLIDE[m]?`<span class="chip mute">PDF ${SLIDE[m][2]-SLIDE[m][1]+1} ${tx('หน้า','pp')}</span>`:''}${q?`<span class="chip mute">${q.length} ${tx('ข้อ','Qs')}</span>`:''}${st}</span></span></a>`}).join('')}</div></section>`).join('')}`;
+    return `<a class="mod" href="#mod-${m}">${e?`<img src="covers/${e.n}.jpg" alt="" width="560" height="315" loading="lazy">`:`<img src="covers/m${m}.jpg" alt="" width="560" height="315" loading="lazy" hidden onload="this.hidden=false;this.nextElementSibling.hidden=true" onerror="this.remove()"><span class="mx"><b>${m}</b><span>${tx('อ่านใน Studio','Studio reading')}</span></span>`}<span class="b"><span class="mn">Module ${m}</span><h3>${md(m)}</h3><span class="note">${esc(LL(c.goal||['','']))}</span><span class="row">${e?`<span class="chip mute">EP.${e.n}</span>`:''}${SLIDE[m]?`<span class="chip mute">PDF ${SLIDE[m][2]-SLIDE[m][1]+1} ${tx('หน้า','pp')}</span>`:''}${q?`<span class="chip mute">${q.length} ${tx('ข้อ','Qs')}</span>`:''}${st}</span></span></a>`}).join('')}</div></section>`).join('')}`;
 }
-function body(c){
-  const tbl=t=>`<div class="tw"><table><thead><tr>${t.cols.map(x=>`<th>${esc(LL(x))}</th>`).join('')}</tr></thead><tbody>${t.rows.map(r=>`<tr>${r.map((x,i)=>`<td${i===0?' class="k1"':''}>${x&&x.b?`<ul class="dots tb">${x.b.map(y=>`<li>${esc(LL(y))}</li>`).join('')}</ul>`:esc(LL(x))}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
-  const li=a=>a.map(x=>`<li>${esc(LL(x))}</li>`).join('');
-  const act=(a,i)=>`<section class="card pad sec act" id="act-${esc(a.code)}"><div class="row" style="gap:8px"><span class="chip">${esc(LL(a.day))}</span><span class="chip mute">${esc(LL(a.t))}</span><span class="chip mute">${tx('ช่วง','Slot')} ${esc(a.code)}</span></div>
-   <h2><span class="sn">${i+1}</span>${esc(LL(a.h))}</h2>
+function actCard(a,i,solo){const li=x=>x.map(y=>`<li>${esc(LL(y))}</li>`).join('');return `<section class="card pad sec act" id="act-${esc(a.code)}"><div class="row" style="gap:8px"><span class="chip">${esc(LL(a.day))}</span><span class="chip mute">${esc(LL(a.t))}</span><span class="chip mute">${tx('ช่วง','Slot')} ${esc(a.code)}</span></div>
+   ${solo?`<h1 style="margin:8px 0 4px">${esc(LL(a.h))}</h1>`:`<h2><span class="sn">${i+1}</span>${esc(LL(a.h))}</h2>`}
    <figure class="aimg"><img src="v16/${esc(a.code)}.jpg" onerror="this.onerror=null;this.src='v16/${esc(a.code)}.svg'" alt="${tx('ภาพประกอบช่วง','Illustration for slot')} ${esc(a.code)}" width="1600" height="900" loading="lazy"><figcaption>${tx('ภาพประกอบสร้างด้วย AI (Gemini)','AI-generated illustration (Gemini)')}</figcaption></figure>
    <p class="who"><b>${tx('ผู้เข้าร่วม','Who')}</b> ${esc(LL(a.who))}<br><b>${tx('รูปแบบ','Format')}</b> ${esc(LL(a.fmt))}</p>
    <div class="ag"><div><h3>${tx('วัตถุประสงค์','Purpose')}</h3><ul class="dots">${li(a.obj)}</ul></div><div><h3>${tx('สิ่งที่จะเกิดขึ้น','What happens')}</h3><ul class="dots">${li(a.hap)}</ul></div><div class="do"><h3>${tx('สิ่งที่ PEV ต้องทำ','What the PEV does')}</h3><ul class="dots">${li(a.do)}</ul></div></div>
    ${a.tip?`<p class="note tip">${esc(LL(a.tip))}</p>`:''}
-   <details class="qg"><summary>${tx('แนวคำถาม','Question guide')} · ${a.q.reduce((n,g)=>n+g.l.length,0)} ${tx('ข้อ','questions')}</summary>${a.q.map(g=>`<h4${g.abet?' class="ab"':''}>${esc(LL(g.h))}</h4><ol>${g.l.map(x=>`<li>${esc(LL(x))}</li>`).join('')}</ol>`).join('')}</details></section>`;
-  return c.sec.map((s,i)=>s.act?act(s.act,i):`<section class="card pad sec"${/คลังคำถาม|Question bank/.test(s.h[0])?' id="qbank"':''}><h2><span class="sn">${i+1}</span>${esc(LL(s.h))}</h2>${s.p?`<p>${esc(LL(s.p))}</p>`:''}${s.tbl?tbl(s.tbl):''}${s.b?`<ul class="dots">${s.b.map(b=>`<li>${esc(LL(b))}</li>`).join('')}</ul>`:''}${s.files?`<p class="row" style="gap:8px;flex-wrap:wrap;margin-top:10px">${s.files.filter(f=>!f[2]).map(f=>fileBtn([f[0],W(f[1][0],f[1][1])])).join('')}</p>${window.SERLAB_MODE!=='trainee'?`<p class="note" style="margin-top:12px">${tx('สำหรับวิทยากร','Facilitators only')}</p><p class="row" style="gap:8px;flex-wrap:wrap">${s.files.filter(f=>f[2]).map(f=>fileBtn([f[0],W(f[1][0],f[1][1])])).join('')}</p>`:''}`:''}</section>`).join('');
+   <details class="qg"${solo?' open':''}><summary>${tx('แนวคำถาม','Question guide')} · ${a.q.reduce((n,g)=>n+g.l.length,0)} ${tx('ข้อ','questions')}</summary>${a.q.map(g=>`<h4${g.abet?' class="ab"':''}>${esc(LL(g.h))}</h4><ol>${g.l.map(x=>`<li>${esc(LL(x))}</li>`).join('')}</ol>`).join('')}</details></section>`;}
+function body(c){
+  const tbl=t=>`<div class="tw"><table><thead><tr>${t.cols.map(x=>`<th>${esc(LL(x))}</th>`).join('')}</tr></thead><tbody>${t.rows.map(r=>`<tr>${r.map((x,i)=>`<td${i===0?' class="k1"':''}>${x&&x.b?`<ul class="dots tb">${x.b.map(y=>`<li>${esc(LL(y))}</li>`).join('')}</ul>`:esc(LL(x))}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  const li=a=>a.map(x=>`<li>${esc(LL(x))}</li>`).join('');
+  return c.sec.map((s,i)=>s.act?actCard(s.act,i):`<section class="card pad sec"${/คลังคำถาม|Question bank/.test(s.h[0])?' id="qbank"':''}><h2><span class="sn">${i+1}</span>${esc(LL(s.h))}</h2>${s.p?`<p>${esc(LL(s.p))}</p>`:''}${s.tbl?tbl(s.tbl):''}${s.b?`<ul class="dots">${s.b.map(b=>`<li>${esc(LL(b))}</li>`).join('')}</ul>`:''}${s.files?`<p class="row" style="gap:8px;flex-wrap:wrap;margin-top:10px">${s.files.filter(f=>!f[2]).map(f=>fileBtn([f[0],W(f[1][0],f[1][1])])).join('')}</p>${window.SERLAB_MODE!=='trainee'?`<p class="note" style="margin-top:12px">${tx('สำหรับวิทยากร','Facilitators only')}</p><p class="row" style="gap:8px;flex-wrap:wrap">${s.files.filter(f=>f[2]).map(f=>fileBtn([f[0],W(f[1][0],f[1][1])])).join('')}</p>`:''}`:''}</section>`).join('');
 }
 function slides(m){
   const s=SLIDE[m]; if(!s) return `<section class="card pad"><p>${tx('โมดูลนี้เป็นบทอ่านเสริม ไม่มีสไลด์และวิดีโอของ TABEE','This supplementary module is a reading only; TABEE has no slides or video for it.')}</p></section>`;
@@ -806,6 +853,7 @@ function mod(m){
   <div><p class="row" style="margin:0 0 6px"><span class="chip">Module ${m}</span>${e?`<span class="chip mute">EP.${e.n} · ${e.slides} ${tx('สไลด์','slides')}</span>`:`<span class="chip warn">${tx('โมดูลเสริม ไม่มีวิดีโอ','Supplementary, no video')}</span>`}<span class="chip mute" title="${esc(LL(c.abet))}">${tx('เทียบ','Maps to')} ${esc(LL(c.abet).split(':')[0])}</span></p><h1>${md(m)}</h1><p class="lead">${esc(LL(c.goal))}</p></div>
   <section class="two"><div style="display:flex;flex-direction:column;gap:14px">
     ${e&&VID[m]?(ytLive()?`<button type="button" class="vid" data-vid="${m}" aria-label="${tx('เล่นวิดีโอ','Play video')} Module ${m}"><img src="covers/${e.n}.jpg" alt="" width="560" height="315"><span class="btn">▶ ${tx('ดูวิดีโอ','Watch')} Module ${m}</span></button><div class="vprog2" aria-label="${tx('ดูแล้ว','Watched')} ${vidPct(m)}%"><i style="width:${vidPct(m)}%"></i></div><p class="note" style="margin:0">${vidDone(m)?tx(`ดูครบแล้ว ${vidPct(m)}% · ทำแบบทดสอบได้`,`Watched ${vidPct(m)}% · quiz unlocked`):tx(`ดูแล้ว ${vidPct(m)}% · ต้องดูถึง 90% โดยไม่กรอข้ามส่วนที่ยังไม่ได้ดู จึงทำแบบทดสอบได้ เร่งความเร็วได้สูงสุด x2`,`Watched ${vidPct(m)}% · reach 90% without skipping ahead to unlock the quiz; up to 2× speed`)}${e.mods.length>1?' · '+tx(`วิดีโอนี้ครอบคลุม Module ${e.mods.join(' และ ')}`,`This video covers Modules ${e.mods.join(' and ')}`):''}</p>`:`<a href="https://youtu.be/${VID[m]}" class="vid" target="_blank" rel="noopener" aria-label="${tx('เปิดวิดีโอบน YouTube','Open the video on YouTube')}"><img src="covers/${e.n}.jpg" alt="" width="560" height="315"><span class="btn">▶ ${tx('เปิดบน YouTube','Open on YouTube')} ↗</span></a><p class="note" style="margin:0">${ytBroken?tx('เล่นวิดีโอในหน้านี้ไม่ได้ จึงเปิดบน YouTube แทน แบบทดสอบไม่ล็อก','The video could not play here, so it opens on YouTube; the quiz is not locked.'):tx('เปิด Studio จากไฟล์ในเครื่อง YouTube จึงไม่ยอมเล่นวิดีโอในหน้านี้ กดเพื่อดูบน YouTube แบบทดสอบไม่ล็อก เมื่อเปิดจากเว็บ (GitHub Pages) วิดีโอจะเล่นในหน้านี้และนับเวลาดู','Opened as a local file, so YouTube will not play the video inside this page; tap to watch on YouTube (the quiz is not locked). From the website (GitHub Pages) the video plays here with watch tracking.')}</p>`):`<div class="card pad mxbig"><b>${tx('บทอ่านเพิ่มเติมของ TABEE','Additional TABEE reading')}</b><span class="note">${tx('เนื้อหานี้ไม่มีในวิดีโอ ปรับจาก','Not covered by the videos; adapted from')} ${esc(LL(c.abet))}</span></div>`}
+    ${!e?`<figure class="mcov"><img src="covers/m${m}.jpg" alt="${tx('ภาพประกอบ','Illustration for')} Module ${m}" width="1600" height="900" onerror="this.parentNode.remove()"><figcaption>${tx('ภาพประกอบสร้างด้วย AI (Gemini)','AI-generated illustration (Gemini)')}</figcaption></figure>`:''}
     ${DECKS['m'+m]?`<div class="card pad"><h2>${tx('สไลด์ประกอบโมดูล','Module slide deck')}</h2><p class="note" style="margin:6px 0 10px">${tx('ไฟล์ HTML ไฟล์เดียว เปิดในเบราว์เซอร์ กดลูกศรซ้ายขวาเพื่อเลื่อน กด T เพื่อดูสารบัญ','One HTML file; open it in a browser, use the arrow keys to move and T for contents.')}</p>${deckBtn('m'+m,'btn',tx('เปิดสไลด์','Open the slides'))}</div>`:''}
     <label class="row card pad" style="gap:10px"><input type="checkbox" data-read="${m}" ${isRead(m)?'checked':''} style="width:20px;height:20px;accent-color:var(--brand)"> ${e?tx('อ่านบทอ่าน ดูวิดีโอ และสไลด์ของโมดูลนี้แล้ว','I have read the reading and watched the video and slides'):tx('อ่านบทอ่านของโมดูลนี้แล้ว','I have finished this reading')}</label>
   </div><div style="display:flex;flex-direction:column;gap:14px">
@@ -898,36 +946,97 @@ function caseSet(i){
 const fileBtn=(f,cls)=>/\.pdf$/i.test(f[0])?`<a class="btn ${cls||'ghost'}" href="${encodeURI(f[0])}" target="_blank" rel="noopener">${L(f[1])} ↗</a>`:`<a class="btn ${cls||'ghost'}" href="${encodeURI(f[0])}" data-dl="${esc(f[0].split('/').pop())}" download>${L(f[1])} ↓</a>`;
 /* inside a Claude artifact a plain download link is blocked: save through the downloads capability */
 
+/* ---- Onsite pages: start (order of work), one page per day, mock-up sessions, brainstorm, key ---- */
+const KDESC={w:W('งานที่ทำใน PEV Studio: ให้ระดับรายเกณฑ์ บันทึกหลักฐาน เขียนจดหมายขอเอกสาร แผนตรวจเยี่ยม และรายงาน','Work done in PEV Studio: rating each criterion, recording evidence, the request letter, the visit plan and the reports'),
+ m:W('สวมบทบาทตามช่วงของการตรวจเยี่ยมจริง แต่ละช่วงมีคำอธิบาย ภาพ แนวคำถาม และสไลด์ที่มี script เปิดปิด ลำดับคำถาม และเอกสาร','Role-play of each session of a real visit. Every session has a description, a picture, a question guide and slides with scripts, question order and documents'),
+ b:W('ระดมความเห็นทั้งห้องบนกระดานออนไลน์ สแกน QR ของรอบนั้นแล้วพิมพ์จากมือถือ ไม่ต้องใส่ชื่อ','Whole-room brainstorm on the online board: scan that round’s QR code and type from your phone, no name needed'),
+ l:W('วิทยากรบรรยายสั้น ๆ แล้วมอบงาน แต่ละช่วงมีสไลด์ประกอบ','A short talk followed by a task. Each session has its own slides')};
+let onK='w';
+const dayN=d=>AGW.filter(a=>a.d===d).length, dayDone=d=>AGW.filter(a=>a.d===d&&S.done['o:'+a.id]).length;
+const DAYS=[W('ก่อนอบรม','Before the training'),W('วันที่ 1 · ประเมินเอกสาร','Day 1 · document review'),W('วันที่ 2 · ตรวจเยี่ยมจำลอง','Day 2 · mock visit')];
+const M16A=()=>((TM[16]||{}).sec||[]).filter(s=>s.act).map(s=>s.act);
+const mockDecks=code=>MOCKD.filter(x=>x[0].replace(/[abc]$/,'')===code);
+const MOCKOF={v2:'mock',v3:'mock-2-6',v4:'mock-2-8'};
+const kLink=a=>a.k==='w'?[PEVS_URL,1]:a.k==='m'&&MOCKOF[a.id]?['#'+MOCKOF[a.id],0]:a.k==='b'?['#on-bs',0]:DECKS[a.id]?[`decks/${DECKS[a.id]}.html`,1]:['#on-'+a.d,0];
+const kTag=a=>{const [u,x]=kLink(a);return `<a class="k ${a.k}" href="${u}"${x?' target="_blank" rel="noopener"':''} title="${esc(L(KDESC[a.k]))}">${L(KIND[a.k])} ${x?'↗':'›'}</a>`};
+const kLegend=()=>`<div class="row kleg"><span class="note">${tx('ป้ายสีบอกประเภทของงาน กดป้ายเพื่อไปยังลิงก์ของงานนั้น','Coloured tags show the kind of work. Press a tag to open its link.')}</span>${['w','m','b','l'].map(k=>`<span class="k ${k}">${L(KIND[k])}</span>`).join('')}</div>`;
+const onRow=a=>a.k==='z'?`<div class="ag br"><span class="tm">${L(a.t)}</span><span class="note">${L(a.h)}</span></div>`:`<div class="ag" id="ag-${a.id}"><span class="tm">${L(a.t)}</span><span class="agb"><span class="row" style="gap:8px"><input type="checkbox" aria-label="${tx('ทำแล้ว','Done')}: ${esc(L(a.h))}" data-done="${a.id}" ${S.done['o:'+a.id]?'checked':''}><b>${L(a.h)}</b>${kTag(a)}</span><span class="note">${L(a.x)}</span>${a.crit?`<span class="row ho">${a.crit.map(n=>`<a class="chip ${caseDone(n-1)>=D.cases[n-1].items.length?'ok':''}" href="#crit-${n}">${tx('ข้อ','C')}${n} ${esc(L(CRN[n-1]))} ›</a>`).join('')}</span>`:''}<span class="row ho">${deckBtn(a.id,'chip',tx('สไลด์ประกอบช่วงนี้','Slides for this session'))}${MOCKOF[a.id]?`<a class="chip" href="#${MOCKOF[a.id]}">${a.id==='v2'?tx('Mock-up ทุกช่วง: คำอธิบาย ภาพ และสไลด์','All mock-up sessions: description, picture and slides'):tx('Mock-up ของช่วงนี้','This session’s mock-up')} ›</a>`:''}${a.k==='b'?`<a class="chip" href="#on-bs">${tx('กระดาน Brainstorm','Brainstorm board')} ›</a>`:''}</span>${a.ps?`<span class="ps"><b>PEV Studio</b> ${esc(L(a.ps))}${a.out?` → <span>${esc(L(a.out))}</span>`:''}</span>`:''}</span></div>`;
+const mockCard=a=>{const dk=mockDecks(a.code);return `<a class="mod" href="#mock-${a.code}"><img src="v16/${esc(a.code)}.jpg" onerror="this.onerror=null;this.src='v16/${esc(a.code)}.svg'" alt="" width="560" height="315" loading="lazy"><span class="b"><span class="mn">${tx('ช่วง','Slot')} ${esc(a.code)} · ${esc(LL(a.t))}</span><h3>${esc(LL(a.h))}</h3><span class="row">${dk.length?`<span class="chip">${tx('มีสไลด์','Slides')}${dk.length>1?' '+dk.length:''}</span>`:`<span class="chip mute">${tx('ประชุมคณะผู้ตรวจ','Team meeting')}</span>`}</span></span></a>`};
+
 function onsite(){
-  const notes=S.bs[bsTab]||[];
-  const row=a=>a.k==='z'?`<div class="ag br"><span class="tm">${L(a.t)}</span><span class="note">${L(a.h)}</span></div>`:`<div class="ag"><span class="tm">${L(a.t)}</span><span class="agb"><span class="row" style="gap:8px"><input type="checkbox" aria-label="${tx('ทำแล้ว','Done')}: ${esc(L(a.h))}" data-done="${a.id}" ${S.done['o:'+a.id]?'checked':''}><b>${L(a.h)}</b><span class="k ${a.k}">${L(KIND[a.k])}</span></span><span class="note">${L(a.x)}</span>${a.crit?`<span class="row ho">${a.crit.map(n=>`<a class="chip ${caseDone(n-1)>=D.cases[n-1].items.length?'ok':''}" href="#crit-${n}">${tx('ข้อ','C')}${n} ${esc(L(CRN[n-1]))} ↗</a>`).join('')}</span>`:''}<span class="row ho">${deckBtn(a.id,'chip',tx('สไลด์ประกอบช่วงนี้','Slides for this session'))}</span>${(a.id==='v2'||a.id==='v4')?`<span class="row ho mkr"><span class="note" style="width:100%">${tx('สไลด์ Mock-up แต่ละช่วง (script เปิดปิด ลำดับคำถาม เอกสาร):','Mock-up slides per session (scripts, question order, documents):')}</span>${MOCKD.filter(x=>a.id==='v4'?x[0]==='2-8':x[0]!=='2-8').map(x=>`<a class="chip" href="decks/mock-${x[0]}.html" target="_blank" rel="noopener">${x[0].replace(/[abc]$/,'')} ${esc(tx(x[1],x[2]))} ↗</a>`).join('')}</span>`:''}${a.ps?`<span class="ps"><b>PEV Studio</b> ${esc(L(a.ps))}${a.out?` → <span>${esc(L(a.out))}</span>`:''}</span>`:''}</span></div>`;
-  const tiles=CRN.map((c,i)=>{const n=i+1,dn=caseDone(i),tot=D.cases[i].items.length;return `<a class="stop crt" href="#crit-${n}"><span class="no">${n}</span><h3>${L(c)}</h3><span class="note">${tx(`อุ่นเครื่อง ${dn}/${tot} กรณี · ${CRITEMS[i]} ข้อใน PEV Studio`,`Warm-up ${dn}/${tot} cases · ${CRITEMS[i]} PEV Studio items`)}</span></a>`}).join('');
-  return `<div><h1>${tx('Onsite: ประเมิน SER หลักสูตรสมมติตั้งแต่ต้นจนจบ','Onsite: one mock SER, from first read to decision')}</h1><p class="lead">${tx('ทุกทีมประเมินเล่ม SER หลักสูตรวิศวกรรมวัสดุและโลหการ (สมมติ) เล่มเดียวกันใน PEV Studio วันที่ 1 ประเมินเอกสารทีละเกณฑ์ โดยทำกรณีศึกษาของเกณฑ์นั้นก่อน วันที่ 2 ตรวจเยี่ยมจำลองด้วยผู้สวมบทบาท จนถึง Exit meeting และ Decision Meeting ตาราง “ผลรายเกณฑ์ในแต่ละรอบ” ของ PEV Studio คือที่บันทึกผลของทุกช่วง','Every team evaluates the same mock SER (Materials and Metallurgical Engineering) in PEV Studio. Day 1 reviews the documents criterion by criterion, each preceded by that criterion’s case studies. Day 2 runs the mock visit with role-players through to the exit and decision meetings. PEV Studio’s round grid records every session.')}</p></div>
+  const kItems=AGW.filter(a=>a.k===onK);
+  const kMain={w:`<a class="btn" href="${PEVS_URL}" target="_blank" rel="noopener">${tx('เปิด PEV Studio','Open PEV Studio')} ↗</a>${fileBtn(ONSF.starter,'ghost')}`,
+    m:`<a class="btn" href="#mock">${tx('Mock-up ทุกช่วง','All mock-up sessions')} ›</a>`,
+    b:`<a class="btn" href="#on-bs">${tx('กระดาน Brainstorm','Brainstorm board')} ›</a>`,
+    l:''}[onK];
+  return `<div><h1>${tx('Onsite: เริ่มที่นี่','Onsite: start here')}</h1><p class="lead">${tx('ทุกทีมประเมินเล่ม SER หลักสูตรวิศวกรรมวัสดุและโลหการ (สมมติ) เล่มเดียวกันใน PEV Studio ทำตามลำดับ 3 ขั้นด้านล่าง คือก่อนอบรม วันที่ 1 ประเมินเอกสารทีละเกณฑ์ และวันที่ 2 ตรวจเยี่ยมจำลองจนถึง Decision Meeting','Every team evaluates the same mock SER (Materials and Metallurgical Engineering) in PEV Studio. Follow the three steps below: before the training, Day 1 document review by criterion, and Day 2 mock visit through to the Decision Meeting.')}</p></div>
   <section class="card pad mtp"><div class="mtl"><span class="chip">${tx('หลักสูตรสมมติ','Mock program')}</span><h2>${tx('วิศวกรรมศาสตรบัณฑิต สาขาวิชาวิศวกรรมวัสดุและโลหการ','B.Eng. Materials and Metallurgical Engineering')}</h2><p class="note">${tx('มหาวิทยาลัยเทคโนโลยีวนาธาร (สมมติ) · หลักสูตรปรับปรุง พ.ศ. 2564 · ขอรับรองวงรอบ 6 ปี เริ่มปีการศึกษา 2569','Wanathan University of Technology (fictional) · 2021 curriculum · six-year cycle from academic year 2026')}</p>
    <ol class="howto"><li>${tx('เปิด PEV Studio แล้วกด <b>Open</b> เลือกไฟล์เริ่มต้น เล่ม SER เอกสารประกอบ และใบระเบียนจะอยู่ในขั้น “เอกสารหลักสูตร (SER)” ครบ','Open PEV Studio and press <b>Open</b> with the starter file; the SER, supporting documents and transcripts appear under “Program documents”.')}</li><li>${tx('กด <b>Save</b> ทุกครั้งที่จบช่วง ไฟล์ .json คือหลักฐานงานของทีม','Press <b>Save</b> at the end of every session; the .json file is the team’s record.')}</li><li>${tx('ซองเอกสาร ช-1 ถึง ช-6 ได้จากวิทยากรหลังส่งจดหมายขอเอกสารเท่านั้น อัปโหลดเข้า PEV Studio เอง','Envelope documents ช-1 to ช-6 come from the facilitator only after the request letter; upload them into PEV Studio yourselves.')}</li></ol></div>
-   <div class="mtf"><a class="btn" href="${PEVS_URL}" target="_blank" rel="noopener">${tx('เปิด PEV Studio','Open PEV Studio')} ↗</a>${fileBtn(ONSF.starter,'')}<button class="btn ghost" type="button" onclick="document.getElementById('mockdecks').scrollIntoView({behavior:'smooth'})">${tx('สไลด์ Mock-up 17 ช่วง ↓','Mock-up slides, 17 sessions ↓')}</button><span class="note" style="margin-top:6px">${tx('เอกสารของหลักสูตร (PDF)','Program documents (PDF)')}</span>${ONSF.trainee.map(f=>fileBtn(f)).join('')}${ONS_INS?`<span class="note" style="margin-top:6px">${tx('สำหรับวิทยากร (PDF)','Facilitators only (PDF)')}</span>${ONSF.inst.map(f=>fileBtn(f)).join('')}`:''}</div></section>
-  <section><h2 class="h2s">${tx('ประเมินรายเกณฑ์ · อุ่นเครื่องด้วยกรณีศึกษาของเกณฑ์นั้นก่อน','Criterion by criterion · warm up with that criterion’s cases first')}</h2><div class="road crts">${tiles}</div></section>
-  <div class="row"><span class="k w">PEV Studio</span><span class="k m">Mock-up</span><span class="k b">Brainstorm</span><span class="k l">${L(KIND.l)}</span></div>
-  ${[0,1,2].map(d=>`<section class="card"><div class="day">${L(AGD[d])}</div>${AG.filter(a=>a.d===d).map(row).join('')}</section>`).join('')}
-  <section class="card pad"><h2>${tx('Mock-up ในวันตรวจเยี่ยม','Mock-ups on the visit day')}</h2><p class="note">${tx('ผู้สวมบทบาทและสถานที่ชุดนี้ตรงกับขั้น “แผนตรวจเยี่ยม” ของ PEV Studio ทีมเลือกได้ 4 จาก 8 กลุ่ม และ 2 จาก 4 แห่ง การเลือกให้ตรงกับประเด็นที่ยังค้างหลัง PV2 คือส่วนหนึ่งของการประเมิน','These role-players and places match PEV Studio’s visit-plan step. Teams pick 4 of 8 groups and 2 of 4 places; choosing them to fit the issues still open after PV2 is part of the assessment.')}</p>
+   <div class="mtf"><a class="btn" href="${PEVS_URL}" target="_blank" rel="noopener">${tx('เปิด PEV Studio','Open PEV Studio')} ↗</a>${fileBtn(ONSF.starter,'')}<span class="note" style="margin-top:6px">${tx('เอกสารของหลักสูตร (PDF)','Program documents (PDF)')}</span>${ONSF.trainee.map(f=>fileBtn(f)).join('')}${ONS_INS?`<span class="note" style="margin-top:6px">${tx('สำหรับวิทยากร (PDF)','Facilitators only (PDF)')}</span>${ONSF.inst.map(f=>fileBtn(f)).join('')}`:''}</div></section>
+  <section><h2 class="h2s">${tx('ทำตามลำดับนี้','Do these in order')}</h2>
+   <div class="osteps">${[0,1,2].map(d=>`<section class="card ostep"><a class="oh" href="#on-${d}"><span class="on">${d+1}</span><span class="ot"><b>${L(DAYS[d])}</b><small>${d===0?tx('1–2 สัปดาห์ก่อนวันอบรม','1–2 weeks before'):d===1?'08:00–17:30':'08:00–15:30'}</small></span><span class="chip ${dayDone(d)>=dayN(d)?'ok':''}">${dayDone(d)}/${dayN(d)}</span></a>
+     <ol class="olist">${AGW.filter(a=>a.d===d).map(a=>`<li><a href="#on-${d}" data-goag="${a.id}"><span class="tm">${L(a.t)}</span><span class="ol">${S.done['o:'+a.id]?'✓ ':''}${L(a.h)}</span></a>${kTag(a)}</li>`).join('')}</ol>
+     <p class="pad" style="padding-top:0"><a class="btn ${d===([0,1,2].find(x=>dayDone(x)<dayN(x))??0)?'':'ghost'}" href="#on-${d}">${tx('เปิดขั้นที่','Open step')} ${d+1} ›</a></p></section>`).join('')}</div></section>
+  <section class="card pad"><h2>${tx('งาน 4 ประเภท','Four kinds of work')}</h2><p class="note">${tx('เลือกป้ายเพื่อดูช่วงทั้งหมดของงานประเภทนั้นพร้อมลิงก์','Pick a tag to list every session of that kind with its link.')}</p>
+   <div class="row ktabs" role="tablist">${['w','m','b','l'].map(k=>`<button type="button" class="ktab k ${k}" role="tab" aria-selected="${k===onK}" data-onk="${k}">${L(KIND[k])} · ${AGW.filter(a=>a.k===k).length}</button>`).join('')}</div>
+   <div class="kpanel kp-${onK}"><p>${L(KDESC[onK])}</p>${kMain?`<p class="row" style="gap:8px;flex-wrap:wrap">${kMain}</p>`:''}
+    <ul class="klist">${kItems.map(a=>{const [u,x]=kLink(a);return `<li><span class="tm">${L(DAYS[a.d]).split(' · ')[0]} · ${L(a.t)}</span><a href="#on-${a.d}" data-goag="${a.id}"><b>${L(a.h)}</b></a><a class="chip" href="${u}"${x?' target="_blank" rel="noopener"':''}>${a.k==='w'?'PEV Studio':a.k==='m'&&MOCKOF[a.id]?'Mock-up':a.k==='b'?tx('กระดาน','Board'):tx('สไลด์','Slides')} ${x?'↗':'›'}</a></li>`}).join('')}</ul></div></section>
+  <p class="note">${tx('การประเมินผลการตรวจ (Quiz & Poll 10 สถานการณ์คละเกณฑ์) อยู่ที่ ฝึกวิเคราะห์ › การประเมินผลการตรวจ ใช้เสริมในช่วงสรุปได้','The finding-level assessment (Quiz & Poll, 10 mixed situations) sits under Analysis practice and can be used in the debriefs.')} <a href="#cases">${tx('การประเมินผลการตรวจ','Finding-level assessment')} ›</a></p>`;
+}
+function onDay(d){
+  const tiles=CRN.map((c,i)=>{const n=i+1,dn=caseDone(i),tot=D.cases[i].items.length;return `<a class="stop crt" href="#crit-${n}"><span class="no">${n}</span><h3>${L(c)}</h3><span class="note">${tx(`อุ่นเครื่อง ${dn}/${tot} กรณี · ${CRITEMS[i]} ข้อใน PEV Studio`,`Warm-up ${dn}/${tot} cases · ${CRITEMS[i]} PEV Studio items`)}</span></a>`}).join('');
+  const A=M16A();
+  return `<div class="crumb"><a href="#onsite">Onsite</a> / ${tx('ขั้นที่','Step')} ${d+1}</div>
+  <div><p class="row" style="margin:0 0 6px"><span class="chip">${tx('ขั้นที่','Step')} ${d+1} ${tx('จาก 3','of 3')}</span><span class="chip ${dayDone(d)>=dayN(d)?'ok':'mute'}">${tx('ทำแล้ว','Done')} ${dayDone(d)}/${dayN(d)}</span></p><h1>${L(AGD[d])}</h1><p class="lead">${[tx('ทำ 2 เรื่องนี้ให้เสร็จก่อนวันอบรม เพราะวันที่ 1 เริ่มประเมินทันที','Finish these two before the training; Day 1 starts rating straight away.'),tx('ประเมินเล่ม SER ทีละเกณฑ์ใน PEV Studio แล้วเขียนจดหมายขอเอกสาร อ่านซองเอกสาร และวางแผนตรวจเยี่ยม ทำตามลำดับเวลาจากบนลงล่าง','Rate the SER criterion by criterion in PEV Studio, then write the request letter, read the envelopes and plan the visit. Work from top to bottom.'),tx('ตรวจเยี่ยมจำลองด้วยผู้สวมบทบาท แล้วเขียน Exit Statement รายงาน Fact Finding และเข้า Decision Meeting ทำตามลำดับเวลาจากบนลงล่าง','Run the mock visit with role-players, then write the exit statement and Fact Finding Report and hold the Decision Meeting. Work from top to bottom.')][d]}</p></div>
+  ${kLegend()}
+  <section class="card"><div class="day">${L(AGD[d])}</div>${AG.filter(a=>a.d===d).map(onRow).join('')}</section>
+  ${d===1?`<section><h2 class="h2s">${tx('ประเมินรายเกณฑ์ · อุ่นเครื่องด้วยกรณีศึกษาของเกณฑ์นั้นก่อน','Criterion by criterion · warm up with that criterion’s cases first')}</h2><div class="road crts">${tiles}</div></section>`:''}
+  ${d===2?`<section><h2 class="h2s">${tx('Mock-up แต่ละช่วงของการตรวจเยี่ยม','Mock-up sessions of the visit')}</h2><p class="note" style="margin:-4px 0 10px">${tx('กดช่วงที่ทีมเลือกเพื่ออ่านวัตถุประสงค์ สิ่งที่ PEV ต้องทำ แนวคำถาม และเปิดสไลด์ของช่วงนั้น','Open a session to read its purpose, what the PEV does and the question guide, and to open its slides.')} <a href="#mock">${tx('ดูทั้งหมด','See all')} ›</a></p><div class="mods">${A.filter(a=>mockDecks(a.code).length).map(mockCard).join('')}</div></section>`:''}
+  <nav class="pn">${d>0?`<a href="#on-${d-1}">‹ ${tx('ขั้นที่','Step')} ${d} ${L(DAYS[d-1])}</a>`:`<a href="#onsite">‹ ${tx('เริ่มที่นี่','Start here')}</a>`}${d<2?`<a href="#on-${d+1}">${tx('ขั้นที่','Step')} ${d+2} ${L(DAYS[d+1])} ›</a>`:`<a href="#record">${tx('ผลของฉัน','My record')} ›</a>`}</nav>`;
+}
+function mockIndex(){
+  const A=M16A(), G=[['0',tx('วันที่ 0 · ก่อนวันตรวจ','Day 0 · before the visit')],['1',tx('วันที่ 1 ของการตรวจเยี่ยม','Visit day 1')],['2',tx('วันที่ 2 ของการตรวจเยี่ยม','Visit day 2')]];
+  return `<div class="crumb"><a href="#onsite">Onsite</a> / <a href="#on-2">${tx('ขั้นที่ 3','Step 3')}</a> / Mock-up</div>
+  <div><h1>${tx('Mock-up: ช่วงของการตรวจเยี่ยม','Mock-up: sessions of the visit')}</h1><p class="lead">${tx('เนื้อหาและภาพของแต่ละช่วงมาจาก Module 16 วันตรวจเยี่ยม เรียงตามกำหนดการตรวจจริง ช่วงที่มีป้าย “มีสไลด์” มีสไลด์ของการตรวจเยี่ยมจำลองหลักสูตรวิศวกรรมวัสดุ ซึ่งมี script เปิดปิด ลำดับคำถาม และเอกสารที่เกี่ยวข้อง','Each session’s content and picture come from Module 16, in the order of a real visit. Sessions tagged “Slides” have a deck for the materials mock visit with scripts, question order and related documents.')}</p></div>
+  <section class="card pad"><h2>${tx('ทีมเลือกอะไรได้บ้างในวันอบรม','What a team may choose on the day')}</h2><p class="note">${tx('ผู้สวมบทบาทและสถานที่ชุดนี้ตรงกับขั้น “แผนตรวจเยี่ยม” ของ PEV Studio ทีมเลือกได้ 4 จาก 8 กลุ่ม และ 2 จาก 4 แห่ง การเลือกให้ตรงกับประเด็นที่ยังค้างหลัง PV2 คือส่วนหนึ่งของการประเมิน','These role-players and places match PEV Studio’s visit-plan step. Teams pick 4 of 8 groups and 2 of 4 places; choosing them to fit the issues still open after PV2 is part of the assessment.')}</p>
    <div class="two" style="margin-top:12px"><div><h3>${tx('กลุ่มผู้ให้สัมภาษณ์ (8)','Interview groups (8)')}</h3><ol class="dots">${ONSGRP.map(g=>`<li>${L(g)}</li>`).join('')}</ol></div><div><h3>${tx('สถานที่ (4)','Places (4)')}</h3><ol class="dots">${ONSPLC.map(g=>`<li>${L(g)}</li>`).join('')}</ol></div></div></section>
-  <section class="card pad" id="mockdecks"><h2>${tx('สไลด์ของแต่ละช่วงในการตรวจเยี่ยมจำลอง','Slides for each mock-visit session')}</h2><p class="note">${ONS_INS?tx('ฉบับวิทยากร: บทเปิดปิด ลำดับคำถาม คำตอบที่เป็นไปได้ตามบัตรบทบาทและตัวอย่างใน PEV Studio และเอกสารที่เกี่ยวข้อง','Facilitator edition: opening and closing scripts, question order, possible answers and related documents'):tx('บทเปิดปิด ลำดับคำถาม วิธีถามต่อ และเอกสารที่เกี่ยวข้อง ของแต่ละช่วงตามกำหนดการใน PEV Studio','Opening and closing scripts, question order, follow-ups and related documents for each session')}</p>
-   ${['1','2'].map(d=>`<h3 style="margin-top:12px">${tx('วันที่ ','Day ')+d}</h3><p class="row" style="gap:8px;flex-wrap:wrap">${MOCKD.filter(x=>x[3]===d).map(x=>`<a class="btn ghost" href="decks/mock-${x[0]}.html" target="_blank" rel="noopener">${x[0].replace(/[abc]$/,'')} · ${esc(tx(x[1],x[2]))} ↗</a>`).join('')}</p>`).join('')}</section>
-  ${ONS_INS?`<section class="card"><div class="pad"><h2>${tx('เฉลยตามรอบ (เฉพาะวิทยากร)','Key by round (facilitators only)')}</h2><p class="note">${tx('จากคู่มือวิทยากร ตารางที่ 2 และ 11 ใช้เทียบกับคอลัมน์ PV1 PV2 และ Day 2/Exit ใน PEV Studio ของแต่ละทีม ระดับยังเป็นร่าง รอผู้ตรวจอาวุโสรับรอง','From the facilitator guide, tables 2 and 11. Compare with each team’s PV1, PV2 and Day 2/Exit columns. Levels are drafts awaiting senior-PEV endorsement.')}</p></div><div class="tw"><table><thead><tr><th>${tx('เกณฑ์','Criterion')}</th><th>PV1</th><th>PV2</th><th>${tx('หลังตรวจเยี่ยม','After visit')}</th><th>${tx('ประเด็น','Issue')}</th><th>${tx('ซองที่ปล่อย','Envelope')}</th><th>${tx('ยืนยันกับ','Confirm with')}</th></tr></thead><tbody>${KEYC.map((k,i)=>`<tr><td class="k1">${i+1} ${esc(L(CRN[i]))}</td>${k.l.map(x=>`<td>${lvChip(x)}</td>`).join('')}<td>${esc(k.iss)}</td><td>${esc(k.env)}</td><td>${esc(k.src)}</td></tr>`).join('')}</tbody></table></div></section>`:''}
-  <section class="card pad"><h2>${tx('กระดาน Brainstorm','Brainstorm board')}</h2>
-   <p>${tx('ใช้กระดานออนไลน์บนจอหน้าห้อง: แต่ละรอบมี QR ให้ผู้อบรมสแกนแล้วพิมพ์ความเห็นจากมือถือโดยไม่ต้องใส่ชื่อ ความเห็นขึ้นเป็นโพสต์อิททันที ตั้งเวลา เปิดและปิดรับได้ เมื่อหมดเวลาระบบจัดกลุ่มให้ และส่งออก Excel ได้','Use the online board on the room screen: each round has its own QR code; participants type anonymously on their phones and notes appear at once. Set the timer, open and close the board, group the notes when time is up, and export to Excel.')}</p>
-   <p class="row" style="gap:10px;flex-wrap:wrap">${BS.map((t,i)=>`<a class="btn ${i?'ghost':''}" href="${BS_WEB}#/${3+3*i}" target="_blank" rel="noopener">${tx('รอบ','Round')} ${i+1} ↗</a>`).join('')}<span class="note">${BS_WEB.replace('https://','')}</span></p>${window.SERLAB_MODE==='trainee'?`<p class="note">${tx('ในวันอบรม วิทยากรเปิดกระดานบนจอหน้าห้อง ผู้อบรมสแกน QR ของรอบนั้นด้วยมือถือ','On the day the facilitator shows the board; scan that round’s QR code with your phone.')}</p>`:''}
-   <h3 style="margin-top:18px">${tx('โน้ตในเครื่องนี้ (สำรอง)','Notes on this device (backup)')}</h3><p class="note">${tx('ใช้เมื่อไม่มีอินเทอร์เน็ต คนคุมเครื่องพิมพ์แทนกลุ่ม โน้ตเก็บในเบราว์เซอร์เครื่องนี้เท่านั้น','For when there is no internet: one person types for the group; notes stay in this browser only.')}</p>
+  ${G.map(g=>`<section class="phase"><h2>${g[1]}</h2><div class="mods">${A.filter(a=>a.code.startsWith(g[0]+'-')).map(mockCard).join('')}</div></section>`).join('')}
+  <nav class="pn"><a href="#on-2">‹ ${tx('ขั้นที่ 3','Step 3')} ${L(DAYS[2])}</a><a href="#mod-16">Module 16 ›</a></nav>`;
+}
+function mockPage(code){
+  const A=M16A(), i=A.findIndex(a=>a.code===code); if(i<0) return mockIndex();
+  const a=A[i], dk=mockDecks(code), pv=A[i-1], nx=A[i+1];
+  return `<div class="crumb"><a href="#onsite">Onsite</a> / <a href="#mock">Mock-up</a> / ${tx('ช่วง','Slot')} ${esc(code)}</div>
+  <section class="card pad mkdk"><div><h2 style="margin:0">${tx('สไลด์ของช่วงนี้','Slides for this session')}</h2><p class="note" style="margin:4px 0 0">${dk.length?(ONS_INS?tx('ฉบับวิทยากร: script เปิดปิด ลำดับคำถาม คำตอบที่เป็นไปได้ และเอกสารที่เกี่ยวข้อง ของหลักสูตรวิศวกรรมวัสดุ','Facilitator edition: scripts, question order, possible answers and related documents for the materials program'):tx('script เปิดปิด ลำดับคำถาม วิธีถามต่อ และเอกสารที่เกี่ยวข้อง ของหลักสูตรวิศวกรรมวัสดุ','Scripts, question order, follow-ups and related documents for the materials program')):tx('ช่วงนี้เป็นการประชุมภายในของคณะผู้ตรวจ ไม่มีผู้สวมบทบาท จึงไม่มีสไลด์ Mock-up','This is an internal team meeting with no role-players, so it has no mock-up deck.')}</p></div>
+   <div class="row" style="gap:8px;flex-wrap:wrap">${dk.map(x=>`<a class="btn" href="decks/mock-${x[0]}.html" target="_blank" rel="noopener">${dk.length>1?esc(tx(x[1],x[2])):tx('เปิดสไลด์','Open the slides')} ↗</a>`).join('')}</div></section>
+  ${actCard(a,i,true)}
+  <nav class="pn">${pv?`<a href="#mock-${pv.code}">‹ ${esc(pv.code)} ${esc(LL(pv.h))}</a>`:`<a href="#mock">‹ Mock-up</a>`}${nx?`<a href="#mock-${nx.code}">${esc(nx.code)} ${esc(LL(nx.h))} ›</a>`:`<a href="#on-2">${tx('ขั้นที่ 3','Step 3')} ›</a>`}</nav>`;
+}
+function onBs(){
+  const notes=S.bs[bsTab]||[];
+  return `<div class="crumb"><a href="#onsite">Onsite</a> / Brainstorm</div>
+  <div><h1>${tx('กระดาน Brainstorm','Brainstorm board')}</h1><p class="lead">${tx('ใช้กระดานออนไลน์บนจอหน้าห้อง: แต่ละรอบมี QR ให้ผู้อบรมสแกนแล้วพิมพ์ความเห็นจากมือถือโดยไม่ต้องใส่ชื่อ ความเห็นขึ้นเป็นโพสต์อิททันที ตั้งเวลา เปิดและปิดรับได้ เมื่อหมดเวลาระบบจัดกลุ่มให้ และส่งออก Excel ได้','Use the online board on the room screen: each round has its own QR code; participants type anonymously on their phones and notes appear at once. Set the timer, open and close the board, group the notes when time is up, and export to Excel.')}</p></div>
+  <section class="card pad"><h2>${tx('เปิดกระดานของแต่ละรอบ','Open each round’s board')}</h2>
+   <ul class="klist">${BS.map((t,i)=>`<li><span class="tm">${tx('รอบ','Round')} ${i+1}</span><b>${L(t)}</b><a class="chip" href="${BS_WEB}#/${3+3*i}" target="_blank" rel="noopener">${tx('เปิดกระดาน','Open board')} ↗</a></li>`).join('')}</ul>
+   <p class="note">${BS_WEB.replace('https://','')}${window.SERLAB_MODE==='trainee'?' · '+tx('ในวันอบรม วิทยากรเปิดกระดานบนจอหน้าห้อง ผู้อบรมสแกน QR ของรอบนั้นด้วยมือถือ','On the day the facilitator shows the board; scan that round’s QR code with your phone.'):''}</p></section>
+  <section class="card pad"><h2>${tx('โน้ตในเครื่องนี้ (สำรอง)','Notes on this device (backup)')}</h2><p class="note">${tx('ใช้เมื่อไม่มีอินเทอร์เน็ต คนคุมเครื่องพิมพ์แทนกลุ่ม โน้ตเก็บในเบราว์เซอร์เครื่องนี้เท่านั้น','For when there is no internet: one person types for the group; notes stay in this browser only.')}</p>
    <div class="tabs" role="tablist" style="margin-top:12px">${BS.map((t,i)=>`<button class="tab" role="tab" aria-selected="${i===bsTab}" data-bs="${i}">${tx('รอบ','Round')} ${i+1}: ${L(t)}</button>`).join('')}</div>
    <form class="row" id="f-bs" style="margin-top:14px"><input id="bs-text" aria-label="${tx('ความเห็น','Note')}" placeholder="${tx('พิมพ์ความเห็นหนึ่งเรื่อง','Type one point')}" required style="flex:1;min-width:200px;background:var(--paper);border:1.5px solid var(--rule);border-radius:999px;padding:9px 16px"><button class="btn" type="submit">${tx('ติดโน้ต','Add note')}</button></form>
    <div class="board">${notes.map((n,i)=>`<div class="sticky"><span>${esc(n)}</span><button class="x" data-bsdel="${i}">${tx('ลบ','Delete')}</button></div>`).join('')||`<p class="note">${tx('ยังไม่มีโน้ตในรอบนี้','No notes in this round yet.')}</p>`}</div></section>
-  <p class="note">${tx('การประเมินผลการตรวจ (Quiz & Poll 10 สถานการณ์คละเกณฑ์) อยู่ที่ ฝึกวิเคราะห์ › การประเมินผลการตรวจ ใช้เสริมในช่วงสรุปได้','The finding-level assessment (Quiz & Poll, 10 mixed situations) sits under Analysis practice and can be used in the debriefs.')} <a href="#cases">${tx('การประเมินผลการตรวจ','Finding-level assessment')} ↗</a></p>`;
+  <nav class="pn"><a href="#onsite">‹ ${tx('เริ่มที่นี่','Start here')}</a><span></span></nav>`;
+}
+function onKey(){
+  if(!ONS_INS) return onsite();
+  return `<div class="crumb"><a href="#onsite">Onsite</a> / ${tx('เฉลยตามรอบ','Key by round')}</div>
+  <div><h1>${tx('เฉลยตามรอบ (เฉพาะวิทยากร)','Key by round (facilitators only)')}</h1><p class="lead">${tx('จากคู่มือวิทยากร ตารางที่ 2 และ 11 ใช้เทียบกับคอลัมน์ PV1 PV2 และ Day 2/Exit ใน PEV Studio ของแต่ละทีม ระดับยังเป็นร่าง รอผู้ตรวจอาวุโสรับรอง','From the facilitator guide, tables 2 and 11. Compare with each team’s PV1, PV2 and Day 2/Exit columns. Levels are drafts awaiting senior-PEV endorsement.')}</p></div>
+  <section class="card"><div class="tw"><table><thead><tr><th>${tx('เกณฑ์','Criterion')}</th><th>PV1</th><th>PV2</th><th>${tx('หลังตรวจเยี่ยม','After visit')}</th><th>${tx('ประเด็น','Issue')}</th><th>${tx('ซองที่ปล่อย','Envelope')}</th><th>${tx('ยืนยันกับ','Confirm with')}</th></tr></thead><tbody>${KEYC.map((k,i)=>`<tr><td class="k1">${i+1} ${esc(L(CRN[i]))}</td>${k.l.map(x=>`<td>${lvChip(x)}</td>`).join('')}<td>${esc(k.iss)}</td><td>${esc(k.env)}</td><td>${esc(k.src)}</td></tr>`).join('')}</tbody></table></div></section>
+  <nav class="pn"><a href="#onsite">‹ ${tx('เริ่มที่นี่','Start here')}</a><span></span></nav>`;
 }
 function crit(n){
   const i=n-1; if(!CRN[i]) return onsite();
   caseTab=i;
   const dn=caseDone(i), tot=D.cases[i].items.length, k=KEYC[i];
-  return `<div class="crumb"><a href="#onsite">Onsite</a> / ${tx('ประเมินรายเกณฑ์','Criterion by criterion')} / ${tx('ข้อ','Criterion')} ${n}</div>
+  return `<div class="crumb"><a href="#onsite">Onsite</a> / <a href="#on-1">${tx('ขั้นที่ 2','Step 2')}</a> / ${tx('ประเมินรายเกณฑ์','Criterion by criterion')} / ${tx('ข้อ','Criterion')} ${n}</div>
   <div><p class="row" style="margin:0 0 6px"><span class="chip">${tx('เกณฑ์ข้อ','Criterion')} ${n}</span><span class="chip mute">${tx('หลักสูตรวิศวกรรมวัสดุและโลหการ (สมมติ)','Materials and Metallurgical Engineering (mock)')}</span></p><h1>${esc(L(CRN[i]))}</h1><p class="lead">${tx('ทำ 2 ขั้นตามลำดับ: อุ่นเครื่องด้วยกรณีศึกษาของเกณฑ์นี้ แล้วประเมินเกณฑ์เดียวกันในเล่ม SER วัสดุด้วย PEV Studio','Two steps in order: warm up with this criterion’s cases, then rate the same criterion in the materials SER with PEV Studio.')}</p></div>
   <ol class="csteps"><li class="${dn>=tot?'ok':''}"><b>1</b><span><b>${tx('อุ่นเครื่อง','Warm-up')}</b><br>${tx(`กรณีศึกษา ${dn}/${tot}`,`${dn}/${tot} cases`)}</span></li><li><b>2</b><span><b>${tx('ประเมินในเล่ม SER','Rate in the SER')}</b><br>PEV Studio · 2 · Pre-visit 1</span></li><li><b>3</b><span><b>${tx('สัญญาณ → คำขอ','Signal → request')}</b><br>PEV Studio · 3 · ${tx('ขอเอกสาร','Request')}</span></li></ol>
   <h2 class="h2s">1 · ${tx('อุ่นเครื่อง: กรณีศึกษาเกณฑ์ข้อ','Warm-up: cases for criterion')} ${n}</h2>
@@ -941,16 +1050,18 @@ function crit(n){
    <label class="note" for="cn-${n}" style="display:block;margin-top:12px">${tx('บันทึกของฉัน (เก็บในเครื่องนี้)','My notes (kept on this device)')}</label><textarea id="cn-${n}" data-cn="${n}" rows="4" style="width:100%;box-sizing:border-box;margin-top:4px;background:var(--paper);border:1.5px solid var(--rule);border-radius:12px;padding:10px 12px;font:inherit">${esc((S.cn||{})[n]||'')}</textarea>
    <p class="row" style="margin-top:10px"><a class="btn" href="${PEVS_URL}" target="_blank" rel="noopener">${tx('เปิด PEV Studio','Open PEV Studio')} ↗</a></p></div></div></section>
   ${ONS_INS?`<section class="card pad keyb"><h2>${tx('เฉลยของเกณฑ์นี้ (เฉพาะวิทยากร)','Key for this criterion (facilitators only)')}</h2><p style="margin:6px 0">${esc(k.iss)}</p><p class="row" style="gap:10px">PV1 ${lvChip(k.l[0])} PV2 ${lvChip(k.l[1])} ${tx('หลังตรวจเยี่ยม','After visit')} ${lvChip(k.l[2])}</p><p class="note">${tx('ซองที่ปล่อย','Envelope')}: ${esc(k.env)}<br>${tx('ยืนยันกับ','Confirm with')}: ${esc(k.src)}</p></section>`:''}
-  <nav class="pn">${n>1?`<a href="#crit-${n-1}">‹ ${tx('ข้อ','Criterion')} ${n-1} ${esc(L(CRN[n-2]))}</a>`:`<a href="#onsite">‹ Onsite</a>`}${n<8?`<a href="#crit-${n+1}">${tx('ข้อ','Criterion')} ${n+1} ${esc(L(CRN[n]))} ›</a>`:`<a href="#onsite">Onsite ›</a>`}</nav>`;
+  <nav class="pn">${n>1?`<a href="#crit-${n-1}">‹ ${tx('ข้อ','Criterion')} ${n-1} ${esc(L(CRN[n-2]))}</a>`:`<a href="#on-1">‹ ${tx('ขั้นที่ 2','Step 2')}</a>`}${n<8?`<a href="#crit-${n+1}">${tx('ข้อ','Criterion')} ${n+1} ${esc(L(CRN[n]))} ›</a>`:`<a href="#on-1">${tx('ขั้นที่ 2','Step 2')} ›</a>`}</nav>`;
 }
 
+let goAg=null;
 function render(keep){
   const id=(location.hash||'#path').slice(1), y=keep?window.scrollY:0;
   nav(id);
   const m=id.match(/^(ep|quiz|mod)-(\d+)$/);
-  const cm=id.match(/^crit-(\d)$/);
-  view.innerHTML=m?(m[1]==='ep'?ep(+m[2]):m[1]==='mod'?mod(+m[2]):quiz(+m[2])):cm?crit(+cm[1]):({learn,analysis,serlab,transcript,cases,onsite,record}[id]||home)();
+  const cm=id.match(/^crit-(\d)$/), od=id.match(/^on-([012])$/), mk=id.match(/^mock-([\d-]+)$/);
+  view.innerHTML=m?(m[1]==='ep'?ep(+m[2]):m[1]==='mod'?mod(+m[2]):quiz(+m[2])):cm?crit(+cm[1]):od?onDay(+od[1]):mk?mockPage(mk[1]):({learn,analysis,serlab,transcript,cases,onsite,record,mock:mockIndex,'on-bs':onBs,'on-key':onKey}[id]||home)();
   window.scrollTo(0,y);
+  if(goAg){const el=document.getElementById('ag-'+goAg);goAg=null;if(el){el.scrollIntoView({block:'center'});el.classList.add('flash')}}
 }
 document.querySelector('.lang').addEventListener('click',e=>{const b=e.target.closest('[data-lang]');if(!b)return;lang=b.dataset.lang;try{localStorage.setItem('tabee-lang',lang)}catch(_){}render(true)});
 view.addEventListener('click',e=>{
@@ -967,6 +1078,7 @@ view.addEventListener('click',e=>{
   else if(d.del!==undefined){S.ser.splice(+d.del,1);save();render(true)}
   else if(d.key!==undefined){showKey=true;render(true)}
   else if(d.bs!==undefined){bsTab=+d.bs;render(true)}
+  else if(d.onk!==undefined){onK=d.onk;render(true)}
   else if(d.bsdel!==undefined){S.bs[bsTab].splice(+d.bsdel,1);save();render(true)}
   else if(d.mt!==undefined){mTab=d.mt;render(true)}
   else if(d.sl!==undefined){const m=+location.hash.slice(5),s=SLIDE[m];slIdx[m]=Math.min(s[2],Math.max(s[1],(slIdx[m]||s[1])+(+d.sl)));render(true)}
@@ -981,6 +1093,7 @@ view.addEventListener('change',e=>{const d=e.target.dataset;
 view.addEventListener('submit',e=>{e.preventDefault();
   if(e.target.id==='f-ser'){S.ser.push({part:$('#s-part').value,text:$('#s-text').value.trim(),lv:$('#s-lv').value,ask:$('#s-ask').value.trim()});save();render(true)}
   else if(e.target.id==='f-bs'){(S.bs[bsTab]=S.bs[bsTab]||[]).push($('#bs-text').value.trim());save();render(true);$('#bs-text').focus()}});
+view.addEventListener('click',e=>{const a=e.target.closest('a[data-goag]');if(a)goAg=a.dataset.goag});
 window.addEventListener('hashchange',()=>{if(!/^#quiz-/.test(location.hash))run=null;if(/^#mod-/.test(location.hash))mTab='read';render()});
 document.addEventListener('keydown',e=>{if(mTab!=='slides'||!/^#mod-/.test(location.hash)||/input|textarea|select/i.test(e.target.tagName))return;const b=document.querySelector(e.key==='ArrowRight'?'[data-sl="1"]':e.key==='ArrowLeft'?'[data-sl="-1"]':null);if(b&&!b.disabled)b.click()});
 /* sidebar: drawer on small screens, phase memory, in-page jumps */

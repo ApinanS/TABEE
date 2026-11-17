@@ -13,7 +13,8 @@ const rank=k=>LV.indexOf(k);
 const D=()=>window.SERLAB||[];
 const INS=(window.SERLAB_MODE||'instructor')==='instructor';
 const FILES=()=>window.SERLAB_FILES||{};
-let vol=0, step=0;
+let vol=-1, step=0;
+const volFix=()=>{if(vol<0){const i=D().findIndex(x=>x.code===((typeof S!=='undefined'&&S.labv)||'MT'));vol=i<0?0:i}return vol};
 const st=c=>{S.lab=S.lab||{};return S.lab[c]=S.lab[c]||{lv:[{},{},{}],req:[],reqDone:false,iv:[],pl:[],planDone:false,k:[false,false,false],open:false}};
 const key=(v,s,ci)=>{ if(s===2) return v.final[ci][0]; let m='N'; v.issues.forEach(i=>{if(+i.crit===ci+1&&rank(i.path[s])>rank(m))m=i.path[s]}); return m };
 const hash=s=>{let h=7;for(const ch of s)h=(h*31+ch.charCodeAt(0))%9973;return h};
@@ -158,24 +159,24 @@ function panel(v,a){
 }
 window.serlab=function(){if(!INS&&step>5)step=5;
   const V=D(); if(!V.length) return `<section class="card pad"><p>${T('ไม่พบข้อมูลชุดฝึก','Exercise data not found')}</p></section>`;
-  const v=V[vol], a=st(v.code);
+  volFix();const v=V[vol], a=st(v.code);
   const done=[a.k[0],a.reqDone,a.k[1],a.planDone,a.planDone&&a.seen,a.k[2]];
-  return css+`<div class="crumb"><a href="#analysis">${T('ฝึกวิเคราะห์','Analysis practice')}</a> / ${T('ชุดฝึก SER จำลอง 7 หลักสูตร','Mock SER lab: 7 programs')}</div>
-  <div><h1>${T('ชุดฝึก SER จำลอง 7 หลักสูตร','Mock SER lab: 7 programs')}</h1><p class="lead">${T('ฝึกตามลำดับงานจริงของผู้ตรวจประเมิน 6 ขั้น ตั้งแต่อ่านรายงานประเมินตนเองจนถึงให้ระดับข้อค้นพบสุดท้าย แต่ละขั้นจะเห็นแนวคิดของขั้นนั้นเมื่อส่งคำตอบแล้วเท่านั้น','Follow an evaluator’s real sequence in six steps, from reading the self-evaluation report to the final finding levels. Each step shows its reasoning only after you submit.')}</p>${lang==='en'?'<p class="src" style="margin-top:10px">Exercise content is in Thai. An English version has not been prepared yet.</p>':''}</div>
-  <section class="card pad"><div class="tabs" role="tablist" aria-label="${T('หลักสูตร','Program')}">${V.map((x,i)=>{const b=st(x.code);return `<button class="tab" role="tab" aria-selected="${i===vol}" data-lab="vol" data-i="${i}">${e(x.name)}${b.k[2]?' ✓':''}</button>`}).join('')}</div>
+  return css+`<div class="crumb"><a href="#analysis">${T('ฝึกวิเคราะห์','Analysis practice')}</a> / ${T('ชุดฝึก SER จำลอง','Mock SER lab')}</div>
+  <div><h1>${T('ชุดฝึก SER จำลอง · เลือก 1 หลักสูตร','Mock SER lab · pick one program')}</h1><p class="lead">${T('ฝึกตามลำดับงานจริงของผู้ตรวจประเมิน 6 ขั้น ตั้งแต่อ่านรายงานประเมินตนเองจนถึงให้ระดับข้อค้นพบสุดท้าย แต่ละขั้นจะเห็นแนวคิดของขั้นนั้นเมื่อส่งคำตอบแล้วเท่านั้น','Follow an evaluator’s real sequence in six steps, from reading the self-evaluation report to the final finding levels. Each step shows its reasoning only after you submit.')}</p>${lang==='en'?'<p class="src" style="margin-top:10px">Exercise content is in Thai. An English version has not been prepared yet.</p>':''}</div>
+  <section class="card pad"><p class="note" style="margin:0 0 10px">${T('ทำ 1 หลักสูตรก็ครบ ค่าเริ่มต้นคือวิศวกรรมวัสดุและโลหการ หลักสูตรอื่นเลือกฝึกเพิ่มได้','One program completes this task. The default is Materials and Metallurgical Engineering; the others are optional extra practice.')}</p><div class="tabs" role="tablist" aria-label="${T('หลักสูตร','Program')}">${V.map((x,i)=>{const b=st(x.code);return `<button class="tab" role="tab" aria-selected="${i===vol}" data-lab="vol" data-i="${i}">${e(x.name)}${b.k[2]?' ✓':''}</button>`}).join('')}</div>
   <p class="note" style="margin-top:10px">${T('ไฟล์ของหลักสูตร','Files for')} ${e(v.name)} · ${T('ความก้าวหน้าบันทึกในเบราว์เซอร์นี้','progress is saved in this browser')}</p>${fileBox(v)}</section>
   ${INS?`<p class="src">${T('ฉบับวิทยากร: แสดงเฉลยทุกขั้น ซองเอกสารครบ บัตรบทบาท และข้อมูลสถานที่ ห้ามเผยแพร่ลิงก์นี้ให้ผู้เข้ารับการฝึกอบรม','Instructor edition: keys at every step, the full packet, role cards and site information. Do not share this link with trainees.')}</p>`:''}
   <nav class="lab-steps" aria-label="${T('ขั้นของชุดฝึก','Exercise steps')}">${STEPS.map((s,i)=>`<button class="lab-step ${done[i]?'done':''}" data-lab="go" data-to="${i}" ${i===step?'aria-current="step"':''}><b>${i+1}. ${T(s[0],s[1])}</b><span>${T(s[2],s[3])}</span></button>`).join('')}</nav>
   ${panel(v,a)}
   <div class="row"><button class="btn ghost" data-lab="reset">${T('เริ่มเล่มนี้ใหม่','Restart this program')}</button></div>`;
 };
-document.addEventListener('input',ev=>{const t=ev.target.closest('[data-labtxt]');if(!t)return;const v=D()[vol],a=st(v.code);(a.txt=a.txt||{})[t.dataset.labtxt]=t.value;save()});
+document.addEventListener('input',ev=>{const t=ev.target.closest('[data-labtxt]');if(!t)return;const v=D()[volFix()],a=st(v.code);(a.txt=a.txt||{})[t.dataset.labtxt]=t.value;save()});
 window.serlabDone=()=>D().filter(x=>(S.lab||{})[x.code]&&S.lab[x.code].k[2]).length;
 document.addEventListener('click',ev=>{
-  const t=ev.target.closest('[data-lab]'); if(!t||t.disabled) return; const d=t.dataset, V=D(), v=V[vol], a=st(v.code);
+  const t=ev.target.closest('[data-lab]'); if(!t||t.disabled) return; const d=t.dataset, V=D(), v=V[volFix()], a=st(v.code);
   const tog=(arr,i,max)=>{const p=arr.indexOf(i); if(p>-1)arr.splice(p,1); else if(arr.length<max)arr.push(i)};
   let top=false;
-  if(d.lab==='vol'){vol=+d.i;step=0}
+  if(d.lab==='vol'){vol=+d.i;step=0;S.labv=V[vol].code}
   else if(d.lab==='go'){step=Math.max(0,Math.min(5,+d.to));top=true;if(step===4&&a.planDone)a.seen=true}
   else if(d.lab==='lv'){const o=a.lv[+d.s]; o[+d.c]=o[+d.c]===d.k?undefined:d.k}
   else if(d.lab==='key'){a.k[+d.s]=true}
