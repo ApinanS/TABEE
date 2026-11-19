@@ -408,7 +408,7 @@ const HEAD=/เกณฑ(?:ขอท|ขอ|ท)([1-8])(?![0-9])|criterion([1-8]
 const MAJOR=1500;
 function lineStartOK(raw,ri,max=40){let j=ri-1,pre='';while(j>=0&&raw[j]!=='\n'&&ri-j<max){pre=raw[j]+pre;j--}return pre}
 function prepDoc(f,raw){const sk=skel(raw),cand=[],pages=[];let m;HEAD.lastIndex=0;
-  while((m=HEAD.exec(sk.s))){const ri=sk.map[m.index];const pre=lineStartOK(raw,ri);
+  while((m=HEAD.exec(sk.s))){const ri=sk.map[m.index];const pre=lineStartOK(raw,ri).replace(/[\u200b\ufeff]/g,'');
     if(/^[\s\d.\-–•#*]*(?:(?:บทที่|ส่วนที่|หมวดที่|Part|Chapter)\s*\d+[\s.:\-–]*)?$/i.test(pre))cand.push([ri,+(m[1]||m[2])])}
   /* keep only headings that open a real section, so a table of contents or a checklist table does not split the book */
   const hs=cand.filter((h,i)=>(i+1<cand.length?cand[i+1][0]:raw.length)-h[0]>=MAJOR);
