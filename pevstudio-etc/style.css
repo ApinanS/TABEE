@@ -363,3 +363,22 @@ button.sched:hover{background:var(--s2)}
 .lkf textarea{min-height:64px;font-size:13.5px}
 .lkc{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;margin-top:2px}
 .lka{font-size:12.5px;font-weight:600;color:var(--rW);text-decoration:underline;text-underline-offset:2px}
+
+/* ===== ETC colour scheme: petrol teal of the ETC Training Studio, so PEV Studio ETC looks different from the TABEE (EAC) PEV Studio.
+   Rating colours (N R C W D S) are unchanged. ===== */
+:root{--brand:#0B5D6B;--brand2:#083F49;--tint:#E2F0F1;
+  --bg:#F2F5F4;--s2:#F6F9F8;--s3:#EBF2F1;--line:#DCE4E3;--line2:#E8EEED;--ctl:#C9D6D5;
+  --rail:#062E35;--rail2:#0A3F48;--rail3:#125260;--rail-ink:#CFE3E5;--rail-muted:#8FB3B7}
+.btn:hover,.ccard:hover{border-color:var(--brand)}
+.btn.pri,.seg button.on,.ccard.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.btn.pri:hover{background:var(--brand2)}
+.next{background:var(--brand)} .next:hover{background:var(--brand2)}
+.av{background:var(--brand)}
+.bar i{background:var(--brand)}
+.kpi{border-top-color:var(--k,var(--brand))} .kpi span i{background:var(--k,var(--brand))}
+.heat .hh.cur{color:var(--brand);border-bottom-color:var(--brand)} .heat .hc.cur{box-shadow:inset 0 0 0 2px var(--brand)}
+.sched i.now{background:var(--brand)}
+.item.sel{border-color:var(--brand)}
+.step.on{color:var(--brand2)} .step.on i:not(.done):not(.part){border-color:var(--brand)}
+.edt{background:var(--tint);color:var(--brand2)}
+.smc{border-top:3px solid var(--brand)}
