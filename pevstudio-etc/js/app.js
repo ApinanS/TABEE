@@ -405,7 +405,7 @@ function prepKW(k){k=k.trim();if(/^[\x20-\x7E]+$/.test(k)){const cs=/^[A-Z0-9]{2
 function prepGroup(g){const i=g.indexOf(':');return{label:g.slice(0,i).trim(),kws:g.slice(i+1).split('|').filter(Boolean).map(prepKW)}}
 const RX={};for(const k in RULES){const r=RULES[k];RX[k]={req:(r.req||[]).map(prepGroup),opt:(r.opt||[]).map(prepGroup),cond:r.cond?prepGroup(r.cond):null,r}}
 const HEAD=/เกณฑ(?:ขอท|ขอ|ท)([1-8])(?![0-9])|criterion([1-8])(?![0-9])/g;
-const MAJOR=1500;
+const MAJOR=400;
 function lineStartOK(raw,ri,max=40){let j=ri-1,pre='';while(j>=0&&raw[j]!=='\n'&&ri-j<max){pre=raw[j]+pre;j--}return pre}
 function prepDoc(f,raw){const sk=skel(raw),cand=[],pages=[];let m;HEAD.lastIndex=0;
   while((m=HEAD.exec(sk.s))){const ri=sk.map[m.index];const pre=lineStartOK(raw,ri).replace(/[\u200b\ufeff]/g,'');
