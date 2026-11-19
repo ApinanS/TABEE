@@ -1188,7 +1188,7 @@ A.sample=async function(d){const s=SAMPLE_LIST.find(x=>x.key===d.k);if(!s)return
 
 /* ---------- rev.7: built-in case documents, tutorial video, trainee / instructor editions ---------- */
 const ED=typeof PEV_EDITION!=='undefined'?PEV_EDITION:'instructor';
-const CASES=(typeof SAMPLES!=='undefined'?SAMPLES:[]).filter(s=>ED==='instructor'||s.key==='mpt');
+const CASES=(typeof SAMPLES!=='undefined'?SAMPLES:[]).filter(s=>ED==='instructor'||s.trainee!==false);
 const VIDEO='media/pev-studio-etc-tutorial.mp4';const PV=typeof PEV_VIDEO!=='undefined'?PEV_VIDEO:{len:'0:00',sec:0,ch:[[0,'เริ่มต้นและภาพรวม']]};const VLEN=PV.len,VLEN_TH=Math.floor(PV.sec/60)+' นาที '+(PV.sec%60)+' วินาที';
 const CHAPTERS=PV.ch;
 const caseOf=k=>CASES.find(s=>s.key===k);
@@ -1223,11 +1223,11 @@ renderLanding=function(){renderLanding6();const v=$('#view');if(!v)return;const 
   if(hero){const b=document.createElement('div');b.className='edbar';b.innerHTML=`<span class="edt ${ED}">${ED==='trainee'?t('ฉบับผู้เข้ารับการอบรม','Trainee edition'):t('ฉบับวิทยากร','Instructor edition')}</span><button class="btn pri" data-a="video">${ic('gen')}${t('วีดีโอสอนการใช้งาน ('+VLEN+')','Tutorial video ('+VLEN+')')}</button>`;hero.appendChild(b)}
   if(!CASES.length)return;const RES={full:'รับรอง',cond:'รับรองแบบมีเงื่อนไข',prov:'รับรองชั่วคราว',wait:'รอผลการปรับปรุงแก้ไข',no:'ไม่รับรอง'};
   const sec=document.createElement('section');sec.className='card col';sec.id='samples';
-  sec.innerHTML=`<div class="row" style="justify-content:space-between;align-items:baseline"><h2>${ED==='trainee'?t('เคสฝึกอบรม: เทคโนโลยีวิศวกรรมเครื่องกลและการผลิต','Training case: Mechanical and Manufacturing Engineering Technology'):t('เคสจากชุดฝึกอบรม PEV','Cases from the PEV training kits')}</h2><span class="small muted">${t('หลักสูตรสมมติ · มหาวิทยาลัยเทคโนโลยีวนาธาร','Fictional programs · Wanathan University')}</span></div>
+  sec.innerHTML=`<div class="row" style="justify-content:space-between;align-items:baseline"><h2>${ED==='trainee'?t('เคสฝึกอบรมหลักสูตรทางเทคโนโลยีวิศวกรรม ('+CASES.length+' เคส)','ETC training cases ('+CASES.length+')'):t('เคสจากชุดฝึกอบรม PEV','Cases from the PEV training kits')}</h2><span class="small muted">${t('หลักสูตรสมมติ · มหาวิทยาลัยเทคโนโลยีวนาธาร','Fictional programs · Wanathan University')}</span></div>
    <p class="small muted" style="margin:0;max-width:80ch">${t('"เริ่มฝึก" สร้างรายการใหม่ที่มีเฉพาะ SER และเอกสารประกอบ ให้ประเมินเองตั้งแต่ Auto Check ส่วนซองเอกสารเพิ่มเติมเพิ่มได้ที่หน้าเอกสารหลักสูตรเมื่อถึง Pre-visit 2 · "ดูตัวอย่างที่กรอกครบ" เปิดเคสที่กรอกทุกขั้นแล้ว ทั้งสองแบบสร้างเป็นรายการใหม่ ไม่ทับรายการเดิม','"Start practice" creates an evaluation with the SER and attachments only. "View completed example" opens a fully filled case. Both create a new evaluation.')}</p>
    <div class="smpl">${CASES.map(s=>`<article class="smc"><div class="row" style="justify-content:space-between;align-items:center;gap:8px"><span class="mono tiny muted">${esc(s.short)}</span>${s.video?`<button class="tlp ok" data-a="video" style="border:0;cursor:pointer"><i></i>${t('ดูวีดีโอสอน','Watch tutorial')}</button>`:''}</div>
      <b>${esc(s.field)}</b><p class="small muted">${esc(s.about)}</p>
-     ${ED==='instructor'||s.key==='mpt'?`<div class="lvs">${[1,2,3,4,5,6,7,8].map(c=>`<span title="${t('เกณฑ์ข้อ ','Criterion ')}${c}">${chipS(s.lv[c]||'N')}<small>${c}</small></span>`).join('')}</div><span class="small">${t('ผลในตัวอย่าง: ','Example result: ')}${esc(RES[s.result]||'')}</span>`:''}
+     ${ED==='instructor'||s.trainee!==false?`<div class="lvs">${[1,2,3,4,5,6,7,8].map(c=>`<span title="${t('เกณฑ์ข้อ ','Criterion ')}${c}">${chipS(s.lv[c]||'N')}<small>${c}</small></span>`).join('')}</div><span class="small">${t('ผลในตัวอย่าง: ','Example result: ')}${esc(RES[s.result]||'')}</span>`:''}
      <details class="cdocs"><summary>${t('เอกสารของเคส','Case documents')} (${docsOf(s).length})</summary>${docList(s.key,false)}</details>
      <div class="row" style="gap:8px;flex-wrap:wrap"><button class="btn pri sm" data-a="sample" data-k="${s.key}" data-m="practice" ${S.canWrite?'':'disabled'}>${t('เริ่มฝึก','Start practice')}</button><button class="btn sm" data-a="sample" data-k="${s.key}" data-m="ex" ${S.canWrite?'':'disabled'}>${t('ดูตัวอย่างที่กรอกครบ','View completed example')}</button></div></article>`).join('')}</div>`;
   const cards=v.querySelectorAll('section.card');const target=cards[0];if(target)target.before(sec);else v.appendChild(sec)};
