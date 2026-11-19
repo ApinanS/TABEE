@@ -26,16 +26,16 @@
 
 <style>
 :root{
-  --navy:#1F497D; --blue:#4F81BD; --red:#C00000; --green:#1A8038; --orange:#D97706;
-  --ink:#1F2937; --muted:#6B7280; --line:#E5E7EB; --card:#F7F9FC; --bg:#FFFFFF;
+  --navy:#0B5D6B; --blue:#2E8F9B; --red:#C00000; --green:#1A8038; --orange:#D97706;
+  --ink:#1F2937; --muted:#6B7280; --line:#E5E7EB; --card:#F2F7F7; --bg:#FFFFFF;
 }
 *{box-sizing:border-box; margin:0; padding:0}
-html,body{height:100%; background:#ECEFF3; overflow:hidden;
+html,body{height:100%; background:#E7EEED; overflow:hidden;
   font-family:'Montserrat','Prompt',system-ui,sans-serif; color:var(--ink)}
 
 /* ---------- Stage: fixed 1280x720, scaled to fit ---------- */
 #stage{width:1280px; height:720px; position:absolute; top:50%; left:50%;
-  transform-origin:center; background:var(--bg); box-shadow:0 10px 40px rgba(31,73,125,.18); overflow:hidden}
+  transform-origin:center; background:var(--bg); box-shadow:0 10px 40px rgba(11,93,107,.18); overflow:hidden}
 
 /* ---------- Slides ---------- */
 .slide{position:absolute; inset:0; display:none; flex-direction:column;
@@ -72,7 +72,7 @@ html,body{height:100%; background:#ECEFF3; overflow:hidden;
 .agenda{display:flex; flex-direction:column; gap:18px; max-width:1020px}
 a.agenda-item{display:flex; align-items:center; gap:26px; text-decoration:none; color:inherit;
   background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px 28px}
-a.agenda-item:hover{border-color:var(--navy); box-shadow:0 4px 14px rgba(31,73,125,.12)}
+a.agenda-item:hover{border-color:var(--navy); box-shadow:0 4px 14px rgba(11,93,107,.12)}
 .agenda-item .no{flex:0 0 70px; font-size:26px; font-weight:800; color:var(--navy)}
 .agenda-item .qq{font-size:22px; font-weight:500; line-height:1.4}
 .agenda-item .go{margin-left:auto; color:var(--blue); font-size:26px}
@@ -251,13 +251,13 @@ svg text{font-family:'Montserrat','Prompt',sans-serif}
 .qt-sel{display:flex; gap:5px}
 .qt-sel button{font:inherit; font-size:13px; font-weight:700; padding:3px 11px; border-radius:999px;
   border:1.5px solid var(--line); background:var(--bg); color:var(--muted); cursor:pointer}
-.qt-sel button.on{border-color:var(--navy); color:var(--navy); background:#EDF3FA}
+.qt-sel button.on{border-color:var(--navy); color:var(--navy); background:#E2F0F1}
 .qt-start{font:inherit; font-size:14px; font-weight:700; padding:6px 15px; border-radius:9px;
   border:2px solid var(--navy); background:var(--navy); color:#fff; cursor:pointer; white-space:nowrap}
 .qt-start.run{background:var(--bg); color:var(--red); border-color:var(--red)}
 .qt-live{font-size:12.5px; font-weight:600; color:var(--muted); text-align:center; line-height:1.25; min-width:64px}
 .qt-live b{display:block; font-size:22px; color:var(--navy); font-variant-numeric:tabular-nums}
-.netdot{display:inline-block; width:8px; height:8px; border-radius:50%; background:#CBD5E1;
+.netdot{display:inline-block; width:8px; height:8px; border-radius:50%; background:#C3D6D7;
   margin-right:5px; vertical-align:middle}
 .netdot.on{background:var(--green)} .netdot.connecting{background:var(--orange)}
 .netdot.fail,.netdot.lost,.netdot.nolib{background:var(--red)}
@@ -279,7 +279,7 @@ svg text{font-family:'Montserrat','Prompt',sans-serif}
 .pb-fill{height:100%; width:0; border-radius:999px; background:var(--blue);
   transition:width .95s cubic-bezier(.22,.9,.3,1), background .3s}
 .pbar.lead .pb-fill{background:var(--navy)}
-.revealed .pbar .pb-fill{background:#CBD5E1}
+.revealed .pbar .pb-fill{background:#C3D6D7}
 .revealed .pbar.ok .pb-fill{background:var(--green)}
 .revealed .pbar.ok .pb-num b{color:var(--green)}
 .revealed .pbar.ok .pb-key{border-color:var(--green); color:var(--green); background:#EDF7F0}
@@ -304,7 +304,7 @@ svg text{font-family:'Montserrat','Prompt',sans-serif}
 
 /* Phone voter page */
 #voter{display:none}
-html.voter-mode, html.voter-mode body{height:auto; overflow:auto; background:#EEF2F7}
+html.voter-mode, html.voter-mode body{height:auto; overflow:auto; background:#E8F1F1}
 html.voter-mode #stage, html.voter-mode #hud, html.voter-mode #progress, html.voter-mode #toc{display:none !important}
 html.voter-mode #voter{display:block; max-width:620px; margin:0 auto; padding:18px 16px 44px}
 .v-head{display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:16px}
@@ -312,7 +312,7 @@ html.voter-mode #voter{display:block; max-width:620px; margin:0 auto; padding:18
 .v-room b{font-size:24px; font-weight:800; letter-spacing:.16em; margin-left:8px}
 .v-stat{font-size:13.5px; font-weight:600; color:var(--muted)}
 .v-card{background:#fff; border:1px solid var(--line); border-radius:16px; padding:20px 18px;
-  box-shadow:0 6px 18px rgba(31,73,125,.07)}
+  box-shadow:0 6px 18px rgba(11,93,107,.07)}
 .v-lbl{font-size:12.5px; font-weight:700; letter-spacing:.13em; text-transform:uppercase;
   color:var(--muted); margin-bottom:9px}
 .v-q{font-size:19px; font-weight:600; line-height:1.4; margin-bottom:18px}
@@ -321,7 +321,7 @@ html.voter-mode #voter{display:block; max-width:620px; margin:0 auto; padding:18
   border:1.5px solid var(--line); border-radius:14px; cursor:pointer; color:var(--ink)}
 .v-opt .k{flex:0 0 26px; height:26px; line-height:25px; text-align:center; border-radius:8px;
   background:#fff; border:1px solid var(--line); font-size:14px; font-weight:800; color:var(--navy)}
-.v-opt.mine{border-color:var(--navy); background:#EDF3FA; font-weight:600}
+.v-opt.mine{border-color:var(--navy); background:#E2F0F1; font-weight:600}
 .v-opt.mine .k{background:var(--navy); color:#fff; border-color:var(--navy)}
 .v-opt:disabled{opacity:.62; cursor:default}
 .v-note{font-size:15px; color:var(--muted); line-height:1.5; margin-top:12px}
@@ -348,7 +348,7 @@ html.voter-mode #voter{display:block; max-width:620px; margin:0 auto; padding:18
 @page{size:landscape}
 </style>
 <style id="tabee-x">
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}.chip{font-size:15px;font-weight:600;padding:4px 12px;border-radius:999px;background:#EEF2F7;color:var(--navy)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}.chip{font-size:15px;font-weight:600;padding:4px 12px;border-radius:999px;background:#E8F1F1;color:var(--navy)}
 .chip.r{background:#FBE9E7;color:var(--red)}.chip.g{background:#E8F4EC;color:var(--green)}.chip.o{background:#FFF1DD;color:#9A5B00}
 ul.b{list-style:none;display:flex;flex-direction:column;gap:12px}ul.b li{position:relative;padding-left:26px;font-size:22px;line-height:1.5}
 ul.b li::before{content:"";position:absolute;left:4px;top:13px;width:9px;height:9px;border-radius:50%;background:var(--blue)}
