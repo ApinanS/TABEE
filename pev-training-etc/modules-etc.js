@@ -89,7 +89,7 @@ for(const k in O){const x=k[0]==='x';const [m,i]=(x?k.slice(1):k).split('.');con
 (function(){
 const M=window.TR_MOD;if(!M)return;
 const W=(t,e)=>[t,e];
-const NOTE={h:W('ฉบับ ETC','ETC edition'),p:W('บทอ่านโมดูลนี้เขียนใหม่ตามคู่มือ ETAC ปรับปรุงครั้งที่ 3 และ ETAC Guideline 3.1.1–3.1.4 แล้ว วิดีโอและสไลด์ของโมดูลยังเป็นของ TABEE ระดับวิศวกร ถ้าเนื้อหาขัดกันให้ยึดบทอ่านนี้','This reading has been rewritten for the ETAC procedure (revision 3) and ETAC Guidelines 3.1.1–3.1.4. The module’s videos and slides are still TABEE’s engineer-level material; where they differ, follow this reading.'),etc:true};
+const NOTE={h:W('ฉบับ ETC','ETC edition'),p:W('บทอ่านโมดูลนี้เขียนใหม่ตามคู่มือ ETAC ปรับปรุงครั้งที่ 3 และ ETAC Guideline 3.1.1–3.1.4 แล้ว สไลด์ PDF เป็นฉบับ ETC ที่สร้างจากบทอ่านนี้แล้ว ส่วนวิดีโอยังเป็นของ TABEE ระดับวิศวกร ถ้าเนื้อหาขัดกันให้ยึดบทอ่านและสไลด์ฉบับ ETC','This reading has been rewritten for the ETAC procedure (revision 3) and ETAC Guidelines 3.1.1–3.1.4. The PDF slides are the ETC edition built from this reading; the video is still TABEE’s engineer-level material. Where they differ, follow the ETC reading and slides.'),etc:true};
 const R={
 8:{abet:W('คู่มือ ETAC ปรับปรุงครั้งที่ 3 ข้อ 6.3 · ETAC Guideline 3.1.2 และ 3.1.4','ETAC procedure rev. 3, 6.3 · ETAC Guidelines 3.1.2 and 3.1.4'),
  goal:W('ตรวจความเชื่อมโยงระหว่างผลลัพธ์ของหลักสูตร (PLO) ผลลัพธ์การศึกษา 11 ข้อของ ETAC และแบบความรู้ SK1–SK9','Check the links between the programme’s PLOs, ETAC’s 11 programme outcomes and knowledge profiles SK1–SK9.'),
@@ -390,7 +390,7 @@ for(const k in R){const m=M[k];if(!m)continue;Object.assign(m,R[k]);m.sec=R[k].s
 (function(){
 const M=window.TR_MOD;if(!M)return;
 const W=(t,e)=>[t,e];
-const NOTE={h:W('ฉบับ ETC','ETC edition'),p:W('บทอ่านโมดูลนี้เขียนใหม่ตามคู่มือ ETAC ปรับปรุงครั้งที่ 3 และ ETAC Guideline 3.1.1–3.1.4 แล้ว วิดีโอและสไลด์ของโมดูลยังเป็นของ TABEE ระดับวิศวกร ถ้าเนื้อหาขัดกันให้ยึดบทอ่านนี้','This reading has been rewritten for the ETAC procedure (revision 3) and ETAC Guidelines 3.1.1–3.1.4. The module’s videos and slides are still TABEE’s engineer-level material; where they differ, follow this reading.'),etc:true};
+const NOTE={h:W('ฉบับ ETC','ETC edition'),p:W('บทอ่านโมดูลนี้เขียนใหม่ตามคู่มือ ETAC ปรับปรุงครั้งที่ 3 และ ETAC Guideline 3.1.1–3.1.4 แล้ว สไลด์ PDF เป็นฉบับ ETC ที่สร้างจากบทอ่านนี้แล้ว ส่วนวิดีโอยังเป็นของ TABEE ระดับวิศวกร ถ้าเนื้อหาขัดกันให้ยึดบทอ่านและสไลด์ฉบับ ETC','This reading has been rewritten for the ETAC procedure (revision 3) and ETAC Guidelines 3.1.1–3.1.4. The PDF slides are the ETC edition built from this reading; the video is still TABEE’s engineer-level material. Where they differ, follow the ETC reading and slides.'),etc:true};
 const PROC=W('คู่มือขั้นตอนและวิธีการรับรองฯ หลักสูตรทางเทคโนโลยีวิศวกรรม ปรับปรุงครั้งที่ 3 (13 มิ.ย. 2569)','ETAC accreditation procedure, revision 3 (13 June 2569)');
 const LV={cols:[W('ระดับ','Level'),W('ความหมายตามคู่มือ ETAC','Meaning in the ETAC procedure')],rows:[
  ['D',W('ข้อบกพร่อง: หลักฐานและการจัดการไม่เป็นไปตามข้อกำหนดของเกณฑ์ และไม่ผ่านการตรวจประเมิน หลักสูตรต้องชี้แจง แก้ไข และแสดงหลักฐาน','Deficiency: evidence and management do not meet the criterion; the item fails and the programme must explain, fix and show evidence')],
