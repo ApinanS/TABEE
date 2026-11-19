@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ETC Mock-up ช่วง 1-6 · สัมภาษณ์พนักงานพี่เลี้ยงและผู้ใช้บัณฑิต (online)</title>
+
+<!-- Fonts: Montserrat (Latin) + Prompt (Thai) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- KaTeX -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+
+<!-- Chart.js — uncomment ONLY if the deck uses charts
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+-->
+
+<!-- Live poll: MQTT over WebSocket (public broker, no server of our own) -->
+<script defer src="https://cdn.jsdelivr.net/npm/mqtt@5.10.1/dist/mqtt.min.js"></script>
+<script>if(/[?&]poll=/.test(location.search))document.documentElement.classList.add('voter-mode');</script>
+<!-- QR generator (qrcode-generator 1.4.4, MIT) inlined so the deck stays a single offline-capable file -->
+<script>var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],f={},c=function(t,r){o=function(t){for(var r=new Array(t),e=0;e<t;e+=1){r[e]=new Array(t);for(var n=0;n<t;n+=1)r[e][n]=null}return r}(i=4*e+17),l(0,0),l(i-7,0),l(0,i-7),s(),h(),d(t,r),e>=7&&v(t),null==a&&(a=p(e,n,u)),w(a,r)},l=function(t,r){for(var e=-1;e<=7;e+=1)if(!(t+e<=-1||i<=t+e))for(var n=-1;n<=7;n+=1)r+n<=-1||i<=r+n||(o[t+e][r+n]=0<=e&&e<=6&&(0==n||6==n)||0<=n&&n<=6&&(0==e||6==e)||2<=e&&e<=4&&2<=n&&n<=4)},h=function(){for(var t=8;t<i-8;t+=1)null==o[t][6]&&(o[t][6]=t%2==0);for(var r=8;r<i-8;r+=1)null==o[6][r]&&(o[6][r]=r%2==0)},s=function(){for(var t=B.getPatternPosition(e),r=0;r<t.length;r+=1)for(var n=0;n<t.length;n+=1){var i=t[r],a=t[n];if(null==o[i][a])for(var u=-2;u<=2;u+=1)for(var f=-2;f<=2;f+=1)o[i+u][a+f]=-2==u||2==u||-2==f||2==f||0==u&&0==f}},v=function(t){for(var r=B.getBCHTypeNumber(e),n=0;n<18;n+=1){var a=!t&&1==(r>>n&1);o[Math.floor(n/3)][n%3+i-8-3]=a}for(n=0;n<18;n+=1){a=!t&&1==(r>>n&1);o[n%3+i-8-3][Math.floor(n/3)]=a}},d=function(t,r){for(var e=n<<3|r,a=B.getBCHTypeInfo(e),u=0;u<15;u+=1){var f=!t&&1==(a>>u&1);u<6?o[u][8]=f:u<8?o[u+1][8]=f:o[i-15+u][8]=f}for(u=0;u<15;u+=1){f=!t&&1==(a>>u&1);u<8?o[8][i-u-1]=f:u<9?o[8][15-u-1+1]=f:o[8][15-u-1]=f}o[i-8][8]=!t},w=function(t,r){for(var e=-1,n=i-1,a=7,u=0,f=B.getMaskFunction(r),c=i-1;c>0;c-=2)for(6==c&&(c-=1);;){for(var g=0;g<2;g+=1)if(null==o[n][c-g]){var l=!1;u<t.length&&(l=1==(t[u]>>>a&1)),f(n,c-g)&&(l=!l),o[n][c-g]=l,-1==(a-=1)&&(u+=1,a=7)}if((n+=e)<0||i<=n){n-=e,e=-e;break}}},p=function(t,r,e){for(var n=A.getRSBlocks(t,r),o=b(),i=0;i<e.length;i+=1){var a=e[i];o.put(a.getMode(),4),o.put(a.getLength(),B.getLengthInBits(a.getMode(),t)),a.write(o)}var u=0;for(i=0;i<n.length;i+=1)u+=n[i].dataCount;if(o.getLengthInBits()>8*u)throw"code length overflow. ("+o.getLengthInBits()+">"+8*u+")";for(o.getLengthInBits()+4<=8*u&&o.put(0,4);o.getLengthInBits()%8!=0;)o.putBit(!1);for(;!(o.getLengthInBits()>=8*u||(o.put(236,8),o.getLengthInBits()>=8*u));)o.put(17,8);return function(t,r){for(var e=0,n=0,o=0,i=new Array(r.length),a=new Array(r.length),u=0;u<r.length;u+=1){var f=r[u].dataCount,c=r[u].totalCount-f;n=Math.max(n,f),o=Math.max(o,c),i[u]=new Array(f);for(var g=0;g<i[u].length;g+=1)i[u][g]=255&t.getBuffer()[g+e];e+=f;var l=B.getErrorCorrectPolynomial(c),h=k(i[u],l.getLength()-1).mod(l);for(a[u]=new Array(l.getLength()-1),g=0;g<a[u].length;g+=1){var s=g+h.getLength()-a[u].length;a[u][g]=s>=0?h.getAt(s):0}}var v=0;for(g=0;g<r.length;g+=1)v+=r[g].totalCount;var d=new Array(v),w=0;for(g=0;g<n;g+=1)for(u=0;u<r.length;u+=1)g<i[u].length&&(d[w]=i[u][g],w+=1);for(g=0;g<o;g+=1)for(u=0;u<r.length;u+=1)g<a[u].length&&(d[w]=a[u][g],w+=1);return d}(o,n)};f.addData=function(t,r){var e=null;switch(r=r||"Byte"){case"Numeric":e=M(t);break;case"Alphanumeric":e=x(t);break;case"Byte":e=m(t);break;case"Kanji":e=L(t);break;default:throw"mode:"+r}u.push(e),a=null},f.isDark=function(t,r){if(t<0||i<=t||r<0||i<=r)throw t+","+r;return o[t][r]},f.getModuleCount=function(){return i},f.make=function(){if(e<1){for(var t=1;t<40;t++){for(var r=A.getRSBlocks(t,n),o=b(),i=0;i<u.length;i++){var a=u[i];o.put(a.getMode(),4),o.put(a.getLength(),B.getLengthInBits(a.getMode(),t)),a.write(o)}var g=0;for(i=0;i<r.length;i++)g+=r[i].dataCount;if(o.getLengthInBits()<=8*g)break}e=t}c(!1,function(){for(var t=0,r=0,e=0;e<8;e+=1){c(!0,e);var n=B.getLostPoint(f);(0==e||t>n)&&(t=n,r=e)}return r}())},f.createTableTag=function(t,r){t=t||2;var e="";e+='<table style="',e+=" border-width: 0px; border-style: none;",e+=" border-collapse: collapse;",e+=" padding: 0px; margin: "+(r=void 0===r?4*t:r)+"px;",e+='">',e+="<tbody>";for(var n=0;n<f.getModuleCount();n+=1){e+="<tr>";for(var o=0;o<f.getModuleCount();o+=1)e+='<td style="',e+=" border-width: 0px; border-style: none;",e+=" border-collapse: collapse;",e+=" padding: 0px; margin: 0px;",e+=" width: "+t+"px;",e+=" height: "+t+"px;",e+=" background-color: ",e+=f.isDark(n,o)?"#000000":"#ffffff",e+=";",e+='"/>';e+="</tr>"}return e+="</tbody>",e+="</table>"},f.createSvgTag=function(t,r,e,n){var o={};"object"==typeof arguments[0]&&(t=(o=arguments[0]).cellSize,r=o.margin,e=o.alt,n=o.title),t=t||2,r=void 0===r?4*t:r,(e="string"==typeof e?{text:e}:e||{}).text=e.text||null,e.id=e.text?e.id||"qrcode-description":null,(n="string"==typeof n?{text:n}:n||{}).text=n.text||null,n.id=n.text?n.id||"qrcode-title":null;var i,a,u,c,g=f.getModuleCount()*t+2*r,l="";for(c="l"+t+",0 0,"+t+" -"+t+",0 0,-"+t+"z ",l+='<svg version="1.1" xmlns="http://www.w3.org/2000/svg"',l+=o.scalable?"":' width="'+g+'px" height="'+g+'px"',l+=' viewBox="0 0 '+g+" "+g+'" ',l+=' preserveAspectRatio="xMinYMin meet"',l+=n.text||e.text?' role="img" aria-labelledby="'+y([n.id,e.id].join(" ").trim())+'"':"",l+=">",l+=n.text?'<title id="'+y(n.id)+'">'+y(n.text)+"</title>":"",l+=e.text?'<description id="'+y(e.id)+'">'+y(e.text)+"</description>":"",l+='<rect width="100%" height="100%" fill="white" cx="0" cy="0"/>',l+='<path d="',a=0;a<f.getModuleCount();a+=1)for(u=a*t+r,i=0;i<f.getModuleCount();i+=1)f.isDark(a,i)&&(l+="M"+(i*t+r)+","+u+c);return l+='" stroke="transparent" fill="black"/>',l+="</svg>"},f.createDataURL=function(t,r){t=t||2,r=void 0===r?4*t:r;var e=f.getModuleCount()*t+2*r,n=r,o=e-r;return I(e,e,function(r,e){if(n<=r&&r<o&&n<=e&&e<o){var i=Math.floor((r-n)/t),a=Math.floor((e-n)/t);return f.isDark(a,i)?0:1}return 1})},f.createImgTag=function(t,r,e){t=t||2,r=void 0===r?4*t:r;var n=f.getModuleCount()*t+2*r,o="";return o+="<img",o+=' sr'+'c="',o+=f.createDataURL(t,r),o+='"',o+=' width="',o+=n,o+='"',o+=' height="',o+=n,o+='"',e&&(o+=' alt="',o+=y(e),o+='"'),o+="/>"};var y=function(t){for(var r="",e=0;e<t.length;e+=1){var n=t.charAt(e);switch(n){case"<":r+="&lt;";break;case">":r+="&gt;";break;case"&":r+="&amp;";break;case'"':r+="&quot;";break;default:r+=n}}return r};return f.createASCII=function(t,r){if((t=t||1)<2)return function(t){t=void 0===t?2:t;var r,e,n,o,i,a=1*f.getModuleCount()+2*t,u=t,c=a-t,g={"██":"█","█ ":"▀"," █":"▄","  ":" "},l={"██":"▀","█ ":"▀"," █":" ","  ":" "},h="";for(r=0;r<a;r+=2){for(n=Math.floor((r-u)/1),o=Math.floor((r+1-u)/1),e=0;e<a;e+=1)i="█",u<=e&&e<c&&u<=r&&r<c&&f.isDark(n,Math.floor((e-u)/1))&&(i=" "),u<=e&&e<c&&u<=r+1&&r+1<c&&f.isDark(o,Math.floor((e-u)/1))?i+=" ":i+="█",h+=t<1&&r+1>=c?l[i]:g[i];h+="\n"}return a%2&&t>0?h.substring(0,h.length-a-1)+Array(a+1).join("▀"):h.substring(0,h.length-1)}(r);t-=1,r=void 0===r?2*t:r;var e,n,o,i,a=f.getModuleCount()*t+2*r,u=r,c=a-r,g=Array(t+1).join("██"),l=Array(t+1).join("  "),h="",s="";for(e=0;e<a;e+=1){for(o=Math.floor((e-u)/t),s="",n=0;n<a;n+=1)i=1,u<=n&&n<c&&u<=e&&e<c&&f.isDark(o,Math.floor((n-u)/t))&&(i=0),s+=i?g:l;for(o=0;o<t;o+=1)h+=s+"\n"}return h.substring(0,h.length-1)},f.renderTo2dContext=function(t,r){r=r||2;for(var e=f.getModuleCount(),n=0;n<e;n++)for(var o=0;o<e;o++)t.fillStyle=f.isDark(n,o)?"black":"white",t.fillRect(n*r,o*r,r,r)},f};t.stringToBytes=(t.stringToBytesFuncs={default:function(t){for(var r=[],e=0;e<t.length;e+=1){var n=t.charCodeAt(e);r.push(255&n)}return r}}).default,t.createStringToBytes=function(t,r){var e=function(){for(var e=S(t),n=function(){var t=e.read();if(-1==t)throw"eof";return t},o=0,i={};;){var a=e.read();if(-1==a)break;var u=n(),f=n()<<8|n();i[String.fromCharCode(a<<8|u)]=f,o+=1}if(o!=r)throw o+" != "+r;return i}(),n="?".charCodeAt(0);return function(t){for(var r=[],o=0;o<t.length;o+=1){var i=t.charCodeAt(o);if(i<128)r.push(i);else{var a=e[t.charAt(o)];"number"==typeof a?(255&a)==a?r.push(a):(r.push(a>>>8),r.push(255&a)):r.push(n)}}return r}};var r,e,n,o,i,a=1,u=2,f=4,c=8,g={L:1,M:0,Q:3,H:2},l=0,h=1,s=2,v=3,d=4,w=5,p=6,y=7,B=(r=[[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50],[6,30,54],[6,32,58],[6,34,62],[6,26,46,66],[6,26,48,70],[6,26,50,74],[6,30,54,78],[6,30,56,82],[6,30,58,86],[6,34,62,90],[6,28,50,72,94],[6,26,50,74,98],[6,30,54,78,102],[6,28,54,80,106],[6,32,58,84,110],[6,30,58,86,114],[6,34,62,90,118],[6,26,50,74,98,122],[6,30,54,78,102,126],[6,26,52,78,104,130],[6,30,56,82,108,134],[6,34,60,86,112,138],[6,30,58,86,114,142],[6,34,62,90,118,146],[6,30,54,78,102,126,150],[6,24,50,76,102,128,154],[6,28,54,80,106,132,158],[6,32,58,84,110,136,162],[6,26,54,82,110,138,166],[6,30,58,86,114,142,170]],e=1335,n=7973,i=function(t){for(var r=0;0!=t;)r+=1,t>>>=1;return r},(o={}).getBCHTypeInfo=function(t){for(var r=t<<10;i(r)-i(e)>=0;)r^=e<<i(r)-i(e);return 21522^(t<<10|r)},o.getBCHTypeNumber=function(t){for(var r=t<<12;i(r)-i(n)>=0;)r^=n<<i(r)-i(n);return t<<12|r},o.getPatternPosition=function(t){return r[t-1]},o.getMaskFunction=function(t){switch(t){case l:return function(t,r){return(t+r)%2==0};case h:return function(t,r){return t%2==0};case s:return function(t,r){return r%3==0};case v:return function(t,r){return(t+r)%3==0};case d:return function(t,r){return(Math.floor(t/2)+Math.floor(r/3))%2==0};case w:return function(t,r){return t*r%2+t*r%3==0};case p:return function(t,r){return(t*r%2+t*r%3)%2==0};case y:return function(t,r){return(t*r%3+(t+r)%2)%2==0};default:throw"bad maskPattern:"+t}},o.getErrorCorrectPolynomial=function(t){for(var r=k([1],0),e=0;e<t;e+=1)r=r.multiply(k([1,C.gexp(e)],0));return r},o.getLengthInBits=function(t,r){if(1<=r&&r<10)switch(t){case a:return 10;case u:return 9;case f:case c:return 8;default:throw"mode:"+t}else if(r<27)switch(t){case a:return 12;case u:return 11;case f:return 16;case c:return 10;default:throw"mode:"+t}else{if(!(r<41))throw"type:"+r;switch(t){case a:return 14;case u:return 13;case f:return 16;case c:return 12;default:throw"mode:"+t}}},o.getLostPoint=function(t){for(var r=t.getModuleCount(),e=0,n=0;n<r;n+=1)for(var o=0;o<r;o+=1){for(var i=0,a=t.isDark(n,o),u=-1;u<=1;u+=1)if(!(n+u<0||r<=n+u))for(var f=-1;f<=1;f+=1)o+f<0||r<=o+f||0==u&&0==f||a==t.isDark(n+u,o+f)&&(i+=1);i>5&&(e+=3+i-5)}for(n=0;n<r-1;n+=1)for(o=0;o<r-1;o+=1){var c=0;t.isDark(n,o)&&(c+=1),t.isDark(n+1,o)&&(c+=1),t.isDark(n,o+1)&&(c+=1),t.isDark(n+1,o+1)&&(c+=1),0!=c&&4!=c||(e+=3)}for(n=0;n<r;n+=1)for(o=0;o<r-6;o+=1)t.isDark(n,o)&&!t.isDark(n,o+1)&&t.isDark(n,o+2)&&t.isDark(n,o+3)&&t.isDark(n,o+4)&&!t.isDark(n,o+5)&&t.isDark(n,o+6)&&(e+=40);for(o=0;o<r;o+=1)for(n=0;n<r-6;n+=1)t.isDark(n,o)&&!t.isDark(n+1,o)&&t.isDark(n+2,o)&&t.isDark(n+3,o)&&t.isDark(n+4,o)&&!t.isDark(n+5,o)&&t.isDark(n+6,o)&&(e+=40);var g=0;for(o=0;o<r;o+=1)for(n=0;n<r;n+=1)t.isDark(n,o)&&(g+=1);return e+=Math.abs(100*g/r/r-50)/5*10},o),C=function(){for(var t=new Array(256),r=new Array(256),e=0;e<8;e+=1)t[e]=1<<e;for(e=8;e<256;e+=1)t[e]=t[e-4]^t[e-5]^t[e-6]^t[e-8];for(e=0;e<255;e+=1)r[t[e]]=e;var n={glog:function(t){if(t<1)throw"glog("+t+")";return r[t]},gexp:function(r){for(;r<0;)r+=255;for(;r>=256;)r-=255;return t[r]}};return n}();function k(t,r){if(void 0===t.length)throw t.length+"/"+r;var e=function(){for(var e=0;e<t.length&&0==t[e];)e+=1;for(var n=new Array(t.length-e+r),o=0;o<t.length-e;o+=1)n[o]=t[o+e];return n}(),n={getAt:function(t){return e[t]},getLength:function(){return e.length},multiply:function(t){for(var r=new Array(n.getLength()+t.getLength()-1),e=0;e<n.getLength();e+=1)for(var o=0;o<t.getLength();o+=1)r[e+o]^=C.gexp(C.glog(n.getAt(e))+C.glog(t.getAt(o)));return k(r,0)},mod:function(t){if(n.getLength()-t.getLength()<0)return n;for(var r=C.glog(n.getAt(0))-C.glog(t.getAt(0)),e=new Array(n.getLength()),o=0;o<n.getLength();o+=1)e[o]=n.getAt(o);for(o=0;o<t.getLength();o+=1)e[o]^=C.gexp(C.glog(t.getAt(o))+r);return k(e,0).mod(t)}};return n}var A=function(){var t=[[1,26,19],[1,26,16],[1,26,13],[1,26,9],[1,44,34],[1,44,28],[1,44,22],[1,44,16],[1,70,55],[1,70,44],[2,35,17],[2,35,13],[1,100,80],[2,50,32],[2,50,24],[4,25,9],[1,134,108],[2,67,43],[2,33,15,2,34,16],[2,33,11,2,34,12],[2,86,68],[4,43,27],[4,43,19],[4,43,15],[2,98,78],[4,49,31],[2,32,14,4,33,15],[4,39,13,1,40,14],[2,121,97],[2,60,38,2,61,39],[4,40,18,2,41,19],[4,40,14,2,41,15],[2,146,116],[3,58,36,2,59,37],[4,36,16,4,37,17],[4,36,12,4,37,13],[2,86,68,2,87,69],[4,69,43,1,70,44],[6,43,19,2,44,20],[6,43,15,2,44,16],[4,101,81],[1,80,50,4,81,51],[4,50,22,4,51,23],[3,36,12,8,37,13],[2,116,92,2,117,93],[6,58,36,2,59,37],[4,46,20,6,47,21],[7,42,14,4,43,15],[4,133,107],[8,59,37,1,60,38],[8,44,20,4,45,21],[12,33,11,4,34,12],[3,145,115,1,146,116],[4,64,40,5,65,41],[11,36,16,5,37,17],[11,36,12,5,37,13],[5,109,87,1,110,88],[5,65,41,5,66,42],[5,54,24,7,55,25],[11,36,12,7,37,13],[5,122,98,1,123,99],[7,73,45,3,74,46],[15,43,19,2,44,20],[3,45,15,13,46,16],[1,135,107,5,136,108],[10,74,46,1,75,47],[1,50,22,15,51,23],[2,42,14,17,43,15],[5,150,120,1,151,121],[9,69,43,4,70,44],[17,50,22,1,51,23],[2,42,14,19,43,15],[3,141,113,4,142,114],[3,70,44,11,71,45],[17,47,21,4,48,22],[9,39,13,16,40,14],[3,135,107,5,136,108],[3,67,41,13,68,42],[15,54,24,5,55,25],[15,43,15,10,44,16],[4,144,116,4,145,117],[17,68,42],[17,50,22,6,51,23],[19,46,16,6,47,17],[2,139,111,7,140,112],[17,74,46],[7,54,24,16,55,25],[34,37,13],[4,151,121,5,152,122],[4,75,47,14,76,48],[11,54,24,14,55,25],[16,45,15,14,46,16],[6,147,117,4,148,118],[6,73,45,14,74,46],[11,54,24,16,55,25],[30,46,16,2,47,17],[8,132,106,4,133,107],[8,75,47,13,76,48],[7,54,24,22,55,25],[22,45,15,13,46,16],[10,142,114,2,143,115],[19,74,46,4,75,47],[28,50,22,6,51,23],[33,46,16,4,47,17],[8,152,122,4,153,123],[22,73,45,3,74,46],[8,53,23,26,54,24],[12,45,15,28,46,16],[3,147,117,10,148,118],[3,73,45,23,74,46],[4,54,24,31,55,25],[11,45,15,31,46,16],[7,146,116,7,147,117],[21,73,45,7,74,46],[1,53,23,37,54,24],[19,45,15,26,46,16],[5,145,115,10,146,116],[19,75,47,10,76,48],[15,54,24,25,55,25],[23,45,15,25,46,16],[13,145,115,3,146,116],[2,74,46,29,75,47],[42,54,24,1,55,25],[23,45,15,28,46,16],[17,145,115],[10,74,46,23,75,47],[10,54,24,35,55,25],[19,45,15,35,46,16],[17,145,115,1,146,116],[14,74,46,21,75,47],[29,54,24,19,55,25],[11,45,15,46,46,16],[13,145,115,6,146,116],[14,74,46,23,75,47],[44,54,24,7,55,25],[59,46,16,1,47,17],[12,151,121,7,152,122],[12,75,47,26,76,48],[39,54,24,14,55,25],[22,45,15,41,46,16],[6,151,121,14,152,122],[6,75,47,34,76,48],[46,54,24,10,55,25],[2,45,15,64,46,16],[17,152,122,4,153,123],[29,74,46,14,75,47],[49,54,24,10,55,25],[24,45,15,46,46,16],[4,152,122,18,153,123],[13,74,46,32,75,47],[48,54,24,14,55,25],[42,45,15,32,46,16],[20,147,117,4,148,118],[40,75,47,7,76,48],[43,54,24,22,55,25],[10,45,15,67,46,16],[19,148,118,6,149,119],[18,75,47,31,76,48],[34,54,24,34,55,25],[20,45,15,61,46,16]],r=function(t,r){var e={};return e.totalCount=t,e.dataCount=r,e},e={};return e.getRSBlocks=function(e,n){var o=function(r,e){switch(e){case g.L:return t[4*(r-1)+0];case g.M:return t[4*(r-1)+1];case g.Q:return t[4*(r-1)+2];case g.H:return t[4*(r-1)+3];default:return}}(e,n);if(void 0===o)throw"bad rs block @ typeNumber:"+e+"/errorCorrectionLevel:"+n;for(var i=o.length/3,a=[],u=0;u<i;u+=1)for(var f=o[3*u+0],c=o[3*u+1],l=o[3*u+2],h=0;h<f;h+=1)a.push(r(c,l));return a},e}(),b=function(){var t=[],r=0,e={getBuffer:function(){return t},getAt:function(r){var e=Math.floor(r/8);return 1==(t[e]>>>7-r%8&1)},put:function(t,r){for(var n=0;n<r;n+=1)e.putBit(1==(t>>>r-n-1&1))},getLengthInBits:function(){return r},putBit:function(e){var n=Math.floor(r/8);t.length<=n&&t.push(0),e&&(t[n]|=128>>>r%8),r+=1}};return e},M=function(t){var r=a,e=t,n={getMode:function(){return r},getLength:function(t){return e.length},write:function(t){for(var r=e,n=0;n+2<r.length;)t.put(o(r.substring(n,n+3)),10),n+=3;n<r.length&&(r.length-n==1?t.put(o(r.substring(n,n+1)),4):r.length-n==2&&t.put(o(r.substring(n,n+2)),7))}},o=function(t){for(var r=0,e=0;e<t.length;e+=1)r=10*r+i(t.charAt(e));return r},i=function(t){if("0"<=t&&t<="9")return t.charCodeAt(0)-"0".charCodeAt(0);throw"illegal char :"+t};return n},x=function(t){var r=u,e=t,n={getMode:function(){return r},getLength:function(t){return e.length},write:function(t){for(var r=e,n=0;n+1<r.length;)t.put(45*o(r.charAt(n))+o(r.charAt(n+1)),11),n+=2;n<r.length&&t.put(o(r.charAt(n)),6)}},o=function(t){if("0"<=t&&t<="9")return t.charCodeAt(0)-"0".charCodeAt(0);if("A"<=t&&t<="Z")return t.charCodeAt(0)-"A".charCodeAt(0)+10;switch(t){case" ":return 36;case"$":return 37;case"%":return 38;case"*":return 39;case"+":return 40;case"-":return 41;case".":return 42;case"/":return 43;case":":return 44;default:throw"illegal char :"+t}};return n},m=function(r){var e=f,n=t.stringToBytes(r),o={getMode:function(){return e},getLength:function(t){return n.length},write:function(t){for(var r=0;r<n.length;r+=1)t.put(n[r],8)}};return o},L=function(r){var e=c,n=t.stringToBytesFuncs.SJIS;if(!n)throw"sjis not supported.";!function(){var t=n("友");if(2!=t.length||38726!=(t[0]<<8|t[1]))throw"sjis not supported."}();var o=n(r),i={getMode:function(){return e},getLength:function(t){return~~(o.length/2)},write:function(t){for(var r=o,e=0;e+1<r.length;){var n=(255&r[e])<<8|255&r[e+1];if(33088<=n&&n<=40956)n-=33088;else{if(!(57408<=n&&n<=60351))throw"illegal char at "+(e+1)+"/"+n;n-=49472}n=192*(n>>>8&255)+(255&n),t.put(n,13),e+=2}if(e<r.length)throw"illegal char at "+(e+1)}};return i},D=function(){var t=[],r={writeByte:function(r){t.push(255&r)},writeShort:function(t){r.writeByte(t),r.writeByte(t>>>8)},writeBytes:function(t,e,n){e=e||0,n=n||t.length;for(var o=0;o<n;o+=1)r.writeByte(t[o+e])},writeString:function(t){for(var e=0;e<t.length;e+=1)r.writeByte(t.charCodeAt(e))},toByteArray:function(){return t},toString:function(){var r="";r+="[";for(var e=0;e<t.length;e+=1)e>0&&(r+=","),r+=t[e];return r+="]"}};return r},S=function(t){var r=t,e=0,n=0,o=0,i={read:function(){for(;o<8;){if(e>=r.length){if(0==o)return-1;throw"unexpected end of file./"+o}var t=r.charAt(e);if(e+=1,"="==t)return o=0,-1;t.match(/^\s$/)||(n=n<<6|a(t.charCodeAt(0)),o+=6)}var i=n>>>o-8&255;return o-=8,i}},a=function(t){if(65<=t&&t<=90)return t-65;if(97<=t&&t<=122)return t-97+26;if(48<=t&&t<=57)return t-48+52;if(43==t)return 62;if(47==t)return 63;throw"c:"+t};return i},I=function(t,r,e){for(var n=function(t,r){var e=t,n=r,o=new Array(t*r),i={setPixel:function(t,r,n){o[r*e+t]=n},write:function(t){t.writeString("GIF87a"),t.writeShort(e),t.writeShort(n),t.writeByte(128),t.writeByte(0),t.writeByte(0),t.writeByte(0),t.writeByte(0),t.writeByte(0),t.writeByte(255),t.writeByte(255),t.writeByte(255),t.writeString(","),t.writeShort(0),t.writeShort(0),t.writeShort(e),t.writeShort(n),t.writeByte(0);var r=a(2);t.writeByte(2);for(var o=0;r.length-o>255;)t.writeByte(255),t.writeBytes(r,o,255),o+=255;t.writeByte(r.length-o),t.writeBytes(r,o,r.length-o),t.writeByte(0),t.writeString(";")}},a=function(t){for(var r=1<<t,e=1+(1<<t),n=t+1,i=u(),a=0;a<r;a+=1)i.add(String.fromCharCode(a));i.add(String.fromCharCode(r)),i.add(String.fromCharCode(e));var f,c,g,l=D(),h=(f=l,c=0,g=0,{write:function(t,r){if(t>>>r!=0)throw"length over";for(;c+r>=8;)f.writeByte(255&(t<<c|g)),r-=8-c,t>>>=8-c,g=0,c=0;g|=t<<c,c+=r},flush:function(){c>0&&f.writeByte(g)}});h.write(r,n);var s=0,v=String.fromCharCode(o[s]);for(s+=1;s<o.length;){var d=String.fromCharCode(o[s]);s+=1,i.contains(v+d)?v+=d:(h.write(i.indexOf(v),n),i.size()<4095&&(i.size()==1<<n&&(n+=1),i.add(v+d)),v=d)}return h.write(i.indexOf(v),n),h.write(e,n),h.flush(),l.toByteArray()},u=function(){var t={},r=0,e={add:function(n){if(e.contains(n))throw"dup key:"+n;t[n]=r,r+=1},size:function(){return r},indexOf:function(r){return t[r]},contains:function(r){return void 0!==t[r]}};return e};return i}(t,r),o=0;o<r;o+=1)for(var i=0;i<t;i+=1)n.setPixel(i,o,e(i,o));var a=D();n.write(a);for(var u=function(){var t=0,r=0,e=0,n="",o={},i=function(t){n+=String.fromCharCode(a(63&t))},a=function(t){if(t<0);else{if(t<26)return 65+t;if(t<52)return t-26+97;if(t<62)return t-52+48;if(62==t)return 43;if(63==t)return 47}throw"n:"+t};return o.writeByte=function(n){for(t=t<<8|255&n,r+=8,e+=1;r>=6;)i(t>>>r-6),r-=6},o.flush=function(){if(r>0&&(i(t<<6-r),t=0,r=0),e%3!=0)for(var o=3-e%3,a=0;a<o;a+=1)n+="="},o.toString=function(){return n},o}(),f=a.toByteArray(),c=0;c<f.length;c+=1)u.writeByte(f[c]);return u.flush(),"data:image/gif;base64,"+u};return t}();qrcode.stringToBytesFuncs["UTF-8"]=function(t){return function(t){for(var r=[],e=0;e<t.length;e++){var n=t.charCodeAt(e);n<128?r.push(n):n<2048?r.push(192|n>>6,128|63&n):n<55296||n>=57344?r.push(224|n>>12,128|n>>6&63,128|63&n):(e++,n=65536+((1023&n)<<10|1023&t.charCodeAt(e)),r.push(240|n>>18,128|n>>12&63,128|n>>6&63,128|63&n))}return r}(t)},function(t){"function"==typeof define&&define.amd?define([],t):"object"==typeof exports&&(module.exports=t())}(function(){return qrcode});</script>
+
+<style>
+:root{
+  --navy:#1F497D; --blue:#4F81BD; --red:#C00000; --green:#1A8038; --orange:#D97706;
+  --ink:#1F2937; --muted:#6B7280; --line:#E5E7EB; --card:#F7F9FC; --bg:#FFFFFF;
+}
+*{box-sizing:border-box; margin:0; padding:0}
+html,body{height:100%; background:#ECEFF3; overflow:hidden;
+  font-family:'Montserrat','Prompt',system-ui,sans-serif; color:var(--ink)}
+
+/* ---------- Stage: fixed 1280x720, scaled to fit ---------- */
+#stage{width:1280px; height:720px; position:absolute; top:50%; left:50%;
+  transform-origin:center; background:var(--bg); box-shadow:0 10px 40px rgba(31,73,125,.18); overflow:hidden}
+
+/* ---------- Slides ---------- */
+.slide{position:absolute; inset:0; display:none; flex-direction:column;
+  padding:56px 72px 64px; background:var(--bg); overflow:hidden}
+.slide svg{max-width:100%; max-height:440px}
+.slide.active{display:flex}
+.s-head{margin-bottom:28px}
+.kicker{font-size:15px; font-weight:600; letter-spacing:.14em; color:var(--muted); text-transform:uppercase; margin-bottom:8px}
+.s-head h2{font-size:36px; font-weight:700; color:var(--navy); line-height:1.2}
+.s-foot{position:absolute; left:72px; right:72px; bottom:26px; display:flex; justify-content:space-between; gap:20px;
+  font-size:15px; font-weight:500; color:var(--muted)}
+.grow{flex:1; display:flex; flex-direction:column; justify-content:center; min-height:0}
+.s-foot .s-sec{color:var(--blue)}
+
+/* Title slide */
+.title-slide{justify-content:center; align-items:flex-start; border-top:6px solid var(--navy)}
+.title-slide .pill{display:inline-block; font-size:15px; font-weight:600; letter-spacing:.12em;
+  color:var(--navy); border:1.5px solid var(--navy); border-radius:999px; padding:6px 18px; margin-bottom:34px}
+.title-slide .lecno{font-size:22px; font-weight:600; color:var(--blue); margin-bottom:10px}
+.title-slide h1{font-size:60px; font-weight:800; color:var(--navy); line-height:1.12; margin-bottom:30px; max-width:1000px}
+.title-slide .rule{width:88px; height:4px; background:var(--blue); margin-bottom:30px}
+.title-slide .who{font-size:17px; color:var(--muted); line-height:1.7}
+.title-slide .who b{color:var(--ink); font-weight:600}
+
+/* Section divider */
+.section-slide{justify-content:center; background:var(--bg)}
+.section-slide .big{position:absolute; top:26px; right:56px; font-size:150px; font-weight:800;
+  color:var(--navy); opacity:.08; line-height:1}
+.section-slide .lbl{font-size:19px; font-weight:700; letter-spacing:.14em; color:var(--blue);
+  text-transform:uppercase; margin-bottom:18px}
+.section-slide .q{font-size:44px; font-weight:700; color:var(--red); line-height:1.25; max-width:980px}
+
+/* Agenda / chapter hub */
+.agenda{display:flex; flex-direction:column; gap:18px; max-width:1020px}
+a.agenda-item{display:flex; align-items:center; gap:26px; text-decoration:none; color:inherit;
+  background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px 28px}
+a.agenda-item:hover{border-color:var(--navy); box-shadow:0 4px 14px rgba(31,73,125,.12)}
+.agenda-item .no{flex:0 0 70px; font-size:26px; font-weight:800; color:var(--navy)}
+.agenda-item .qq{font-size:22px; font-weight:500; line-height:1.4}
+.agenda-item .go{margin-left:auto; color:var(--blue); font-size:26px}
+
+/* Cards */
+.cards{display:grid; gap:24px; grid-auto-columns:1fr; grid-auto-flow:column}
+.cards.wrap{grid-auto-flow:row; grid-template-columns:repeat(2,1fr)}
+.card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:26px 26px}
+.card h3{font-size:22px; font-weight:600; color:var(--navy); margin-bottom:10px}
+.card p{font-size:20px; line-height:1.5}
+.card .ic{width:34px; height:34px; margin-bottom:14px}
+.card-red{border-top:4px solid var(--red)} .card-green{border-top:4px solid var(--green)}
+.card-blue{border-top:4px solid var(--blue)} .card-orange{border-top:4px solid var(--orange)}
+
+/* Equations */
+.eq-box{background:var(--card); border:1px solid var(--line); border-radius:14px;
+  padding:30px 36px; text-align:center; font-size:30px; margin:8px 0}
+.eq-note{font-size:18px; margin-top:14px; text-align:center}
+.eq-note.green{color:var(--green)} .eq-note.orange{color:var(--orange)} .eq-note.red{color:var(--red)}
+.eq-step{display:flex; align-items:center; gap:34px; padding:14px 6px; border-bottom:1px solid var(--line); font-size:23px}
+.eq-step:last-child{border-bottom:none}
+.eq-step .why{font-size:18px; color:var(--muted); flex:1; text-align:right}
+
+/* ---- rev-D components: outline, flow, symbols, recalled equations ---- */
+
+/* Sub-section outline — the slide right after every section divider. It tells the room
+   what the next 10 minutes contain, so nobody spends them wondering where this is going. */
+.sec-outline{list-style:none; display:flex; flex-direction:column; gap:10px; counter-reset:so; max-width:1010px}
+.sec-outline li{position:relative; padding:11px 0 11px 58px; border-bottom:1px solid var(--line); font-size:22px}
+.sec-outline li:last-child{border-bottom:none}
+.sec-outline li::before{counter-increment:so; content:counter(so); position:absolute; left:0; top:9px;
+  width:34px; height:34px; border-radius:50%; background:var(--card); border:1.5px solid var(--blue);
+  color:var(--navy); font-size:17px; font-weight:700; display:flex; align-items:center; justify-content:center}
+.sec-outline li b{color:var(--navy); font-weight:600}
+.sec-outline li .so{display:block; font-size:18px; color:var(--muted); line-height:1.4; margin-top:2px}
+/* scope the block rule to .so, never to "li span": KaTeX renders every equation as nested
+   <span>s, so a bare "li span{display:block}" turns one inline formula into a stack of
+   full-width boxes and the row silently grows past the stage. */
+
+/* Bridge — the connective tissue between slides: one line, what we just had, what it forces next */
+.bridge{font-size:18px; color:var(--muted); border-left:3px solid var(--blue);
+  padding:2px 0 2px 14px; margin-bottom:16px; line-height:1.4}
+.bridge b{color:var(--ink); font-weight:600}
+
+/* Symbol table — one row per NEW symbol: symbol, what it counts physically, unit */
+.symtab{display:grid; grid-template-columns:auto 1fr auto; gap:8px 26px; font-size:19px; align-items:baseline}
+.symtab>div{padding:5px 0; border-bottom:1px solid var(--line)}
+.symtab .sy{font-weight:700; color:var(--navy); white-space:nowrap}
+.symtab .un{color:var(--muted); font-variant-numeric:tabular-nums; white-space:nowrap}
+
+/* Recalled equation — a relationship (or reaction) established earlier, reprinted where it is USED.
+   Styled secondary on purpose: "you already have this", not new material competing for attention. */
+.eq-recall{background:transparent; border:1px dashed var(--line); border-radius:10px;
+  padding:12px 18px; text-align:center; font-size:22px; margin:4px 0 10px}
+.eq-recall .rl{display:block; font-size:12.5px; font-weight:700; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--muted); margin-bottom:5px}
+.eq-recall .katex{color:var(--ink); opacity:.72}
+.eq-recall.rxn{text-align:left; font-size:19px}
+
+/* Step badge — position inside an idea that runs over several slides */
+.stepno{display:inline-block; font-size:14px; font-weight:700; letter-spacing:.1em; color:var(--blue);
+  border:1px solid var(--blue); border-radius:999px; padding:2px 11px; margin-left:12px; vertical-align:middle}
+
+/* What the interactive proves — one sentence of conclusion under every simulation */
+.simsum{font-size:19px; line-height:1.45; margin-top:14px; border-top:1px solid var(--line); padding-top:12px}
+.simsum b{color:var(--navy)}
+
+/* Comparison table */
+table.compare{width:100%; border-collapse:collapse; font-size:21px}
+.compare th{background:var(--card); color:var(--navy); font-weight:700; padding:14px 18px;
+  border:1px solid var(--line); text-align:center}
+.compare td{padding:16px 18px; border:1px solid var(--line); text-align:center}
+.compare td:first-child{font-weight:600; text-align:left}
+
+/* Callouts */
+.callout{border-left:5px solid var(--navy); background:var(--card); border-radius:0 12px 12px 0;
+  padding:16px 22px; font-size:21px; margin:14px 0}
+.callout.q{border-color:var(--red)} .callout.note{border-color:var(--green)} .callout.aside{border-color:var(--orange)}
+
+/* Layout helpers */
+.two-col{display:grid; grid-template-columns:11fr 9fr; gap:44px; align-items:center; flex:1}
+.stack>*+*{margin-top:20px}
+ul.clean{list-style:none} ul.clean li{font-size:22px; line-height:1.5; padding-left:30px; position:relative; margin-bottom:14px}
+ul.clean li::before{content:''; position:absolute; left:0; top:.55em; width:10px; height:10px; border-radius:3px; background:var(--blue)}
+ul.clean.sm li{font-size:18px; line-height:1.45; margin-bottom:10px; padding-left:24px}
+ul.clean.sm li::before{width:8px; height:8px; top:.5em}
+.small{font-size:15px} .muted{color:var(--muted)}
+
+/* Simulation */
+.sim{display:grid; grid-template-columns:2fr 3fr; grid-template-rows:minmax(0,1fr); gap:40px; align-items:center; flex:1; min-height:0}
+.sim-controls .sl{margin-bottom:26px}
+.sim-controls label{display:flex; justify-content:space-between; font-size:20px; font-weight:500; margin-bottom:8px}
+.val{font-weight:700; color:var(--navy); font-variant-numeric:tabular-nums}
+input[type=range]{width:100%; accent-color:var(--navy); height:34px; cursor:pointer}
+.sim-controls{align-self:center; min-width:0}
+.sim-out{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:24px; text-align:center;
+  display:flex; flex-direction:column; justify-content:center; align-self:stretch; min-height:0; overflow:hidden}
+.sim-out svg{max-height:100%; min-height:0}
+.bignum{font-size:52px; font-weight:800; color:var(--navy); font-variant-numeric:tabular-nums}
+.chart-box{position:relative; flex:1 1 auto; min-height:180px; max-height:430px; min-width:0}
+.chart-box>canvas{position:absolute; inset:0; width:100% !important; height:100% !important}
+
+/* Reveal */
+.reveal-btn{font:inherit; font-size:19px; font-weight:600; color:var(--navy); background:var(--bg);
+  border:2px solid var(--navy); border-radius:10px; padding:10px 26px; cursor:pointer}
+.reveal-btn:hover{background:var(--navy); color:#fff}
+.reveal-body{display:none; margin-top:18px}
+.reveal.open .reveal-body{display:block} .reveal.open .reveal-btn{display:none}
+
+/* Quiz */
+.quiz-q{max-width:1000px}
+.q-text{font-size:24px; font-weight:600; margin-bottom:22px; line-height:1.45}
+.q-opt{display:block; width:100%; text-align:left; font:inherit; font-size:21px; padding:14px 22px;
+  margin-bottom:12px; background:var(--card); border:1.5px solid var(--line); border-radius:12px; cursor:pointer}
+.q-opt:hover{border-color:var(--navy)}
+.q-opt.right{border-color:var(--green); background:#EDF7F0; color:var(--green); font-weight:600}
+.q-opt.wrong{border-color:var(--red); background:#FBEDED; color:var(--red)}
+.q-opt:disabled{cursor:default}
+.q-explain{display:none; border-left:5px solid var(--blue); background:var(--card);
+  padding:16px 22px; border-radius:0 12px 12px 0; font-size:19px; line-height:1.5; margin-top:14px}
+.q-explain.show{display:block}
+.quiz-score{font-size:21px; font-weight:700; color:var(--navy)}
+.quiz-total{font-size:30px; font-weight:800; color:var(--navy)}
+.quiz-breakdown{display:flex; flex-direction:column; gap:6px; margin:14px 0; max-width:560px}
+.qb-row{display:flex; justify-content:space-between; font-size:20px; border-bottom:1px solid var(--line); padding:7px 2px}
+/* Attempt history (one row per round) + reset control */
+.quiz-attempts{display:flex; flex-direction:column; gap:4px; margin:10px 0; max-width:640px}
+.qa-row{display:grid; grid-template-columns:1fr auto auto; gap:22px; align-items:baseline;
+  font-size:19px; padding:6px 2px; border-bottom:1px solid var(--line); font-variant-numeric:tabular-nums}
+.qa-row .qa-time{color:var(--muted); font-size:17px; min-width:104px; text-align:right}
+.qa-row.qa-now{color:var(--blue); font-weight:600}
+.qa-row.qa-best .qa-pts{color:var(--green); font-weight:700}
+.qa-note{font-size:16px; color:var(--muted); padding-top:4px}
+.quiz-reset{font:inherit; font-size:18px; font-weight:600; color:var(--navy); background:var(--bg);
+  border:2px solid var(--navy); border-radius:10px; padding:9px 24px; cursor:pointer}
+.quiz-reset:hover{background:var(--navy); color:#fff}
+
+/* Takeaways */
+.tk{display:flex; gap:22px; align-items:flex-start; margin-bottom:24px}
+.tk .n{flex:0 0 40px; height:40px; border-radius:50%; background:var(--navy); color:#fff;
+  font-weight:700; font-size:19px; display:flex; align-items:center; justify-content:center}
+.tk p{font-size:23px; line-height:1.45; padding-top:5px}
+
+/* HUD (not scaled) */
+#hud{position:fixed; right:18px; bottom:14px; display:flex; gap:8px; z-index:50}
+#hud button{width:42px; height:42px; border-radius:10px; border:1px solid var(--line); background:#fff;
+  font-size:18px; color:var(--navy); cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,.08)}
+#hud button:hover{background:var(--card)}
+#progress{position:fixed; left:0; bottom:0; height:4px; background:var(--blue); width:0; z-index:60; transition:width .2s}
+#toc{position:fixed; inset:0; background:rgba(15,25,40,.55); display:none; z-index:100; align-items:center; justify-content:center}
+#toc.open{display:flex}
+#toc .panel{background:#fff; border-radius:16px; padding:34px 40px; max-height:80vh; overflow:auto; min-width:420px}
+#toc h3{color:var(--navy); font-size:20px; margin-bottom:18px; letter-spacing:.08em}
+#toc a{display:block; padding:9px 6px; font-size:16.5px; color:var(--ink); text-decoration:none; border-radius:8px}
+#toc a:hover{background:var(--card)} #toc a.cur{color:var(--navy); font-weight:700}
+#toc .sec{margin-top:10px; font-weight:700; color:var(--blue); font-size:14px; letter-spacing:.1em; text-transform:uppercase}
+
+.katex{font-size:1.06em}
+svg text{font-family:'Montserrat','Prompt',sans-serif}
+
+/* ================= Live poll: countdown dial, result bars, join slide, phone voter ================= */
+/* Countdown dial sits INSIDE .s-head so it can never overlap the content zone */
+.s-head.with-timer{display:flex; align-items:flex-end; justify-content:space-between; gap:26px}
+.s-head.with-timer .sh-txt{min-width:0}
+.qtimer{display:flex; align-items:center; gap:11px; flex:0 0 auto; padding-bottom:2px}
+.qt-dial{position:relative; width:74px; height:74px; flex:0 0 74px}
+.qt-dial svg{width:74px; height:74px; transform:rotate(-90deg)}
+.qt-dial circle{fill:none; stroke-width:7}
+.qt-dial .tk{stroke:var(--line)}
+.qt-dial .tp{stroke:var(--blue); stroke-linecap:round; transition:stroke-dashoffset .2s linear, stroke .3s}
+.qt-num{position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-size:23px; font-weight:800; color:var(--navy); font-variant-numeric:tabular-nums}
+.qtimer.warn .tp{stroke:var(--orange)} .qtimer.warn .qt-num{color:var(--orange)}
+.qtimer.crit .tp{stroke:var(--red)} .qtimer.crit .qt-num{color:var(--red)}
+.qt-ctl{display:flex; flex-direction:column; gap:6px}
+.qt-sel{display:flex; gap:5px}
+.qt-sel button{font:inherit; font-size:13px; font-weight:700; padding:3px 11px; border-radius:999px;
+  border:1.5px solid var(--line); background:var(--bg); color:var(--muted); cursor:pointer}
+.qt-sel button.on{border-color:var(--navy); color:var(--navy); background:#EDF3FA}
+.qt-start{font:inherit; font-size:14px; font-weight:700; padding:6px 15px; border-radius:9px;
+  border:2px solid var(--navy); background:var(--navy); color:#fff; cursor:pointer; white-space:nowrap}
+.qt-start.run{background:var(--bg); color:var(--red); border-color:var(--red)}
+.qt-live{font-size:12.5px; font-weight:600; color:var(--muted); text-align:center; line-height:1.25; min-width:64px}
+.qt-live b{display:block; font-size:22px; color:var(--navy); font-variant-numeric:tabular-nums}
+.netdot{display:inline-block; width:8px; height:8px; border-radius:50%; background:#CBD5E1;
+  margin-right:5px; vertical-align:middle}
+.netdot.on{background:var(--green)} .netdot.connecting{background:var(--orange)}
+.netdot.fail,.netdot.lost,.netdot.nolib{background:var(--red)}
+
+/* Poll result slide */
+.poll-qtext{font-size:19.5px; font-weight:600; line-height:1.32; margin-bottom:15px;
+  max-height:2.7em; overflow:hidden}
+.poll-bars{display:flex; flex-direction:column; gap:12px}
+.pbar{display:grid; grid-template-columns:1fr 116px; gap:7px 16px; align-items:end; cursor:pointer}
+.pb-text{font-size:17.5px; line-height:1.28; max-height:2.6em; overflow:hidden}
+.pb-key{display:inline-block; width:24px; height:24px; line-height:23px; text-align:center; border-radius:7px;
+  background:var(--card); border:1px solid var(--line); font-size:13.5px; font-weight:800;
+  color:var(--navy); margin-right:9px; vertical-align:1px}
+.pb-num{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap}
+.pb-num b{font-size:23px; font-weight:800; color:var(--navy)}
+.pb-num span{font-size:15px; color:var(--muted); margin-left:7px}
+.pb-track{grid-column:1 / -1; height:15px; border-radius:999px; background:var(--card);
+  border:1px solid var(--line); overflow:hidden}
+.pb-fill{height:100%; width:0; border-radius:999px; background:var(--blue);
+  transition:width .95s cubic-bezier(.22,.9,.3,1), background .3s}
+.pbar.lead .pb-fill{background:var(--navy)}
+.revealed .pbar .pb-fill{background:#CBD5E1}
+.revealed .pbar.ok .pb-fill{background:var(--green)}
+.revealed .pbar.ok .pb-num b{color:var(--green)}
+.revealed .pbar.ok .pb-key{border-color:var(--green); color:var(--green); background:#EDF7F0}
+.poll-tools{display:flex; gap:9px; align-items:center; margin-top:15px; flex-wrap:wrap}
+.ptool{font:inherit; font-size:14px; font-weight:600; color:var(--navy); background:var(--bg);
+  border:1.5px solid var(--navy); border-radius:9px; padding:5px 13px; cursor:pointer}
+.ptool:hover{background:var(--navy); color:#fff}
+.poll-hint{font-size:14px; color:var(--muted); margin-left:auto; text-align:right; line-height:1.35}
+.poll-n{font-size:19px; font-weight:600; color:var(--blue); margin-left:14px; white-space:nowrap}
+.poll-exp{display:none; border-left:5px solid var(--green); background:var(--card); padding:10px 18px;
+  border-radius:0 12px 12px 0; font-size:16px; line-height:1.4; margin-top:11px; max-height:4.3em; overflow:hidden}
+.poll-exp.show{display:block}
+
+/* Join slide */
+.joingrid{display:grid; grid-template-columns:290px 1fr; gap:46px; align-items:center; flex:1; min-height:0}
+.qrbox{background:var(--bg); border:1.5px solid var(--line); border-radius:16px; padding:12px; text-align:center}
+.qrbox svg{width:236px; height:236px; display:block; margin:0 auto}
+.qrurl{font-size:12px; color:var(--muted); margin-top:7px; word-break:break-all; line-height:1.3}
+.roomchip{display:inline-block; font-size:16px; font-weight:600; letter-spacing:.14em; color:var(--navy);
+  border:2px solid var(--navy); border-radius:13px; padding:7px 20px; margin-bottom:14px}
+.roomchip b{font-size:31px; font-weight:800; letter-spacing:.18em; vertical-align:-3px; margin-left:10px}
+
+/* Phone voter page */
+#voter{display:none}
+html.voter-mode, html.voter-mode body{height:auto; overflow:auto; background:#EEF2F7}
+html.voter-mode #stage, html.voter-mode #hud, html.voter-mode #progress, html.voter-mode #toc{display:none !important}
+html.voter-mode #voter{display:block; max-width:620px; margin:0 auto; padding:18px 16px 44px}
+.v-head{display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:16px}
+.v-room{font-size:15px; font-weight:600; letter-spacing:.1em; color:var(--navy)}
+.v-room b{font-size:24px; font-weight:800; letter-spacing:.16em; margin-left:8px}
+.v-stat{font-size:13.5px; font-weight:600; color:var(--muted)}
+.v-card{background:#fff; border:1px solid var(--line); border-radius:16px; padding:20px 18px;
+  box-shadow:0 6px 18px rgba(31,73,125,.07)}
+.v-lbl{font-size:12.5px; font-weight:700; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:9px}
+.v-q{font-size:19px; font-weight:600; line-height:1.4; margin-bottom:18px}
+.v-opt{display:flex; align-items:flex-start; gap:12px; width:100%; text-align:left; font:inherit;
+  font-size:17px; line-height:1.36; padding:14px 15px; margin-bottom:11px; background:var(--card);
+  border:1.5px solid var(--line); border-radius:14px; cursor:pointer; color:var(--ink)}
+.v-opt .k{flex:0 0 26px; height:26px; line-height:25px; text-align:center; border-radius:8px;
+  background:#fff; border:1px solid var(--line); font-size:14px; font-weight:800; color:var(--navy)}
+.v-opt.mine{border-color:var(--navy); background:#EDF3FA; font-weight:600}
+.v-opt.mine .k{background:var(--navy); color:#fff; border-color:var(--navy)}
+.v-opt:disabled{opacity:.62; cursor:default}
+.v-note{font-size:15px; color:var(--muted); line-height:1.5; margin-top:12px}
+.v-wait{text-align:center; padding:44px 10px; color:var(--muted); font-size:17px; line-height:1.6}
+.v-wait .big{font-size:44px; margin-bottom:12px}
+.v-foot{text-align:center; font-size:12.5px; color:var(--muted); margin-top:22px; line-height:1.5}
+.v-ok{margin-top:14px; padding:12px 15px; border-radius:12px; background:#EDF7F0;
+  color:var(--green); font-size:15.5px; font-weight:600; text-align:center}
+
+/* Difficulty tag on a quiz slide heading */
+.dtag{display:inline-block; font-size:14px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  padding:3px 11px; border-radius:999px; margin-left:14px; vertical-align:6px;
+  background:var(--card); border:1px solid var(--line); color:var(--muted)}
+.dtag.medium{border-color:var(--orange); color:var(--orange); background:#FEF6E7}
+.dtag.hard{border-color:var(--red); color:var(--red); background:#FBEDED}
+
+/* Print: one slide per landscape page */
+@media print{
+  html,body{overflow:visible; background:#fff}
+  #stage{position:static; transform:none !important; width:1280px; height:auto; box-shadow:none}
+  .slide{display:flex !important; position:relative; width:1280px; height:720px; page-break-after:always; border-bottom:1px solid var(--line)}
+  #hud,#progress,#toc{display:none !important}
+}
+@page{size:landscape}
+</style>
+<style id="tabee-x">
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}.chip{font-size:15px;font-weight:600;padding:4px 12px;border-radius:999px;background:#EEF2F7;color:var(--navy)}
+.chip.r{background:#FBE9E7;color:var(--red)}.chip.g{background:#E8F4EC;color:var(--green)}.chip.o{background:#FFF1DD;color:#9A5B00}
+ul.b{list-style:none;display:flex;flex-direction:column;gap:12px}ul.b li{position:relative;padding-left:26px;font-size:22px;line-height:1.5}
+ul.b li::before{content:"";position:absolute;left:4px;top:13px;width:9px;height:9px;border-radius:50%;background:var(--blue)}
+ul.b.sm li{font-size:19px;line-height:1.45}ul.b.sm li::before{top:10px}ul.b.xs{gap:8px}ul.b.xs li{font-size:17.5px;line-height:1.42}ul.b.xs li::before{top:9px;width:7px;height:7px}
+.lbl2{font-size:14px;font-weight:700;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin:0 0 8px}
+.fig{border-radius:14px;overflow:hidden;border:1px solid var(--line)}.fig img{display:block;width:100%;max-height:400px;object-fit:cover}.figc{font-size:12px;color:var(--muted);margin-top:4px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;flex:1;min-height:0}.two.i{grid-template-columns:9fr 11fr;align-items:center}
+.card.t{padding:20px 22px}.card.t h3{font-size:20px}
+table.tb{width:100%;border-collapse:collapse;font-size:18px}table.tb th{background:var(--navy);color:#fff;text-align:left;padding:8px 12px;font-weight:600}
+table.tb td{padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.4}table.tb td:first-child{font-weight:600;color:var(--navy);white-space:nowrap}
+table.tb.w td:first-child{white-space:normal}
+.pk{display:grid;grid-template-columns:300px 1fr;gap:22px;flex:1;min-height:0}.pk.top{grid-template-columns:1fr;gap:14px}
+.pk-tabs{display:flex;flex-direction:column;gap:8px}.pk.top .pk-tabs{flex-direction:row;flex-wrap:wrap;align-items:flex-start}.pk.top{align-content:start;grid-template-rows:auto auto}
+.pk-tabs button{font:inherit;font-size:17px;font-weight:600;text-align:left;padding:10px 14px;border-radius:10px;border:1.5px solid var(--line);background:#fff;color:var(--navy);cursor:pointer;line-height:1.3}
+.pk-tabs button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.pk-p{display:none;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 24px;min-height:230px;max-height:345px;overflow:auto}.pk-p.on{display:block}
+.pk.top .pk-p{min-height:170px;max-height:262px}
+.pk-p h4{font-size:19px;color:var(--navy);margin-bottom:10px}.pk-p p{font-size:19px;line-height:1.5;margin-bottom:8px}
+.at{display:flex;flex-direction:column;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+.at-clock{font-size:86px;font-weight:800;color:var(--navy);font-variant-numeric:tabular-nums;line-height:1}.at.run .at-clock{color:var(--green)}.at.end .at-clock{color:var(--red)}
+.at-ctl{display:flex;gap:8px}.at-ctl button{font:inherit;font-size:16px;font-weight:600;padding:8px 14px;border-radius:9px;border:1.5px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer}
+.at-ctl .at-go{background:var(--navy);color:#fff}
+.ok{color:var(--green);font-weight:600}.no{color:var(--red);font-weight:600}.mu{color:var(--muted)}
+.src{font-size:13px;color:var(--muted);margin-top:10px}
+.flowr{display:flex;align-items:stretch;gap:0;flex-wrap:nowrap}.flowr .st{flex:1;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 12px;text-align:center;font-size:16.5px;line-height:1.35}
+.flowr .st b{display:block;color:var(--navy);font-size:17.5px;margin-bottom:4px}.flowr .ar{align-self:center;padding:0 6px;color:var(--muted);font-size:22px}.flowr .st.hl{border:2px solid var(--red);background:#FFF7F5}
+.lvk{display:inline-block;font-weight:700;border-radius:6px;padding:0 8px;color:#fff}.lvk.N{background:#5B7083}.lvk.R{background:#3B82C4}.lvk.C{background:#D9A300}.lvk.W{background:#E07B00}.lvk.D{background:#C0392B}.lvk.S{background:#2E8B57}
+.kat-off{}
+</style>
+</head>
+<body>
+
+<div id="stage">
+
+<section class="slide title-slide" data-title="สัมภาษณ์พนักงานพี่เลี้ยงและผู้ใช้บัณฑิต (online)"><span class="pill">ETC PEV TRAINING · ONSITE · ตรวจเยี่ยมจำลอง</span><p class="lecno">ช่วง 1-6 · 14:30–15:15</p><h1>สัมภาษณ์พนักงานพี่เลี้ยงและผู้ใช้บัณฑิต (online)</h1><div class="rule"></div><p class="who">ผู้ให้ข้อมูล: พนักงานพี่เลี้ยง 2 คน ผู้ใช้บัณฑิต 3 คนที่ไม่ใช่กรรมการ IAB<br>หลักสูตรตัวอย่าง: เทคโนโลยีวิศวกรรมอุตสาหการ (หลักสูตรสมมติ เกณฑ์ ETAC)</p></section>
+<section class="slide section-slide" data-title="ช่วง 1-6" data-sec="ช่วง 1-6"><div class="big">1-6</div><p class="lbl">ช่วง 1-6</p><p class="q">ยืนยันวิธีที่สถานประกอบการประเมินนักศึกษา และความเห็นต่อความสามารถของบัณฑิต</p></section>
+<section class="slide" data-title="ช่วง 1-6 · โครง" data-outline-for="ช่วง 1-6" data-wordcap="90"><div class="s-head"><p class="kicker">ช่วง 1-6 · โครง</p><h2>ช่วงนี้มีอะไรบ้าง</h2></div><div class="grow"><ol class="sec-outline"><li><b>บทเปิด</b><span class="so">เปิด แนะนำตัว และเกริ่นจุดประสงค์</span></li><li><b>ลำดับคำถาม</b><span class="so">ถามข้อใดก่อนหลัง และโยงกับเกณฑ์ข้อใด</span></li><li><b>การถามต่อ</b><span class="so">ถามต่ออย่างไรให้ได้ข้อเท็จจริง</span></li><li><b>เอกสารและบทปิด</b><span class="so">เอกสารที่ใช้ และวิธีปิดช่วง</span></li></ol></div></section>
+<section class="slide" data-title="45 นาทีนี้เรียงอย่างไร" data-wordcap="55"><div class="s-head"><p class="kicker">ลำดับของช่วง</p><h2>45 นาทีนี้เรียงอย่างไร</h2></div><div class="grow"><div class="flowr"><div class="st"><b>เปิด</b>5 นาที<br>ทักทาย</div><span class="ar">›</span><div class="st"><b>แนะนำตัว</b>คณะและ<br>ผู้ให้ข้อมูล</div><span class="ar">›</span><div class="st"><b>เกริ่น</b>จุดประสงค์<br>และกติกา</div><span class="ar">›</span><div class="st hl"><b>ถาม</b>35 นาที<br>กว้างไปแคบ</div><span class="ar">›</span><div class="st"><b>ปิด</b>5 นาที<br>ทวนและขอบคุณ</div></div><p class="simsum"><b>เป้าหมายของช่วง:</b> ยืนยันวิธีที่สถานประกอบการประเมินนักศึกษา และความเห็นต่อความสามารถของบัณฑิต</p></div></section>
+<section class="slide" data-title="ใครทำอะไร" data-wordcap="50"><div class="s-head"><p class="kicker">หน้าที่ในห้อง</p><h2>ใครทำอะไร</h2></div><div class="grow"><div class="cards"><div class="card t card-blue"><h3>ผู้ถามหลัก · PEV 1</h3><p>ถามตามลำดับ คุมเวลา และกล่าวเปิดปิด</p></div><div class="card t card-green"><h3>ผู้จด · PEV 2</h3><p>บันทึกข้อเท็จจริง แหล่งที่มา และเกณฑ์ลง PEV Studio ทันที</p></div><div class="card t card-orange"><h3>ผู้ถามเสริม · ประธานคณะ</h3><p>ฟังช่องว่างของคำตอบ แล้วถามต่อเมื่อผู้ถามหลักให้สัญญาณ</p></div></div></div></section>
+<section class="slide" data-title="บทเปิดช่วง" data-wordcap="160"><div class="s-head"><p class="kicker">บทพูด · กดดูทีละขั้น</p><h2>บทเปิดช่วง</h2></div><div class="grow"><div class="pk"><div class="pk-tabs"><button class="on">1 เปิด</button><button class="">2 แนะนำตัว</button><button class="">3 เกริ่น</button><button class="">4 เริ่มถาม</button></div><div class="pk-body"><div class="pk-p on"><h4>กล่าวเปิด (ผู้ถามหลัก)</h4><p>“สวัสดีครับ ขอบคุณที่สละเวลามาพบคณะผู้ตรวจประเมินในช่วงสัมภาษณ์พนักงานพี่เลี้ยงและผู้ใช้บัณฑิต (online)”</p></div><div class="pk-p "><h4>แนะนำคณะและผู้ให้ข้อมูล</h4><p>“ผมชื่อ … เป็นประธานคณะ ท่านนี้คือ … และ … เป็นผู้ตรวจประเมิน ขอให้แต่ละท่านแนะนำชื่อและหน้าที่สั้น ๆ ครับ”</p></div><div class="pk-p "><h4>บอกจุดประสงค์และกติกา</h4><p>“ช่วงนี้มีเวลา 45 นาที คณะจะจดบันทึก และจะไม่ระบุชื่อผู้ให้ข้อมูลในรายงาน”</p></div><div class="pk-p "><h4>เริ่มจากคำถามกว้าง</h4><p>ถามข้อ 1 ก่อน ฟังให้จบ แล้วจึงเจาะด้วยคำถามว่าใคร ทำอะไร เมื่อไร และขอดูหลักฐาน</p></div></div></div><p class="simsum"><b>ใช้เวลาเปิดไม่เกิน 5 นาที:</b> ผู้ให้ข้อมูลรู้ว่าคณะต้องการอะไรและมีเวลาเท่าใด</p></div></section>
+<section class="slide" data-title="ลำดับคำถาม: จากกว้างไปแคบ" data-wordcap="125"><div class="s-head"><p class="kicker">ลำดับคำถาม</p><h2>ลำดับคำถาม: จากกว้างไปแคบ</h2></div><div class="grow"><table class="tb sm"><tr><th>#</th><th>คำถาม</th><th>เกณฑ์</th></tr><tr><td>1</td><td>ท่านประเมินนักศึกษาสหกิจศึกษาอย่างไร ใช้เกณฑ์อะไร</td><td>ข้อ 4, 5</td></tr><tr><td>2</td><td>ใครเป็นผู้กำหนดหัวข้อโครงงานของนักศึกษาในบริษัทท่าน</td><td>ข้อ 5</td></tr><tr><td>3</td><td>บัณฑิตจากหลักสูตรนี้เด่นและด้อยเรื่องใดเมื่อเทียบกับที่อื่น</td><td>ข้อ 2, 4</td></tr><tr><td>4</td><td>ท่านเคยให้ข้อมูลการทบทวนวัตถุประสงค์หลักสูตรหรือไม่</td><td>ข้อ 2</td></tr></table><p class="src">ที่มา: ตัวอย่างที่กรอกครบของ PEV Studio ฉบับ ETC เคส IET</p></div></section>
+<section class="slide" data-title="คำถามและการถามต่อ" data-wordcap="230"><div class="s-head"><p class="kicker">คำถามที่เลือก · กดดูทีละข้อ</p><h2>คำถามและการถามต่อ</h2></div><div class="grow"><div class="pk top"><div class="pk-tabs"><button class="on">ข้อ 1</button><button class="">ข้อ 2</button><button class="">ข้อ 3</button><button class="">ข้อ 4</button></div><div class="pk-body"><div class="pk-p on"><h4>ข้อ 1 · ท่านประเมินนักศึกษาสหกิจศึกษาอย่างไร ใช้เกณฑ์อะไร</h4><p><b>ถามต่อ</b> ถามว่าเคยเห็นคำอธิบายตัวชี้วัดหรือไม่</p><p class="src">บันทึกใน PEV Studio: เกณฑ์ข้อ 4, 5</p></div><div class="pk-p "><h4>ข้อ 2 · ใครเป็นผู้กำหนดหัวข้อโครงงานของนักศึกษาในบริษัทท่าน</h4><p><b>ถามต่อ</b> ถามว่าโจทย์มีทางเลือกให้เปรียบเทียบหรือไม่</p><p class="src">บันทึกใน PEV Studio: เกณฑ์ข้อ 5</p></div><div class="pk-p "><h4>ข้อ 3 · บัณฑิตจากหลักสูตรนี้เด่นและด้อยเรื่องใดเมื่อเทียบกับที่อื่น</h4><p><b>ถามต่อ</b> ขอตัวอย่างงาน</p><p class="src">บันทึกใน PEV Studio: เกณฑ์ข้อ 2, 4</p></div><div class="pk-p "><h4>ข้อ 4 · ท่านเคยให้ข้อมูลการทบทวนวัตถุประสงค์หลักสูตรหรือไม่</h4><p><b>ถามต่อ</b> ถามช่องทางที่ให้ข้อมูล</p><p class="src">บันทึกใน PEV Studio: เกณฑ์ข้อ 2</p></div></div></div></div></section>
+<section class="slide" data-title="เอกสารของช่วงนี้" data-wordcap="60"><div class="s-head"><p class="kicker">เอกสารที่เกี่ยวข้อง</p><h2>เอกสารของช่วงนี้</h2></div><div class="grow"><div class="cards"><div class="card t card-blue"><h3>อ่านก่อนเข้าห้อง</h3><ul class="b xs"><li>SER ส่วนที่ 3 เกณฑ์ข้อ 2</li><li>ซองเอกสาร ช-3</li></ul></div><div class="card t card-green"><h3>ถือเข้าห้อง</h3><ul class="b xs"><li>แบบประเมินพี่เลี้ยงจาก ช-3</li></ul></div><div class="card t card-orange"><h3>ขอดูในห้อง</h3><ul class="b xs"><li>ไม่มี (สัมภาษณ์ออนไลน์)</li></ul></div></div></div></section>
+<section class="slide" data-title="บทปิดช่วง" data-wordcap="150"><div class="s-head"><p class="kicker">บทพูด · กดดูทีละขั้น</p><h2>บทปิดช่วง</h2></div><div class="grow"><div class="pk"><div class="pk-tabs"><button class="on">1 สรุปทวน</button><button class="">2 เปิดให้เพิ่ม</button><button class="">3 เอกสารค้าง</button><button class="">4 ขอบคุณ</button><button class="">ไม่พูด</button></div><div class="pk-body"><div class="pk-p on"><h4>ทวนข้อเท็จจริงให้ยืนยัน</h4><p>“ขอสรุปสิ่งที่ได้ฟัง … ถูกต้องไหมครับ” อ่านเฉพาะข้อเท็จจริง ไม่ใส่ความเห็น</p></div><div class="pk-p "><h4>ถามสิ่งที่ยังไม่ได้ถาม</h4><p>“มีเรื่องใดที่ท่านอยากให้คณะทราบเพิ่มไหมครับ”</p></div><div class="pk-p "><h4>นัดเอกสารที่ขอดู</h4><p>“เอกสารที่ขอไว้คือ … ขอรับภายในวันนี้ที่ห้องทำงานของคณะครับ”</p></div><div class="pk-p "><h4>ขอบคุณและปิดช่วง</h4><p>“ขอบคุณสำหรับข้อมูลครับ คณะจะนำไปประกอบการพิจารณาร่วมกับหลักฐานอื่น”</p></div><div class="pk-p "><h4>สิ่งที่ไม่พูดในห้องนี้</h4><ul class="b sm"><li>ระดับของข้อค้นพบ</li><li>ผลการรับรองที่คาด</li><li>วิธีแก้ที่หลักสูตรควรทำ</li><li>คำตอบของผู้ให้ข้อมูลกลุ่มอื่น</li></ul></div></div></div><p class="simsum"><b>ปิดด้วยข้อเท็จจริงที่ยืนยันแล้ว:</b> ผู้จดบันทึกลง PEV Studio ก่อนออกจากห้อง</p></div></section>
+<section class="slide" data-title="จับเวลาการฝึกช่วงนี้" data-wordcap="45"><div class="s-head"><p class="kicker">ฝึกในห้องอบรม</p><h2>จับเวลาการฝึกช่วงนี้</h2></div><div class="grow"><div class="two i"><div class="at" data-min="10"><div class="at-clock">--:--</div><div class="at-ctl"><button class="at-go"></button><button class="at-m">−1</button><button class="at-p">+1</button><button class="at-r">รีเซ็ต</button></div></div><div><p class="lbl2">งานของทีม</p><ul class="b sm"><li>ผู้สวมบทบาทตอบเฉพาะสิ่งที่ถูกถาม</li><li>ทีมถามตามลำดับ และจดลง PEV Studio</li><li>เหลือ 2 นาที ให้เริ่มบทปิด</li></ul></div></div><p class="simsum"><b>เวลาฝึกสั้นกว่าเวลาจริง:</b> เลือกถามข้อที่ตอบประเด็นค้างก่อน</p></div></section>
+<section class="slide" data-title="ช่วง 1-6 · สรุป"><div class="s-head"><p class="kicker">ช่วง 1-6 · สรุป</p><h2>สรุปช่วง 1-6</h2></div><div class="grow"><ul class="clean"><li>เปิดสั้น บอกจุดประสงค์และเวลา</li><li>ถามจากกว้างไปแคบ และขอดูหลักฐาน</li><li>ทวนข้อเท็จจริงก่อนปิด ไม่บอกระดับ</li><li>บันทึกลง PEV Studio พร้อมเกณฑ์และแหล่งที่มา</li></ul></div></section>
+
+</div>
+
+<div id="progress"></div>
+<div id="hud">
+  <button id="btnToc" title="Contents (T)">☰</button>
+  <button id="btnPrev" title="Previous (←)">‹</button>
+  <button id="btnNext" title="Next (→)">›</button>
+</div>
+<!-- Phone voter page: the SAME file opened as index.html?poll=ROOM shows this instead of the deck -->
+<div id="voter">
+  <div class="v-head">
+    <span class="v-room">ROOM<b id="vRoom">&mdash;</b></span>
+    <span class="v-stat" id="vStat"></span>
+  </div>
+  <div id="vBody"></div>
+  <p class="v-foot">COURSE CODE &middot; Lecture title<br>
+    Keep this page open all class &mdash; each new question appears by itself.</p>
+</div>
+
+<div id="toc"><div class="panel"><h3>สารบัญ</h3><div id="tocList"></div></div></div>
+
+<script>
+/* ================= Deck engine ================= */
+const DECK_META = { course: 'ETC PEV · IET mock visit 1-6' };  // footer text — set per deck
+
+const el = id => document.getElementById(id);
+const cs = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+function fmt(x, d = 3){
+  if (!isFinite(x)) return '–';
+  if (x !== 0 && (Math.abs(x) < 1e-3 || Math.abs(x) >= 1e5)) return x.toExponential(d - 1);
+  return parseFloat(x.toPrecision(d)).toString();
+}
+function mix(c1, c2, t){
+  const p = c => [1,3,5].map(i => parseInt(c.slice(i, i + 2), 16));
+  const a = p(c1), b = p(c2);
+  return '#' + a.map((v, i) => Math.round(v + (b[i] - v) * t).toString(16).padStart(2, '0')).join('');
+}
+
+const Deck = (() => {
+  const slides = [...document.querySelectorAll('.slide')];
+  let cur = -1;
+  const enterCbs = [];   // {key, fn, once, fired}
+
+  // footer stamping
+  let _sec = '';
+  slides.forEach((s, i) => {
+    if (s.dataset.sec) _sec = s.dataset.sec;
+    if (s.classList.contains('title-slide') || s.classList.contains('section-slide') || s.dataset.nofooter !== undefined) return;
+    const f = document.createElement('div');
+    f.className = 's-foot';
+    f.innerHTML = `<span>${DECK_META.course}</span><span class="s-sec">${_sec}</span><span>${i + 1} / ${slides.length}</span>`;
+    s.appendChild(f);
+  });
+
+  function goTo(i){
+    i = Math.max(0, Math.min(slides.length - 1, i));
+    if (i === cur) return;
+    if (cur >= 0) slides[cur].classList.remove('active');
+    cur = i;
+    slides[cur].classList.add('active');
+    location.hash = '#/' + (cur + 1);
+    el('progress').style.width = ((cur + 1) / slides.length * 100) + '%';
+    [...document.querySelectorAll('#tocList a')].forEach((a, j) => a.classList.toggle('cur', j === cur));
+    fireEnter(false);
+  }
+  function fireEnter(onlyUnfired){
+    enterCbs.forEach(c => {
+      const hit = (typeof c.key === 'number') ? c.key === cur : slides[cur].id === c.key;
+      if (!hit) return;
+      if (onlyUnfired && c.fired) return;
+      if (c.once && c.fired) return;
+      try{ c.fn(); c.fired = true; }catch(e){ console.error(e); }
+    });
+  }
+  // Deep-link safety: if the first slide shown needs a CDN lib (e.g. Chart.js) that
+  // hasn't loaded yet, its enter callback throws; retry once everything has loaded.
+  addEventListener('load', () => fireEnter(true));
+  function onEnter(key, fn, opts = {}){ enterCbs.push({ key, fn, once: !!opts.once, fired: false }); }
+
+  // TOC
+  const list = el('tocList');
+  slides.forEach((s, i) => {
+    if (s.dataset.sec){ const h = document.createElement('div'); h.className = 'sec'; h.textContent = s.dataset.sec; list.appendChild(h); }
+    const a = document.createElement('a');
+    a.href = '#/' + (i + 1);
+    a.textContent = (i + 1) + '. ' + (s.dataset.title || s.querySelector('h1,h2,.q')?.textContent.slice(0, 60) || 'Slide');
+    a.onclick = e => { e.preventDefault(); goTo(i); toc(false); };
+    list.appendChild(a);
+  });
+  function toc(open){ el('toc').classList.toggle('open', open ?? !el('toc').classList.contains('open')); }
+  el('toc').addEventListener('click', e => { if (e.target === el('toc')) toc(false); });
+  el('btnToc').onclick = () => toc();
+  el('btnPrev').onclick = () => goTo(cur - 1);
+  el('btnNext').onclick = () => goTo(cur + 1);
+
+  // keyboard
+  addEventListener('keydown', e => {
+    if (['ArrowRight',' ','PageDown'].includes(e.key)){ e.preventDefault(); goTo(cur + 1); }
+    else if (['ArrowLeft','PageUp'].includes(e.key)){ e.preventDefault(); goTo(cur - 1); }
+    else if (e.key === 'Home') goTo(0);
+    else if (e.key === 'End') goTo(slides.length - 1);
+    else if (e.key.toLowerCase() === 't') toc();
+    else if (e.key === 'Escape') toc(false);
+    else if (e.key.toLowerCase() === 'f'){ document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
+    else if (e.key.toLowerCase() === 'o') debugOverflow();
+  });
+
+  // Overflow debugger (press O): measures every slide against the 1280x720 stage,
+  // outlines offenders in red and lists them in the console. Use before class.
+  function debugOverflow(){
+    const st = el('stage').getBoundingClientRect();
+    const sc = st.width / 1280;
+    const report = [];
+    slides.forEach((s, i) => {
+      const wasActive = s.classList.contains('active');
+      if (!wasActive) s.classList.add('active');
+      s.querySelectorAll('*').forEach(n => {
+        const r = n.getBoundingClientRect();
+        if ((!r.width && !r.height) || n.closest('.q-explain')) return;
+        const past = Math.max(r.bottom - st.bottom, r.right - st.right) / sc;
+        if (past > 2){
+          n.style.outline = '3px solid red';
+          report.push(`slide ${i + 1}: <${n.tagName.toLowerCase()} class="${n.className}"> ${Math.round(past)}px past edge`);
+        }
+      });
+      if (!wasActive) s.classList.remove('active');
+    });
+    if (report.length){ console.warn('OVERFLOW REPORT\n' + report.join('\n')); }
+    window.__overflowReport = report;
+    alert(report.length ? report.length + ' overflowing element(s) outlined red - see console' : 'No overflow - all slides fit 1280x720');
+    return report;
+  }
+
+  // swipe
+  let x0 = null;
+  addEventListener('touchstart', e => x0 = e.touches[0].clientX, { passive: true });
+  addEventListener('touchend', e => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 60) goTo(cur + (dx < 0 ? 1 : -1));
+    x0 = null;
+  }, { passive: true });
+
+  // scale stage to window
+  function fit(){
+    const s = Math.min(innerWidth / 1280, innerHeight / 720) * 0.98;
+    el('stage').style.transform = `translate(-50%,-50%) scale(${s})`;
+  }
+  addEventListener('resize', fit); fit();
+
+  // hash routing (agenda links, deep links, back/forward)
+  function hashIndex(){ const m = location.hash.match(/#\/(\d+)/); return m ? +m[1] - 1 : NaN; }
+  addEventListener('hashchange', () => { const i = hashIndex(); if (!isNaN(i) && i !== cur) goTo(i); });
+  const h0 = hashIndex();
+  goTo(isNaN(h0) ? 0 : h0);
+
+  return { goTo, onEnter, get current(){ return cur; }, get count(){ return slides.length; } };
+})();
+
+/* ================= KaTeX ================= */
+const KATEX_OPTS = { delimiters: [
+  { left: '$$', right: '$$', display: true },
+  { left: '$', right: '$', display: false },
+  { left: '\\(', right: '\\)', display: false },
+  { left: '\\[', right: '\\]', display: true }
+], throwOnError: false };
+document.addEventListener('DOMContentLoaded', () => {
+  const tryRender = () => window.renderMathInElement
+    ? renderMathInElement(document.body, KATEX_OPTS)
+    : setTimeout(tryRender, 120);
+  tryRender();
+});
+
+/* ================= Quiz engine (per-group scoring + overall % + round history) =================
+   Students retake the deck's quizzes: Reset clears the answers but NEVER the history, so round 1,
+   2, 3 … stay side by side and improvement is visible. Each finished round is stamped with the
+   clock time it was completed. History is mirrored to localStorage so it also survives a reload;
+   if storage is unavailable (file:// in some browsers, private mode) it degrades to memory only. */
+const QUIZ_TEXT = {           /* translate these for a Thai deck (e.g. round:'รอบที่', finished:'เสร็จเมื่อ') */
+  score: 'Quiz score', total: 'Total', round: 'Round', finished: 'finished',
+  inProgress: 'in progress', unanswered: 'unanswered', partial: 'partial',
+  noAttempts: 'No finished round yet — answer every question, then press Reset to try again.',
+  showing: 'showing the latest', of: 'of', rounds: 'rounds'
+};
+const Quiz = { score: 0, answered: 0, total: document.querySelectorAll('.quiz-q').length, groups: {}, attempts: [], logged: false };
+/* Assign each question to a quiz group (nearest ancestor with data-quiz-group) and tally group totals. */
+document.querySelectorAll('.quiz-q').forEach(q => {
+  const sec = q.closest('[data-quiz-group]');
+  const gid = sec ? sec.dataset.quizGroup : 'default';
+  const label = sec && sec.dataset.quizLabel ? sec.dataset.quizLabel : gid;
+  if (!Quiz.groups[gid]) Quiz.groups[gid] = { label, total: 0, score: 0, answered: 0 };
+  Quiz.groups[gid].total++;
+  q.dataset.group = gid;
+});
+/* Persistence: keyed per deck so two decks in the same browser don't overwrite each other. */
+const QuizStore = (() => {
+  const key = 'deckQuiz::' + (document.title || location.pathname);
+  return {
+    load(){ try { return JSON.parse(localStorage.getItem(key)) || []; } catch(e){ return []; } },
+    save(a){ try { localStorage.setItem(key, JSON.stringify(a)); } catch(e){ /* memory only */ } }
+  };
+})();
+Quiz.attempts = QuizStore.load();
+/* Shuffle the choices of every question (Fisher–Yates), on load and again on every Reset.
+   Two problems this solves: authored decks drift toward putting the correct answer first, which
+   students detect fast; and a student retaking the deck can otherwise pass by remembering "it was
+   the 2nd button" instead of the physics. Shuffling on load also means the position you author is
+   irrelevant — you never have to hand-scatter the right answers.
+   Opt out with data-shuffle="off" on the .quiz-q or its quiz <section> when order carries meaning
+   (numerically ordered values, chronological steps, "all of the above"). */
+function shuffleQuizOptions(){
+  document.querySelectorAll('.quiz-q').forEach(q => {
+    if (q.closest('[data-shuffle="off"]')) return;
+    const opts = [...q.querySelectorAll('.q-opt')];
+    if (opts.length < 2) return;
+    for (let i = opts.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [opts[i], opts[j]] = [opts[j], opts[i]];
+    }
+    const parent = opts[0].parentNode;
+    const exp = q.querySelector('.q-explain');
+    const anchor = exp && exp.parentNode === parent ? exp : null;   /* keep the explanation box last */
+    opts.forEach(o => anchor ? parent.insertBefore(o, anchor) : parent.appendChild(o));
+  });
+}
+shuffleQuizOptions();
+/* Archive the round in play. Called on completion (auto) and on Reset (for a partial round). */
+function logQuizAttempt(){
+  if (!Quiz.answered || Quiz.logged) return;
+  const now = new Date();
+  Quiz.attempts.push({
+    round: Quiz.attempts.length + 1,
+    score: Quiz.score, total: Quiz.total, answered: Quiz.answered,
+    pct: Quiz.total ? Math.round(Quiz.score / Quiz.total * 100) : 0,
+    time: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+    date: now.toLocaleDateString()
+  });
+  Quiz.logged = true;
+  QuizStore.save(Quiz.attempts);
+}
+/* Reset every question in the deck back to unanswered — history is archived first, never cleared. */
+function resetQuiz(){
+  logQuizAttempt();
+  document.querySelectorAll('.quiz-q').forEach(q => {
+    delete q.dataset.done;
+    q.querySelectorAll('.q-opt').forEach(b => { b.disabled = false; b.classList.remove('right', 'wrong'); });
+    const exp = q.querySelector('.q-explain');
+    if (exp){ exp.classList.remove('show'); exp.innerHTML = ''; }
+  });
+  Quiz.score = 0; Quiz.answered = 0; Quiz.logged = false;
+  Object.values(Quiz.groups).forEach(g => { g.score = 0; g.answered = 0; });
+  shuffleQuizOptions();     /* new round = new choice order, so memorised positions are worthless */
+  renderQuizScores();
+}
+function renderQuizScores(){
+  /* Per-group scoreboards: <p class="quiz-score" data-quiz-group="1-1-section"> (omit attr for whole-deck total). */
+  document.querySelectorAll('.quiz-score').forEach(s => {
+    const g = s.dataset.quizGroup && Quiz.groups[s.dataset.quizGroup];
+    if (g) s.textContent = `${g.label}: ${g.score} / ${g.total}` + (g.answered < g.total ? ` (${g.total - g.answered} ${QUIZ_TEXT.unanswered})` : '');
+    else s.textContent = `${QUIZ_TEXT.score}: ${Quiz.score} / ${Quiz.total}` + (Quiz.answered < Quiz.total ? ` (${Quiz.total - Quiz.answered} ${QUIZ_TEXT.unanswered})` : '');
+  });
+  /* Breakdown table: one row per group. */
+  document.querySelectorAll('.quiz-breakdown').forEach(b => {
+    b.innerHTML = Object.values(Quiz.groups).map(g =>
+      `<div class="qb-row"><span>${g.label}</span><span>${g.score} / ${g.total}</span></div>`).join('');
+  });
+  /* Headline: combined percentage, every question weighted equally. */
+  document.querySelectorAll('.quiz-total').forEach(t => {
+    const pct = Quiz.total ? Math.round(Quiz.score / Quiz.total * 100) : 0;
+    t.textContent = `${QUIZ_TEXT.total}: ${Quiz.score} / ${Quiz.total} (${pct}%)` + (Quiz.answered < Quiz.total ? ` — ${Quiz.total - Quiz.answered} ${QUIZ_TEXT.unanswered}` : '');
+  });
+  /* Round history: one row per finished round + the round currently in play.
+     Rows are capped (data-max-rows, default 5) so a student on round 12 cannot overflow the slide. */
+  document.querySelectorAll('.quiz-attempts').forEach(box => {
+    const max = +(box.dataset.maxRows || 5);
+    const best = Quiz.attempts.reduce((m, a) => Math.max(m, a.score), -1);
+    const last = Quiz.attempts[Quiz.attempts.length - 1];
+    const today = new Date().toLocaleDateString();   /* older rounds also show their date */
+    const rows = Quiz.attempts.slice(-max).map(a => {
+      const cls = 'qa-row' + (Quiz.logged && a === last ? ' qa-now' : '')
+                           + (a.score === best && Quiz.attempts.length > 1 ? ' qa-best' : '');
+      const partial = a.answered < a.total ? ` · ${QUIZ_TEXT.partial} ${a.answered}/${a.total}` : '';
+      return `<div class="${cls}"><span>${QUIZ_TEXT.round} ${a.round}${partial}</span>` +
+             `<span class="qa-pts">${a.score} / ${a.total} (${a.pct}%)</span>` +
+             `<span class="qa-time">${QUIZ_TEXT.finished} ${a.date && a.date !== today ? a.date + ' ' : ''}${a.time}</span></div>`;
+    });
+    /* The round in play (only while unfinished — once finished it is archived above). */
+    if (!Quiz.logged){
+      const pct = Quiz.total ? Math.round(Quiz.score / Quiz.total * 100) : 0;
+      rows.push(`<div class="qa-row qa-now"><span>${QUIZ_TEXT.round} ${Quiz.attempts.length + 1}</span>` +
+                `<span class="qa-pts">${Quiz.score} / ${Quiz.total} (${pct}%)</span>` +
+                `<span class="qa-time">${QUIZ_TEXT.inProgress}</span></div>`);
+    }
+    if (Quiz.attempts.length > max)
+      rows.push(`<p class="qa-note">${QUIZ_TEXT.showing} ${max} ${QUIZ_TEXT.of} ${Quiz.attempts.length} ${QUIZ_TEXT.rounds}</p>`);
+    else if (!Quiz.attempts.length)
+      rows.push(`<p class="qa-note">${QUIZ_TEXT.noAttempts}</p>`);
+    box.innerHTML = rows.join('');
+  });
+}
+document.querySelectorAll('.quiz-q').forEach(q => {
+  const exp = q.querySelector('.q-explain');
+  q.querySelectorAll('.q-opt').forEach(opt => opt.addEventListener('click', () => {
+    if (q.dataset.done) return;
+    q.dataset.done = '1';
+    const ok = opt.hasAttribute('data-correct');
+    opt.classList.add(ok ? 'right' : 'wrong');
+    q.querySelectorAll('.q-opt[data-correct]').forEach(c => c.classList.add('right'));
+    q.querySelectorAll('.q-opt').forEach(b => b.disabled = true);
+    if (exp){
+      exp.innerHTML = opt.getAttribute('data-explain') || '';
+      exp.classList.add('show');
+      if (window.renderMathInElement) renderMathInElement(exp, KATEX_OPTS);
+    }
+    Quiz.answered++; if (ok) Quiz.score++;
+    const g = Quiz.groups[q.dataset.group];
+    if (g){ g.answered++; if (ok) g.score++; }
+    /* Last question of the deck answered → the round is finished; stamp it with the clock time. */
+    if (Quiz.answered >= Quiz.total) logQuizAttempt();
+    renderQuizScores();
+  }));
+});
+/* Reset control on the overall-score slide. Non-destructive: the round in play is archived first,
+   so a mis-click costs nothing and no confirm dialog is needed (dialogs stall a live classroom). */
+document.querySelectorAll('.quiz-reset').forEach(b => b.addEventListener('click', resetQuiz));
+renderQuizScores();
+
+/* ================= Reveal blocks (Socratic click-to-show) ================= */
+document.querySelectorAll('.reveal-btn').forEach(b =>
+  b.addEventListener('click', () => b.closest('.reveal').classList.add('open')));
+
+/* ================= Helpers for simulations ================= */
+function bindSlider(id, fn){
+  const s = el(id);
+  const h = () => fn(+s.value);
+  s.addEventListener('input', h); h();
+  return s;
+}
+
+/* ================= LIVE POLL (phone voting) =====================================
+   Students scan the QR on the "Join the live poll" slide once, keep that page open for the
+   whole class, and vote from their phone. Results appear on the projected deck instantly.
+
+   Transport is MQTT over WebSocket through a PUBLIC broker, so the deck stays a single file
+   with no server of our own — the thing that makes it survivable is the failover: three
+   brokers are tried in turn, the connection auto-reconnects, and if none of them work the
+   deck silently falls back to "tap the bar on screen" hand-counting. A class must never stall
+   because a broker was blocked by campus wifi.
+
+   Privacy: no names, no identifiers a human could trace — only an anonymous random device id
+   and a choice index (0-3) ever leave the phone. Say so on the join slide; students ask.
+
+   Translate POLL_TEXT below for a Thai deck (Thai values are given in the comments). */
+const POLL_TEXT = {
+  /* connection status, shown next to a coloured dot */
+  off:'not connected',            /* 'ยังไม่เชื่อมต่อ' */
+  connecting:'connecting…',       /* 'กำลังเชื่อมต่อ…' */
+  on:'ready for votes',           /* 'พร้อมรับโหวต' */
+  lost:'dropped — reconnecting',  /* 'หลุด — กำลังต่อใหม่' */
+  fail:'broker unreachable — use tap-on-screen mode',   /* 'ต่อ broker ไม่ได้ — ใช้โหมดแตะบนจอ' */
+  nolib:'mqtt.js failed to load — use tap-on-screen mode', /* 'โหลด mqtt.js ไม่ได้ — ใช้โหมดแตะบนจอ' */
+  joined:'joined',                /* 'เข้าร่วมแล้ว' */
+  devices:'devices',              /* 'เครื่อง' */
+  /* phone voter page */
+  question:'Question',            /* 'คำถาม' */
+  closed:'voting closed',         /* 'ปิดโหวตแล้ว' */
+  waiting:'Connected. Waiting for the next question…',  /* 'เชื่อมต่อแล้ว รอคำถามจากอาจารย์…' */
+  keepOpen:'Keep this page open all class — no need to scan again.', /* 'เปิดหน้านี้ค้างไว้ได้ตลอดคาบ ไม่ต้องสแกนซ้ำ' */
+  sent:'Answer sent:',            /* 'ส่งคำตอบแล้ว:' */
+  canChange:'— you may change your mind until time runs out', /* '— เปลี่ยนใจได้จนกว่าจะหมดเวลา' */
+  timeUp:'Time is up for this question. Wait for the next one.', /* 'หมดเวลาข้อนี้แล้ว รอข้อถัดไปได้เลย' */
+  tapChoice:'Tap the choice you think is right.', /* 'แตะตัวเลือกที่คุณคิดว่าถูก' */
+  /* presenter side */
+  stop:'Stop',                    /* 'หยุด' */
+  answered:'answered',            /* 'ตอบแล้ว' */
+  people:'people answered',       /* 'ตอบแล้ว … คน' — see renderPoll for the sentence */
+  correctIs:'is correct',         /* 'ถูกต้อง' */
+  qrFailed:'could not draw the QR code',            /* 'สร้าง QR ไม่ได้' */
+  fileMode:'This file is open as <b>file://</b><br>so phones cannot reach it.', /* 'ตอนนี้เปิดไฟล์แบบ file:// มือถือจึงเข้าไม่ได้' */
+  fileHint:'Publish it (GitHub Pages) and the QR appears automatically.', /* 'อัปโหลดขึ้น GitHub Pages ก่อน แล้ว QR จะขึ้นเอง' */
+  fallback:'Fallback: tap the result bars on screen to count hands.' /* 'โหมดสำรอง: แตะที่แถบผลโหวตบนจอเพื่อนับมือ' */
+};
+
+(function(){
+  /* PREFIX namespaces this deck's topics on the shared public broker — set it to the course
+     code so two courses running at the same time never see each other's votes. */
+  const PREFIX  = 'deckpoll';
+  const BROKERS = ['wss://broker.emqx.io:8084/mqtt',
+                   'wss://broker.hivemq.com:8884/mqtt',
+                   'wss://test.mosquitto.org:8081/mqtt'];
+  const ABC = ['A','B','C','D','E','F'];
+  const A32 = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';   /* no 0/O/1/I — room codes get read aloud */
+  const rid = n => Array.from({length:n}, () => A32[Math.floor(Math.random()*A32.length)]).join('');
+  const LS = {
+    get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } },
+    set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+  };
+  const ready = fn => document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  const params = new URLSearchParams(location.search);
+  const VOTER  = params.has('poll');
+  let ROOM = (VOTER ? (params.get('poll')||'') : (LS.get('deckPollRoom')||'')).toUpperCase();
+  if (!ROOM){ ROOM = rid(4); LS.set('deckPollRoom', ROOM); }
+
+  /* ---------- transport: MQTT/WSS with broker failover + auto-reconnect ---------- */
+  const Net = (() => {
+    let client = null, status = 'off', topics = [], handler = () => {}, ready = null, statusCb = () => {};
+    const base = () => PREFIX + '/' + ROOM;
+    function set(s){ status = s; statusCb(s); }
+    function dial(i){
+      if (i >= BROKERS.length){ set('fail'); setTimeout(() => dial(0), 9000); return; }
+      set('connecting');
+      let settled = false, c;
+      try{
+        c = mqtt.connect(BROKERS[i], { clientId:'d'+rid(6)+Date.now().toString(36),
+              reconnectPeriod:0, connectTimeout:6000, clean:true, keepalive:30 });
+      }catch(e){ return dial(i+1); }
+      const next = () => { if (settled) return; settled = true; clearTimeout(to);
+                           try{ c.end(true); }catch(e){} dial(i+1); };
+      const to = setTimeout(next, 7500);
+      c.on('connect', () => {
+        if (settled) return; settled = true; clearTimeout(to); client = c;
+        c.subscribe(topics.map(t => base()+'/'+t), {qos:0});
+        set('on'); if (ready) ready();
+      });
+      c.on('error', next);
+      c.on('close', () => {
+        if (!settled){ next(); return; }
+        if (client === c){ client = null; set('lost'); setTimeout(() => dial(0), 4000); }
+      });
+      c.on('message', (t, p) => { try{ handler(t.slice(base().length+1), JSON.parse(p.toString())); }catch(e){} });
+    }
+    return {
+      start(t, h, onReady){ topics = t; handler = h; ready = onReady;
+        if (!window.mqtt){ set('nolib'); return; } dial(0); },
+      pub(t, o, retain){ if (!client) return false;
+        try{ client.publish(base()+'/'+t, JSON.stringify(o), {qos:0, retain:!!retain}); return true; }catch(e){ return false; } },
+      restart(){ try{ if (client) client.end(true); }catch(e){} client = null; dial(0); },
+      onStatus(f){ statusCb = f; f(status); },
+      get status(){ return status; }, get live(){ return !!client; }
+    };
+  })();
+  const stat = s => POLL_TEXT[s] || s;
+
+  /* ======================================================================
+     A. PHONE VOTER  —  the same file opened as  ...index.html?poll=ROOM
+     The <html class="voter-mode"> switch in <head> hides the deck before first paint,
+     so a phone never flashes a 1280x720 stage it cannot use.
+     ====================================================================== */
+  if (VOTER){
+    let vid = LS.get('deckVoterId'); if (!vid){ vid = rid(10); LS.set('deckVoterId', vid); }
+    const body = document.getElementById('vBody');
+    document.getElementById('vRoom').textContent = ROOM;
+    let cur = null, mine = null;
+
+    Net.onStatus(s => {
+      const e = document.getElementById('vStat');
+      if (e) e.innerHTML = '<span class="netdot ' + s + '"></span>' + stat(s);
+    });
+    ready(() => Net.start(['state'], (t, m) => {
+      if (t !== 'state' || !m) return;
+      /* remember this phone's answer per question, so a reload mid-question is not a lost vote */
+      if (!cur || cur.qid !== m.qid){ const v = LS.get('vote:'+ROOM+':'+m.qid); mine = v === null ? null : +v; }
+      cur = m; render();
+    }, () => Net.pub('hello', {vid})));
+    setInterval(() => { if (Net.live) Net.pub('hb', {vid}); }, 30000);
+
+    function vote(i){
+      if (!cur || !cur.open) return;
+      mine = i; LS.set('vote:'+ROOM+':'+cur.qid, String(i));
+      Net.pub('vote', {qid:cur.qid, i, vid});
+      render();
+    }
+    function render(){
+      if (!cur){
+        body.innerHTML = '<div class="v-card"><div class="v-wait"><div class="big">&#128246;</div>' +
+          POLL_TEXT.waiting + '<br><span style="font-size:14.5px">' + POLL_TEXT.keepOpen + '</span></div></div>';
+        return;
+      }
+      const closed = !cur.open;
+      body.innerHTML =
+        '<div class="v-card">' +
+          '<p class="v-lbl">' + esc(cur.label || POLL_TEXT.question) + (closed ? ' &middot; ' + POLL_TEXT.closed : '') + '</p>' +
+          '<p class="v-q">' + esc(cur.qtext || '') + '</p>' +
+          cur.choices.map((c,i) =>
+            '<button class="v-opt' + (mine===i ? ' mine' : '') + '" data-i="' + i + '"' + (closed?' disabled':'') + '>' +
+            '<span class="k">' + ABC[i] + '</span><span>' + esc(c) + '</span></button>').join('') +
+          (mine !== null
+            ? '<div class="v-ok">&#10003; ' + POLL_TEXT.sent + ' ' + ABC[mine] + (closed ? '' : ' ' + POLL_TEXT.canChange) + '</div>'
+            : (closed ? '<p class="v-note">' + POLL_TEXT.timeUp + '</p>'
+                      : '<p class="v-note">' + POLL_TEXT.tapChoice + '</p>')) +
+        '</div>';
+      body.querySelectorAll('.v-opt').forEach(b => b.onclick = () => vote(+b.dataset.i));
+    }
+    function esc(s){ return String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+    render();
+    return;                              /* phone mode ends here — the deck engine is never touched */
+  }
+
+  /* ======================================================================
+     B. PRESENTER  —  the deck projected in the room
+     ====================================================================== */
+  const Poll = { snap:{}, votes:{}, manual:{}, people:new Set(), open:null };
+
+  /* A question is authored ONCE, in the .quiz-q markup. The poll reads it from there, so the
+     phone, the result bars and the quiz slide can never drift out of sync. */
+  function snapshot(qid){
+    const q = document.querySelector('.quiz-q[data-qid="' + qid + '"]');
+    if (!q) return null;
+    const sec  = q.closest('.slide');
+    const opts = [...q.querySelectorAll('.q-opt')];
+    const ci   = opts.findIndex(o => o.hasAttribute('data-correct'));
+    return { qid, label:(sec && sec.dataset.title) || POLL_TEXT.question,
+             qtext:q.querySelector('.q-text').textContent.trim(),          /* plain — sent to phones */
+             qhtml:q.querySelector('.q-text').innerHTML,                   /* rich — shown on the projector */
+             choices:opts.map(o => o.textContent.trim()),
+             choiceHtml:opts.map(o => o.innerHTML),
+             correct:ci, exp: ci >= 0 ? (opts[ci].getAttribute('data-explain') || '') : '' };
+  }
+  const sigOf = s => s ? s.qtext + '¦' + s.choices.join('¦') : '';
+  /* Cached, because a snapshot is the single source of truth for a question once voting starts.
+     But two things legitimately change the wording before that: KaTeX renders the equations a
+     moment after load, and Reset re-shuffles the choices. So refresh the cache while the question
+     is still untouched — otherwise phones would show raw "$-r_A$" or an order the screen no longer
+     has. Once a single vote exists the snapshot is frozen, or the tally would point at the wrong bar. */
+  function snapOf(qid){
+    const s = Poll.snap[qid];
+    if (!s) return (Poll.snap[qid] = snapshot(qid));
+    const untouched = Poll.open !== qid
+      && !Object.keys(Poll.votes[qid] || {}).length
+      && !(Poll.manual[qid] || []).some(n => n);
+    if (untouched){
+      const fresh = snapshot(qid);
+      if (fresh && sigOf(fresh) !== sigOf(s)) return (Poll.snap[qid] = fresh);
+    }
+    return s;
+  }
+  function tally(qid){
+    const s = snapOf(qid); if (!s) return [];
+    const c = s.choices.map(() => 0);
+    Object.values(Poll.votes[qid] || {}).forEach(i => { if (i >= 0 && i < c.length) c[i]++; });
+    (Poll.manual[qid] || []).forEach((n, i) => { if (i < c.length) c[i] += n; });   /* hand counts */
+    return c;
+  }
+  const total = qid => tally(qid).reduce((a, b) => a + b, 0);
+
+  function publishState(open){
+    const qid = Poll.open; if (!qid) return;
+    const s = snapOf(qid); if (!s) return;
+    /* retained, so a phone that joins late still gets the question that is live right now */
+    Net.pub('state', {qid, label:s.label, qtext:s.qtext, choices:s.choices, open:!!open, t:Date.now()}, true);
+  }
+  function openPoll(qid){
+    if (!snapOf(qid)) return;
+    Poll.open = qid;
+    Poll.votes[qid]  = Poll.votes[qid]  || {};
+    Poll.manual[qid] = Poll.manual[qid] || snapOf(qid).choices.map(() => 0);
+    publishState(true); paint();
+  }
+  function closePoll(){ if (!Poll.open) return; publishState(false); Poll.open = null; paint(); }
+
+  let lastEcho = 0;
+  ready(() => Net.start(['vote','hello','hb'], (t, m) => {
+    if (!m) return;
+    if (t === 'vote' && m.qid && m.vid != null){
+      /* keyed by device id, so a student who changes their mind replaces their vote, not adds one */
+      (Poll.votes[m.qid] = Poll.votes[m.qid] || {})[m.vid] = m.i;
+      Poll.people.add(m.vid); paint();
+    } else if (t === 'hello' || t === 'hb'){
+      if (m.vid) Poll.people.add(m.vid);
+      if (t === 'hello' && Poll.open && Date.now() - lastEcho > 2500){ lastEcho = Date.now(); publishState(true); }
+      paint();
+    }
+  }, () => { if (Poll.open) publishState(true); }));
+
+  /* ---------- countdown dial, injected into the header of every quiz slide ----------
+     It lives inside .s-head on purpose: the header is outside the ~470px content zone, so the
+     dial can never collide with the question, however long the question is. */
+  const R = 32, C = 2 * Math.PI * R;
+  const DURATIONS = [30, 60, 90];            /* seconds offered; DURATIONS[0] is pre-selected */
+  let run = null;                            /* {w, sec, qid, dur, end, iv} */
+
+  function buildTimer(qid){
+    const w = document.createElement('div');
+    w.className = 'qtimer'; w.dataset.qid = qid; w.dataset.dur = String(DURATIONS[0]);
+    w.innerHTML =
+      '<div class="qt-dial"><svg viewBox="0 0 74 74">' +
+        '<circle class="tk" cx="37" cy="37" r="' + R + '"></circle>' +
+        '<circle class="tp" cx="37" cy="37" r="' + R + '" stroke-dasharray="' + C.toFixed(1) + '" stroke-dashoffset="0"></circle>' +
+      '</svg><span class="qt-num">' + DURATIONS[0] + '</span></div>' +
+      '<div class="qt-ctl"><div class="qt-sel">' +
+        DURATIONS.map((d, i) => '<button data-s="' + d + '"' + (i ? '' : ' class="on"') + '>' + d + 's</button>').join('') +
+      '</div><button class="qt-start">&#9654; Start</button></div>' +
+      '<div class="qt-live"><b>0</b><span class="netdot"></span>' + POLL_TEXT.answered + '</div>';
+    w.querySelectorAll('.qt-sel button').forEach(b => b.onclick = () => {
+      if (run && run.w === w) return;                 /* don't change duration mid-count */
+      w.dataset.dur = b.dataset.s;
+      w.querySelectorAll('.qt-sel button').forEach(x => x.classList.toggle('on', x === b));
+      setDial(w, +b.dataset.s, +b.dataset.s);
+    });
+    w.querySelector('.qt-start').onclick = () => (run && run.w === w) ? stopTimer(false) : startTimer(w);
+    return w;
+  }
+  function setDial(w, left, dur){
+    w.querySelector('.qt-num').textContent = Math.ceil(left);
+    w.querySelector('.tp').style.strokeDashoffset = (C * (1 - Math.max(0, left) / dur)).toFixed(1);
+    w.classList.toggle('warn', left <= 10 && left > 5);
+    w.classList.toggle('crit', left <= 5);
+  }
+  function startTimer(w){
+    stopTimer(false);
+    const dur = +w.dataset.dur, sec = w.closest('.slide');
+    run = { w, sec, qid:w.dataset.qid, dur, end:Date.now() + dur*1000 };
+    w.querySelector('.qt-start').innerHTML = '&#9632; ' + POLL_TEXT.stop;
+    w.querySelector('.qt-start').classList.add('run');
+    openPoll(w.dataset.qid);                 /* starting the clock is what opens voting */
+    setDial(w, dur, dur);
+    run.iv = setInterval(() => {
+      const left = (run.end - Date.now()) / 1000;
+      setDial(w, Math.max(0, left), dur);
+      if (!sec.classList.contains('active')){ stopTimer(false); return; }
+      if (left <= 0){
+        const i = Deck.current;
+        stopTimer(true); closePoll();
+        Deck.goTo(i + 1);                    /* time up -> straight to this question's result slide */
+      }
+    }, 100);
+  }
+  function stopTimer(finished){
+    if (!run) return;
+    clearInterval(run.iv);
+    const w = run.w, dur = +w.dataset.dur;
+    w.querySelector('.qt-start').innerHTML = '&#9654; Start';
+    w.querySelector('.qt-start').classList.remove('run');
+    setDial(w, finished ? 0 : dur, dur);
+    if (!finished) w.classList.remove('warn','crit');
+    run = null;
+  }
+
+  /* Every slide that holds a question gets a dial — no per-slide markup to remember. */
+  document.querySelectorAll('.slide').forEach(sec => {
+    const q = sec.querySelector('.quiz-q'); if (!q || !q.dataset.qid) return;
+    const head = sec.querySelector('.s-head'); if (!head) return;
+    const txt = document.createElement('div'); txt.className = 'sh-txt';
+    while (head.firstChild) txt.appendChild(head.firstChild);
+    head.appendChild(txt);
+    head.appendChild(buildTimer(q.dataset.qid));
+    head.classList.add('with-timer');
+  });
+
+  /* ---------- result slide: animated percentage bars ---------- */
+  function renderPoll(sec, animate){
+    const qid = sec.dataset.pollFor, s = snapOf(qid); if (!s) return;
+    const bars = sec.querySelector('.poll-bars');
+    const sig  = sigOf(s);
+    if (bars.dataset.sig !== sig){            /* rebuild only when the wording changed (KaTeX, reshuffle) */
+      bars.dataset.sig = sig;
+      bars.innerHTML = s.choices.map((c, i) =>
+        '<div class="pbar' + (i === s.correct ? ' ok' : '') + '" data-i="' + i + '">' +
+          '<div class="pb-text"><span class="pb-key">' + ABC[i] + '</span>' + (s.choiceHtml ? s.choiceHtml[i] : c) + '</div>' +
+          '<div class="pb-num"><b>0%</b><span>0</span></div>' +
+          '<div class="pb-track"><div class="pb-fill"></div></div>' +
+        '</div>').join('');
+      bars.querySelectorAll('.pbar').forEach(b => b.onclick = () => {   /* tap = +1 hand count */
+        Poll.manual[qid] = Poll.manual[qid] || s.choices.map(() => 0);
+        Poll.manual[qid][+b.dataset.i]++; paint();
+      });
+      sec.querySelector('.poll-qtext').innerHTML = s.qhtml || s.qtext;
+      const ex = sec.querySelector('.poll-exp');
+      if (ex){
+        ex.innerHTML = '<b>' + ABC[s.correct] + ' ' + POLL_TEXT.correctIs + '</b> &mdash; ' + s.exp;
+        /* the explanation is authored inside data-explain, so its math is still unrendered here */
+        if (window.renderMathInElement) renderMathInElement(ex, KATEX_OPTS);
+      }
+    }
+    if (animate) bars.querySelectorAll('.pb-fill').forEach(f => f.style.width = '0%');
+    updateBars(sec, animate);
+  }
+  function updateBars(sec, animate){
+    const qid = sec.dataset.pollFor, s = snapOf(qid); if (!s) return;
+    const t = tally(qid), n = t.reduce((a, b) => a + b, 0), mx = Math.max(...t, 0);
+    sec.querySelectorAll('.pbar').forEach(b => {
+      const i = +b.dataset.i, pct = n ? Math.round(t[i] / n * 100) : 0;
+      b.querySelector('.pb-num b').textContent = pct + '%';
+      b.querySelector('.pb-num span').textContent = t[i];
+      b.classList.toggle('lead', n > 0 && t[i] === mx);
+      /* a 0-width -> real-width change one tick later is what makes the bar animate on entry */
+      const set = () => b.querySelector('.pb-fill').style.width = (n ? Math.max(pct, t[i] ? 1.5 : 0) : 0) + '%';
+      animate ? setTimeout(set, 60) : set();
+    });
+    const h = sec.querySelector('.poll-n');
+    if (h) h.textContent = n + ' ' + POLL_TEXT.people;
+  }
+
+  /* ---------- repaint everything that shows live numbers ---------- */
+  function paint(){
+    document.querySelectorAll('.qtimer').forEach(w => {
+      w.querySelector('.qt-live b').textContent = total(w.dataset.qid);
+      w.querySelector('.qt-live .netdot').className = 'netdot ' + Net.status;
+    });
+    const a = document.querySelector('.slide.active');
+    if (a && a.dataset.pollFor) updateBars(a, false);
+    const st = document.getElementById('joinStat');
+    if (st) st.innerHTML = '<span class="netdot ' + Net.status + '"></span>' + stat(Net.status) +
+                           ' &middot; ' + POLL_TEXT.joined + ' <b>' + Poll.people.size + '</b> ' + POLL_TEXT.devices;
+  }
+  Net.onStatus(paint);
+
+  /* ---------- react to slide changes ---------- */
+  let curSec = null;
+  function onSlide(){
+    const a = document.querySelector('.slide.active');
+    if (a === curSec) return;
+    curSec = a; if (!a) return;
+    if (run && run.sec !== a) stopTimer(false);
+    const w = a.querySelector('.qtimer');
+    if (w && !(run && run.w === w)){ w.classList.remove('warn','crit'); setDial(w, +w.dataset.dur, +w.dataset.dur); }
+    if (a.dataset.pollFor){
+      a.classList.remove('revealed');
+      renderPoll(a, true);
+      const ex = a.querySelector('.poll-exp'); if (ex) ex.classList.remove('show');
+    }
+    if (a.id === 'sl-join') drawQR();
+    /* leaving a question without going to its result slide closes voting, so a stale question
+       never sits open on 60 phones while the class has moved on */
+    if (Poll.open && a.dataset.pollFor !== Poll.open
+        && !a.querySelector('.quiz-q[data-qid="' + Poll.open + '"]')) closePoll();
+    paint();
+  }
+  new MutationObserver(onSlide).observe(document.getElementById('stage'),
+    {subtree:true, attributes:true, attributeFilter:['class']});
+  onSlide();
+
+  /* ---------- result-slide tools + keyboard ---------- */
+  document.querySelectorAll('.poll-slide').forEach(sec => {
+    const qid = sec.dataset.pollFor;
+    const rev = sec.querySelector('.pt-reveal'), reo = sec.querySelector('.pt-reopen'), clr = sec.querySelector('.pt-clear');
+    if (rev) rev.onclick = () => {
+      sec.classList.toggle('revealed');
+      const ex = sec.querySelector('.poll-exp');
+      if (ex) ex.classList.toggle('show', sec.classList.contains('revealed'));
+    };
+    if (reo) reo.onclick = () => { openPoll(qid); renderPoll(sec, false); };
+    if (clr) clr.onclick = () => {
+      Poll.votes[qid] = {}; Poll.manual[qid] = snapOf(qid).choices.map(() => 0);
+      renderPoll(sec, true);
+    };
+  });
+  addEventListener('keydown', e => {
+    const t = e.target;
+    if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+    const a = document.querySelector('.slide.active'); if (!a) return;
+    const k = e.key.toLowerCase();
+    if (k === 's'){ const w = a.querySelector('.qtimer'); if (w){ e.preventDefault(); (run && run.w === w) ? stopTimer(false) : startTimer(w); } }
+    else if (k === 'a' && a.classList.contains('poll-slide')){ const r = a.querySelector('.pt-reveal'); if (r){ e.preventDefault(); r.click(); } }
+  });
+
+  /* ---------- join slide: QR + room code ---------- */
+  function voteURL(){ return location.origin + location.pathname + '?poll=' + ROOM; }
+  function drawQR(){
+    const box = document.getElementById('joinQR'), u = document.getElementById('joinURL');
+    const rc = document.getElementById('joinRoom'); if (rc) rc.textContent = ROOM;
+    if (!box) return;
+    if (location.protocol === 'file:'){
+      /* A QR pointing at file:///... is useless on a phone. Say so plainly instead of drawing
+         a code that silently fails in front of the class. */
+      box.innerHTML = '<div style="padding:52px 14px;font-size:16px;line-height:1.55;color:var(--red)">' +
+        POLL_TEXT.fileMode + '<br><span style="color:var(--muted);font-size:14.5px">' + POLL_TEXT.fileHint + '</span></div>';
+      if (u) u.textContent = POLL_TEXT.fallback;
+      return;
+    }
+    try{
+      const q = qrcode(0, 'M'); q.addData(voteURL()); q.make();
+      box.innerHTML = q.createSvgTag({cellSize:6, margin:1, scalable:true});
+      if (u) u.textContent = voteURL();
+    }catch(e){ box.textContent = POLL_TEXT.qrFailed; if (u) u.textContent = voteURL(); }
+  }
+  const nr = document.getElementById('joinNew');
+  if (nr) nr.onclick = () => {                 /* new room code = a clean slate for the next class */
+    ROOM = rid(4); LS.set('deckPollRoom', ROOM);
+    Poll.people.clear(); drawQR(); Net.restart(); paint();
+  };
+  ready(drawQR);
+  paint();
+})();
+
+
+/* ---- TABEE widgets: picker + activity timer ---- */
+document.querySelectorAll('.pk').forEach(pk=>{const bs=pk.querySelectorAll('.pk-tabs button'),ps=pk.querySelectorAll('.pk-p');
+  bs.forEach((b,i)=>b.onclick=()=>{bs.forEach(x=>x.classList.remove('on'));ps.forEach(x=>x.classList.remove('on'));b.classList.add('on');ps[i].classList.add('on')})});
+document.querySelectorAll('.at').forEach(at=>{let set=(+at.dataset.min||5)*60,left=set,tm=null,endAt=0;const ck=at.querySelector('.at-clock'),go=at.querySelector('.at-go');
+  const f=s=>String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+  const paint=()=>{ck.textContent=f(Math.max(0,left));at.classList.toggle('run',!!tm);at.classList.toggle('end',left<=0);go.innerHTML=tm?'&#9632; หยุด':'&#9654; เริ่ม'};
+  const stop=()=>{clearInterval(tm);tm=null;paint()};
+  go.onclick=()=>{if(tm)return stop();if(left<=0)left=set;endAt=Date.now()+left*1000;tm=setInterval(()=>{left=Math.round((endAt-Date.now())/1000);if(left<=0){left=0;stop()}else paint()},250);paint()};
+  at.querySelector('.at-m').onclick=()=>{if(tm)return;set=Math.max(60,set-60);left=set;paint()};
+  at.querySelector('.at-p').onclick=()=>{if(tm){endAt+=60000;return}set+=60;left=set;paint()};
+  at.querySelector('.at-r').onclick=()=>{stop();left=set;paint()};paint()});
+
+</script>
+</body>
+</html>
