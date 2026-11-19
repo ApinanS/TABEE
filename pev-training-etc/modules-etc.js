@@ -382,3 +382,326 @@ const R={
 };
 for(const k in R){const m=M[k];if(!m)continue;Object.assign(m,R[k]);m.sec=R[k].sec.concat([NOTE]);m.etcRead=true;}
 })();
+
+/* Readings of Modules 0–5, 7, 15, 16 and 17 rewritten for ETC programmes (ETAC procedure revision 3,
+   13 June 2569, sections 2–11 and the SER template; Guidelines 3.1.1–3.1.4). Same pattern as the block
+   above: replaces the TABEE reading, keeps videos and slides, last section says to follow this reading.
+   Module 16 keeps TABEE's interview technique sections, the session cards (act) and the question bank. */
+(function(){
+const M=window.TR_MOD;if(!M)return;
+const W=(t,e)=>[t,e];
+const NOTE={h:W('ฉบับ ETC','ETC edition'),p:W('บทอ่านโมดูลนี้เขียนใหม่ตามคู่มือ ETAC ปรับปรุงครั้งที่ 3 และ ETAC Guideline 3.1.1–3.1.4 แล้ว วิดีโอและสไลด์ของโมดูลยังเป็นของ TABEE ระดับวิศวกร ถ้าเนื้อหาขัดกันให้ยึดบทอ่านนี้','This reading has been rewritten for the ETAC procedure (revision 3) and ETAC Guidelines 3.1.1–3.1.4. The module’s videos and slides are still TABEE’s engineer-level material; where they differ, follow this reading.'),etc:true};
+const PROC=W('คู่มือขั้นตอนและวิธีการรับรองฯ หลักสูตรทางเทคโนโลยีวิศวกรรม ปรับปรุงครั้งที่ 3 (13 มิ.ย. 2569)','ETAC accreditation procedure, revision 3 (13 June 2569)');
+const LV={cols:[W('ระดับ','Level'),W('ความหมายตามคู่มือ ETAC','Meaning in the ETAC procedure')],rows:[
+ ['D',W('ข้อบกพร่อง: หลักฐานและการจัดการไม่เป็นไปตามข้อกำหนดของเกณฑ์ และไม่ผ่านการตรวจประเมิน หลักสูตรต้องชี้แจง แก้ไข และแสดงหลักฐาน','Deficiency: evidence and management do not meet the criterion; the item fails and the programme must explain, fix and show evidence')],
+ ['W',W('ข้อด้อย: ยังคลาดเคลื่อนจากข้อกำหนดบางส่วน และกระทบความสำเร็จของผลลัพธ์การศึกษา หลักสูตรต้องชี้แจงและแก้ไข','Weakness: partly out of line with the criterion and affecting outcome attainment; the programme must explain and fix')],
+ ['C',W('ข้อวิตกกังวล: ขณะตรวจเป็นไปตามข้อกำหนด แต่มีการจัดการบางส่วนที่อาจกระทบผลลัพธ์ และอาจกลายเป็นข้อด้อยได้','Concern: meets the criterion now, but some practice may affect outcomes and could become a weakness')],
+ ['R',W('ข้อสังเกต: ผู้ตรวจอยากให้หลักสูตรพิจารณา ไม่กระทบการผ่านเกณฑ์','Remark: something for the programme to consider; does not affect compliance')],
+ ['S',W('มีคำอธิบายพอเพียง: ประเด็นที่ถามแล้วได้คำชี้แจงและหลักฐานจนผ่านเกณฑ์','Resolved: the question raised was answered with evidence and now meets the criterion')]]};
+const R={
+0:{abet:W('คู่มือ ETAC ปรับปรุงครั้งที่ 3 ข้อ 4.4 · Module 18','ETAC procedure rev. 3, 4.4 · Module 18'),
+ goal:W('รู้ว่าการอบรม PEV สำหรับหลักสูตรทางเทคโนโลยีวิศวกรรม (ETC) ประกอบด้วยอะไร ต้องเรียนอะไรก่อน และผู้ตรวจ ETC ต้องมีคุณสมบัติอย่างไร','Know what ETC evaluator training contains, what to study first and what an ETC evaluator must be.'),
+ obj:[W('อธิบายโครงสร้างการอบรม: เรียนออนไลน์ ฝึกวิเคราะห์ และ Onsite','Describe the structure: online study, analysis practice and on-site'),W('บอกคุณสมบัติของผู้ตรวจประเมินตามคู่มือ ETAC ข้อ 4.4.2','State the evaluator qualifications in ETAC 4.4.2'),W('อ่านบทอ่านแบบผู้ตรวจ ETC คือมองหาหลักฐานระดับปัญหางานวิศวกรรมทั่วไป','Read as an ETC evaluator: look for evidence at the broadly-defined level')],
+ sec:[
+ {h:W('การอบรมมีสามส่วน','Three parts'),b:[
+  W('เรียนออนไลน์: Module 18 (เกณฑ์ ETAC และ Sydney Accord) ก่อน แล้ว Module 0–17 ผ่านแบบทดสอบทุกโมดูล','Online: Module 18 (ETAC criteria and the Sydney Accord) first, then Modules 0–17, passing every quiz'),
+  W('ฝึกวิเคราะห์: ใบระเบียน 5 ฉบับ การประเมินผลการตรวจ 10 สถานการณ์ และชุดฝึก SER จำลอง (IET และหลักสูตรฝึกเพิ่ม 4 หลักสูตร)','Analysis practice: five transcripts, ten finding scenarios and the mock SER lab (IET plus four extra programmes)'),
+  W('Onsite 2 วัน: ตรวจเยี่ยมจำลองหลักสูตร IET ด้วย PEV Studio ฉบับ ETC ตั้งแต่ Pre-visit 1 ถึง Decision Meeting จำลอง','Two on-site days: a mock visit of the IET programme in PEV Studio ETC, from Pre-visit 1 to a mock Decision Meeting')]},
+ {h:W('ทำไมต้องมีการอบรมแยกสำหรับ ETC','Why separate ETC training'),p:W('หลักสูตรทางเทคโนโลยีวิศวกรรมผลิตบัณฑิตตาม Sydney Accord ซึ่งแก้ปัญหางานวิศวกรรมทั่วไป (SP1–SP7) ด้วยเทคโนโลยีที่พัฒนาแล้ว ไม่ใช่ปัญหาที่ซับซ้อนระดับวิศวกร (Washington Accord) ผู้ตรวจที่คุ้นกับหลักสูตรวิศวกรมักตั้งเกณฑ์สูงเกินจริงหรือมองข้ามสิ่งที่ ETC ต้องมี เช่น การฝึกงาน 210 ชั่วโมง โรงฝึกงาน และประสบการณ์ภาคอุตสาหกรรมของอาจารย์','ET programmes produce Sydney Accord graduates who solve broadly-defined problems (SP1–SP7) with established technology, not engineer-level complex problems (Washington Accord). Evaluators used to engineering programmes tend to over-demand, or to miss what ETC must have: 210 hours of industry training, workshops and faculty industry experience.')},
+ {h:W('คุณสมบัติของผู้ตรวจประเมิน (ข้อ 4.4.2)','Evaluator qualifications (4.4.2)'),b:[
+  W('สำเร็จปริญญาตรีวิศวกรรมศาสตร์ขึ้นไปในสาขาที่เกี่ยวข้องกับหลักสูตรที่ตรวจ','At least a bachelor’s in engineering in a related field'),
+  W('ได้รับการอบรมและผ่านการทดสอบเป็นผู้ตรวจประเมินของคณะอนุกรรมการฯ สภาวิศวกร','Trained and tested as an evaluator by the subcommittee of the Council of Engineers'),
+  W('มีทัศนคติที่ดีต่อการศึกษาวิศวกรรมศาสตร์และการรับรอง','A positive attitude to engineering education and accreditation'),
+  W('ผู้ทรงคุณวุฒิด้านการศึกษามีประสบการณ์สอนในหลักสูตรที่เน้นผลลัพธ์ หรือผู้ปฏิบัติวิชาชีพมีประสบการณ์ในสาขา หรือเป็นสมาชิกสมาคมวิชาชีพที่เกี่ยวข้อง','Educators with outcome-based teaching experience, or practitioners in the field, or members of a related professional society')]},
+ {h:W('คณะผู้ตรวจ 3 คน','A team of three'),p:W('สภาวิศวกรแต่งตั้งคณะผู้ตรวจ 3 คน คือหัวหน้าคณะ 1 คนและผู้ตรวจ 2 คน ประกอบด้วยผู้ทรงคุณวุฒิทางการศึกษาและผู้ปฏิบัติวิชาชีพในสาขาของหลักสูตร (ข้อ 4.4) การอบรม Onsite จึงจัดทีมละ 3 คนแบบเดียวกัน','The Council appoints three evaluators: one chair and two members, mixing educators and practitioners in the field (4.4). On-site teams are formed the same way.')},
+ {h:W('อ่านแบบผู้ตรวจ ETC','Read like an ETC evaluator'),b:[
+  W('ทุกข้อความใน SER ถามว่า "หลักฐานอยู่ที่ไหน" และหลักฐานนั้นอยู่ระดับปัญหางานวิศวกรรมทั่วไปหรือไม่','For every claim in the SER ask “where is the evidence?” and whether it sits at the broadly-defined level'),
+  W('ตัดสินตามเกณฑ์ ETAC ไม่เทียบกับหลักสูตรวิศวกรหรือสถาบันของตนเอง','Judge against ETAC criteria, not against engineering programmes or your own institution'),
+  W('บันทึกตำแหน่งหลักฐาน (ส่วนที่ หัวข้อ ตาราง) ทุกครั้ง','Always note where the evidence is (part, item, table)')]}],
+ ev:[[W('Module 18 และคู่มือ ETAC ปรับปรุงครั้งที่ 3','Module 18 and the ETAC procedure rev. 3'),W('อ่านก่อนเริ่ม Module 0','Read before Module 0')],[W('คู่มือการอบรม ETC ฉบับผู้เข้าอบรม','ETC training manual (trainee)'),W('บทที่ 1 เกณฑ์ผ่านการอบรม','Chapter 1: pass requirements')]],
+ iss:[W('ข้ามโมดูล 18 แล้วใช้ความเข้าใจระดับวิศวกร','Skipping Module 18 and using engineer-level expectations'),W('ไม่ได้อ่านเอกสารของหลักสูตรตัวอย่างก่อนวัน Onsite','Not reading the sample programme documents before the on-site days')],
+ terms:[['ETC',W('หลักสูตรทางเทคโนโลยีวิศวกรรม (Engineering Technology)','Engineering technology programme')],['ETAC',W('คณะทำงานกำกับการรับรองฯ หลักสูตรทางเทคโนโลยีวิศวกรรม (Engineering Technology Accreditation Commission)','Engineering Technology Accreditation Commission')],['PEV',W('ผู้ตรวจประเมินหลักสูตร (Program Evaluator)','Programme evaluator')]],
+ ref:[PROC,W('Module 18 เกณฑ์ ETAC และ Sydney Accord','Module 18: ETAC criteria and the Sydney Accord')],
+ chk:[W('คณะผู้ตรวจของ ETAC มีกี่คน ประกอบด้วยใคร','How many evaluators are on an ETAC team, and who?'),W('ผู้ตรวจต้องผ่านอะไรจากสภาวิศวกร','What must an evaluator pass with the Council?')]},
+
+1:{abet:W('คู่มือ ETAC ปรับปรุงครั้งที่ 3 ข้อ 3.1 และ 3.3 · IEA GAPC 2021 (Sydney Accord)','ETAC procedure rev. 3, 3.1 and 3.3 · IEA GAPC 2021 (Sydney Accord)'),
+ goal:W('เข้าใจการศึกษาเน้นผลลัพธ์ (OBE) และการรับรองเน้นผลลัพธ์ในบริบทหลักสูตรทางเทคโนโลยีวิศวกรรม','Understand outcome-based education and accreditation for engineering technology programmes.'),
+ obj:[W('อธิบาย OBE และการออกแบบย้อนกลับ','Explain OBE and backward design'),W('บอกลักษณะหลักสูตร ETC ที่ขอรับรองได้ (ข้อ 3.3)','State what ETC programmes may apply (3.3)'),W('แยกระดับผลลัพธ์ของนักเทคโนโลยีวิศวกรรมกับวิศวกร','Tell the technologist outcome level from the engineer’s')],
+ sec:[
+ {h:W('จากสิ่งที่สอน สู่สิ่งที่นักศึกษาทำได้','From what is taught to what students can do'),p:W('การศึกษาเน้นผลลัพธ์เริ่มจากผลลัพธ์ที่บัณฑิตต้องทำได้ แล้วออกแบบหลักสูตร การสอน และการประเมินย้อนกลับมา การรับรองของ ETAC จึงประเมินจากผลลัพธ์การศึกษาและประสิทธิผลของกระบวนการจัดการคุณภาพ (ข้อ 3.1) ไม่ใช่นับว่าสอนวิชาอะไรบ้าง','OBE starts from what graduates must be able to do and designs curriculum, teaching and assessment backwards. ETAC therefore judges outcomes and the effectiveness of quality processes (3.1), not a list of courses taught.')},
+ {h:W('ผลลัพธ์ระดับนักเทคโนโลยีวิศวกรรม','Outcomes at technologist level'),tbl:{cols:[W('ด้าน','Aspect'),W('หลักสูตร ETC (Sydney Accord)','ETC (Sydney Accord)'),W('หลักสูตรวิศวกร (Washington Accord)','Engineering (Washington Accord)')],rows:[
+  [W('ระดับปัญหา','Problem level'),W('ปัญหางานวิศวกรรมทั่วไป SP1–SP7','Broadly-defined problems SP1–SP7'),W('ปัญหาที่ซับซ้อน WP1–WP7','Complex problems WP1–WP7')],
+  [W('ความรู้','Knowledge'),W('SK1–SK9 เทคโนโลยีที่พัฒนาแล้วและใช้ในการปฏิบัติ','SK1–SK9: established technology used in practice'),W('WK1–WK9 รวมความรู้แนวหน้าและการวิจัย','WK1–WK9 including frontier knowledge and research')],
+  [W('ผลลัพธ์','Outcomes'),W('PO 11 ข้อของ ETAC (SA1–SA11)','ETAC’s 11 POs (SA1–SA11)'),W('PO 12 ข้อ (WA1–WA11 และอื่น ๆ)','12 POs (WA-based)')],
+  [W('การฝึกปฏิบัติ','Practice'),W('ต้องเพียงพอ ฝึกงาน 210 ชั่วโมงหรือสหกิจศึกษา','Must be sufficient: 210 hours of training or co-op'),W('ไม่กำหนดชั่วโมงเท่านี้','No such hour minimum')]]}},
+ {h:W('หลักสูตรที่ขอรับรองได้ (ข้อ 3.3)','Programmes that may apply (3.3)'),b:[
+  W('หลักสูตรเต็มเวลา ระดับปริญญาบัณฑิต ศึกษาไม่เกิน 5 ปี และไม่น้อยกว่า 120 หน่วยกิต','Full-time bachelor’s programmes, at most 5 years and at least 120 credits'),
+  W('โครงสร้างมีพื้นฐานวิทยาศาสตร์ พื้นฐานวิศวกรรม และความรู้เฉพาะทาง เพื่อออกแบบและแก้ปัญหาในการประกอบวิชาชีพวิศวกรรมทั่วไป และมีการฝึกปฏิบัติที่เพียงพอ','Science and engineering fundamentals and specialist knowledge for design and problem solving in general practice, with sufficient practical training'),
+  W('มีผู้สำเร็จการศึกษาไม่น้อยกว่า 2 รุ่น หลักสูตรใหม่ได้เพียงรับรองชั่วคราว','At least two graduating cohorts; new programmes can get only provisional accreditation'),
+  W('หลักสูตรสหวิทยาการรับรองเพียงสาขาเดียว หลักสูตรหลายวิทยาเขตประเมินแยกรายวิทยาเขต','Interdisciplinary programmes are accredited in one discipline; multi-campus ones per campus')]},
+ {h:W('การประเมินเน้นผลลัพธ์ (OBA)','Outcome-based assessment'),p:W('ผลลัพธ์ต้องวัดได้ด้วยตัวชี้วัด (PI) ที่ผูกกับแบบความรู้ SK และวัดทั้งทางตรงด้วยรูบริกจากงานจริงของนักศึกษา และทางอ้อมจากแบบสำรวจ (Guideline 3.1.2) เกรดรายวิชาหรือผล S/U ไม่ใช่หลักฐานผลลัพธ์','Outcomes need PIs tied to SK, measured directly with rubrics on real student work and indirectly through surveys (Guideline 3.1.2). Course grades or S/U are not outcome evidence.')}],
+ ev:[[W('เอกสารหลักสูตรที่สภามหาวิทยาลัยอนุมัติ (เอกสารประกอบ 1)','Approved curriculum document (supporting document 1)'),W('หน่วยกิต ระยะเวลา และโครงสร้างตามข้อ 3.3','Credits, duration and structure per 3.3')],[W('ตาราง PLO–PO–SK','PLO–PO–SK table'),W('ผลลัพธ์อยู่ระดับ SA หรือคัดลอกระดับวิศวกร','Outcomes at SA level, or copied from engineering')]],
+ iss:[W('ใช้ผลลัพธ์และความคาดหวังระดับวิศวกรกับหลักสูตร ETC','Applying engineer-level outcomes to an ETC programme'),W('ใช้เกรดเป็นหลักฐานผลลัพธ์','Using grades as outcome evidence')],
+ terms:[['OBE',W('การศึกษาเน้นผลลัพธ์','Outcome-based education')],['SP',W('ลักษณะปัญหางานวิศวกรรมทั่วไป SP1–SP7','Broadly-defined problem characteristics SP1–SP7')],['Sydney Accord',W('ข้อตกลงสากลสำหรับนักเทคโนโลยีวิศวกรรม','International accord for engineering technologists')]],
+ ref:[PROC,W('IEA Graduate Attributes and Professional Competencies (2021)','IEA Graduate Attributes and Professional Competencies (2021)')],
+ chk:[W('หลักสูตร ETC ที่ขอรับรองต้องมีหน่วยกิตอย่างน้อยเท่าใด','What is the minimum credit load of an ETC programme?'),W('หลักสูตรใหม่ที่ยังไม่มีผู้จบได้ผลการรับรองแบบใด','What result can a new programme with no graduates get?')]},
+
+2:{abet:W('คู่มือ ETAC ปรับปรุงครั้งที่ 3 ข้อ 3–4, 7 และ 11','ETAC procedure rev. 3, sections 3–4, 7 and 11'),
+ goal:W('รู้จักองค์กรในระบบรับรองหลักสูตร ETC ของสภาวิศวกร วงรอบ ปฏิทิน และผลการรับรอง 5 แบบ','Know the bodies, cycle, calendar and five results of ETC accreditation by the Council of Engineers.'),
+ obj:[W('บอกบทบาทของ TABEE, ETAC, คณะทำงานกลั่นกรอง และคณะผู้ตรวจ','State the roles of TABEE, ETAC, the intervener group and the PEV team'),W('เรียงปฏิทิน 18 กิจกรรมของรอบการรับรอง','Order the 18 activities of a cycle'),W('อธิบายผลการรับรอง 5 แบบและระยะเวลา','Explain the five results and their periods')],
+ sec:[
+ {h:W('การรับรองไม่ใช่การจัดอันดับ','Accreditation is not ranking'),p:W('สภาวิศวกรให้บริการรับรองตามคำร้องของสถาบันโดยสมัครใจ ภายใต้ระเบียบกรรมการสภาวิศวกรว่าด้วยการรับรองมาตรฐานคุณภาพการศึกษาวิศวกรรมศาสตร์ พ.ศ. 2560 เพื่อให้มั่นใจว่าบัณฑิตมีลักษณะที่พึงประสงค์ในการประกอบวิชาชีพ ผลคือผ่านหรือไม่ผ่านเกณฑ์ ไม่ใช่คะแนนเทียบกับสถาบันอื่น','The Council accredits voluntarily on request, under its 2560 regulation, to assure that graduates are fit for practice. The result is meeting the criteria or not, not a score against other institutions.')},
+ {h:W('องค์กรในระบบ','Who does what'),tbl:{cols:[W('องค์กร','Body'),W('หน้าที่หลัก','Main role')],rows:[
+  [W('คณะอนุกรรมการรับรองฯ (TABEE)','Accreditation subcommittee (TABEE)'),W('รับรองตามหลักเกณฑ์ พัฒนาระบบและผู้ตรวจ ให้ความเห็นชอบผลก่อนเสนอกรรมการสภาวิศวกร','Accredits, develops the system and evaluators, endorses results for the Council')],
+  [W('คณะทำงานกำกับฯ หลักสูตรทางเทคโนโลยีวิศวกรรม (ETAC)','ETAC working group'),W('พัฒนาระบบและเอกสารของหลักสูตร ETC กำกับการดำเนินงาน จัดประชุมตัดสินผล','Develops the ETC system and documents, oversees the process, runs the decision meeting')],
+  [W('คณะทำงานกลั่นกรองฯ (Intervener)','Intervener working group'),W('กลั่นกรอง SER ก่อนรับสมัคร และตรวจทานรายงานผลด้านความสม่ำเสมอ ผลประโยชน์ทับซ้อน และความเสี่ยงต่อการอุทธรณ์','Screens SERs for acceptance and reviews reports for consistency, conflicts of interest and appeal risk')],
+  [W('คณะผู้ตรวจประเมิน (PEV team)','Programme evaluating team'),W('ตรวจเอกสาร ตรวจเยี่ยม และเขียนรายงานผลพร้อมเสนอผลการรับรอง','Reviews documents, visits and writes the report with a recommended result')],
+  [W('อนุกรรมการประสานงานตรวจเยี่ยม','Visit coordinator'),W('เมื่อสถาบันขอรับรองหลายหลักสูตรพร้อมกัน ทำหน้าที่ประสานและนำการประชุมกับผู้บริหาร','When several programmes apply together, coordinates and leads the meetings with leaders')],
+  [W('เจ้าหน้าที่สภาวิศวกร','Council staff'),W('นัดหมาย เอกสาร บันทึกการประชุม','Scheduling, documents, minutes')]]}},
+ {h:W('วงรอบและปฏิทิน','Cycle and calendar'),p:W('วงรอบการรับรองครั้งละ 6 ปีการศึกษา เริ่มปีการศึกษา 2570 ปฏิทินมี 18 กิจกรรม','A six-year cycle from academic year 2570, with 18 activities.'),tbl:{cols:[W('ช่วง','When'),W('กิจกรรม','Activity')],rows:[
+  [W('ก.ค. สัปดาห์ที่ 1','July, week 1'),W('สถาบันส่งหนังสือสมัครและ SER ในรูปแบบอิเล็กทรอนิกส์','Application and SER sent electronically')],
+  [W('ส.ค.–ก.ย.','Aug–Sep'),W('คณะทำงานกลั่นกรองตอบรับ ชำระค่าธรรมเนียม แต่งตั้งคณะผู้ตรวจ','Screening, fees, PEV team appointed')],
+  [W('ต.ค.–ธ.ค.','Oct–Dec'),W('ตรวจ SER ขอคำชี้แจงและเอกสารเพิ่ม (ส่งกลับสัปดาห์ที่ 4 พ.ย.) ตรวจรอบสอง นัดตรวจเยี่ยม','SER review, requests (returned by week 4 of Nov), second review, visit scheduled')],
+  [W('ก.พ.–มี.ค.','Feb–Mar'),W('ตรวจเยี่ยม 2 วัน Fact Finding Report ภายใน 1 สัปดาห์ หลักสูตรชี้แจงภายใน 1 สัปดาห์','Two-day visit; Fact Finding Report within a week; programme reply within a week')],
+  [W('เม.ย.–มิ.ย.','Apr–Jun'),W('เขียนรายงานผล คณะทำงานกลั่นกรองตรวจทาน (พ.ค.) Decision Meeting (มิ.ย.)','Report written, intervener review (May), Decision Meeting (June)')],
+  [W('ก.ค.–ส.ค.','Jul–Aug'),W('TABEE เห็นชอบ กรรมการสภาวิศวกรอนุมัติ และแจ้งผล','TABEE endorsement, Council approval and notification')]]}},
+ {h:W('ผลการรับรอง 5 แบบ','Five results'),tbl:{cols:[W('ผล','Result'),W('ระยะเวลาและเงื่อนไข','Period and conditions')],rows:[
+  [W('รับรอง','Accredited'),W('6 ปี อาจต้องส่ง Interim Report (3 ปี) หรือรายงานการปรับปรุง','6 years; may need an interim report (3 years) or an improvement report')],
+  [W('รับรองแบบมีเงื่อนไข','Conditional'),W('ไม่เกิน 3 ปี (2–3 ปีตามความเร่งด่วน) ส่งรายงานประเมินผลการปรับปรุงเพื่อติดตาม','Up to 3 years (2–3 by urgency); improvement report for follow-up')],
+  [W('รับรองชั่วคราว','Provisional'),W('หลักสูตรใหม่ ต้องยื่นขอใหม่เมื่อมีผู้สำเร็จการศึกษา 2 รุ่น','New programmes; reapply after two graduating cohorts')],
+  [W('รอผลการปรับปรุงแก้ไข','Pending improvement'),W('มีประเด็นที่ต้องแก้ก่อนตัดสิน','Issues to fix before a decision')],
+  [W('ไม่รับรองหรือยกเลิกการรับรอง','Not accredited or withdrawn'),W('ไม่เป็นไปตามเกณฑ์','Criteria not met')]]}},
+ {h:W('Decision Meeting','Decision Meeting'),p:W('หัวหน้าคณะผู้ตรวจนำเสนอรายงาน คณะทำงานกลั่นกรองนำเสนอความเห็นซึ่งอาจต่างกัน ที่ประชุมซักถามทั้งสองฝ่ายแล้วลงคะแนนลับ ผลถือเป็นสิ้นสุด แล้วเสนอ TABEE เห็นชอบและกรรมการสภาวิศวกรอนุมัติ','The team chair presents; the intervener group gives its view, which may differ; members question both, then vote by secret ballot. The vote is final and goes to TABEE and the Council.')}],
+ ev:[[W('ปฏิทินการรับรองในคู่มือ ETAC ข้อ 7','Calendar in ETAC section 7'),W('ตรวจว่าเอกสารแต่ละรอบส่งตามกำหนด','Check each round was on time')],[W('ตารางผลการรับรองในข้อ 11','Results table in section 11'),W('ผลและภาระที่หลักสูตรต้องทำต่อ','Result and follow-up duties')]],
+ iss:[W('สับสนบทบาท ETAC กับคณะทำงานกลั่นกรอง','Confusing ETAC with the intervener group'),W('คิดว่าคณะผู้ตรวจเป็นผู้ตัดสินผล','Thinking the PEV team decides the result')],
+ terms:[['TABEE',W('คณะอนุกรรมการรับรองมาตรฐานคุณภาพการศึกษาวิศวกรรมศาสตร์','Thailand Accreditation Board for Engineering Education')],[W('Intervener','Intervener'),W('คณะทำงานกลั่นกรองรายงานผลการรับรอง','Report screening working group')],['Interim Report',W('รายงานความก้าวหน้าระหว่างวงรอบ','Progress report within a cycle')]],
+ ref:[PROC],
+ chk:[W('รับรองแบบมีเงื่อนไขมีระยะเวลาไม่เกินกี่ปี','At most how long is conditional accreditation?'),W('ใครลงคะแนนตัดสินผลการรับรอง','Who votes on the accreditation result?')]},
+
+3:{abet:W('คู่มือ ETAC ปรับปรุงครั้งที่ 3 ข้อ 6 และคำอธิบายสัญลักษณ์ในแบบรายการตรวจประเมิน','ETAC procedure rev. 3, section 6 and the checklist symbol key'),
+ goal:W('มองเกณฑ์ 8 ข้อของ ETAC เป็นระบบพัฒนาคุณภาพต่อเนื่องเดียวกัน และใช้ระดับข้อค้นพบ D W C R S ตามคู่มือ','See ETAC’s eight criteria as one continuous-improvement system and use the D W C R S levels as defined.'),
+ obj:[W('อธิบาย CQI สามระดับ','Explain the three CQI loops'),W('บอกสิ่งที่เปลี่ยนในแต่ละเกณฑ์สำหรับ ETC','State what changes in each criterion for ETC'),W('ใช้นิยามระดับข้อค้นพบของ ETAC','Apply ETAC’s finding definitions')],
+ sec:[
+ {h:W('CQI สามระดับ','Three CQI loops'),b:[
+  W('ระดับรายวิชา: ผล CLO และ PI ใช้ปรับการสอนในภาคถัดไป','Course: CLO and PI results change next term’s teaching'),
+  W('ระดับหลักสูตร: ผล PO รายปีใช้ปรับรายวิชาและโครงสร้าง (เกณฑ์ข้อ 4)','Programme: annual PO results change courses and structure (criterion 4)'),
+  W('ระดับวัตถุประสงค์: ความเห็นของ IAC ศิษย์เก่า และผู้ใช้บัณฑิตใช้ทบทวน PEO (เกณฑ์ข้อ 2)','Objectives: IAC, alumni and employer input reviews the PEOs (criterion 2)')]},
+ {h:W('เกณฑ์ 8 ข้อกับสิ่งที่ ETC ต้องมี','Eight criteria and what ETC needs'),tbl:{cols:[W('เกณฑ์','Criterion'),W('จุดที่ต้องดูในหลักสูตร ETC','ETC focus')],rows:[
+  [W('1 นิสิตนักศึกษา','1 Students'),W('การรับและเทียบโอนจาก ปวส. การทดสอบสมรรถนะรายวิชาปฏิบัติ การตรวจผู้สำเร็จการศึกษา','Diploma intake and transfer, competency tests, graduation checks')],
+  [W('2 วัตถุประสงค์','2 Objectives'),W('PEO บอกงานของนักเทคโนโลยีวิศวกรรม และทบทวนกับ IAC','PEOs describe technologist careers and are reviewed with an IAC')],
+  [W('3 ผลลัพธ์','3 Outcomes'),W('PO 11 ข้อของ ETAC ตัวชี้วัดผูก SK (Guideline 3.1.2)','ETAC’s 11 POs with SK-linked PIs (Guideline 3.1.2)')],
+  [W('4 การพัฒนาต่อเนื่อง','4 Improvement'),W('วัดทางตรงและทางอ้อมครบ ใช้ผล Capstone ตาม Guideline 3.1.3','Direct and indirect methods; Capstone results per Guideline 3.1.3')],
+  [W('5 รายละเอียดหลักสูตร','5 Curriculum'),W('45 หน่วยกิต ฝึกงาน 210 ชั่วโมงหรือสหกิจ Capstone ระดับ SP','45 credits, 210 hours or co-op, SP-level capstone')],
+  [W('6 คณาจารย์','6 Faculty'),W('ประสบการณ์ภาคอุตสาหกรรมที่เป็นปัจจุบัน','Current industry experience')],
+  [W('7 สิ่งอำนวยความสะดวก','7 Facilities'),W('โรงฝึกงาน ความปลอดภัย และบันทึกซ่อมบำรุง 2 ปี','Workshops, safety and two years of maintenance records')],
+  [W('8 การสนับสนุน','8 Support'),W('งบประมาณและนายช่างหรือครูปฏิบัติการเพียงพอ','Budget and enough technicians')]]}},
+ {h:W('ระดับข้อค้นพบตามคู่มือ ETAC','ETAC finding levels'),tbl:LV},
+ {h:W('หลักการของระบบที่ยั่งยืน','A sustainable system'),b:[
+  W('มีผู้รับผิดชอบ ปฏิทิน และบันทึกการประชุมที่ตรวจย้อนได้','Owners, a calendar and traceable minutes'),
+  W('ข้อมูลเก็บต่อเนื่องอย่างน้อย 2 ปี (Guideline 3.1.1)','Data kept for at least two years (Guideline 3.1.1)'),
+  W('ผลการประเมินนำไปสู่การเปลี่ยนแปลงจริง และตรวจผลของการเปลี่ยนแปลง','Results lead to real changes, whose effect is checked')]}],
+ ev:[[W('รายงานการประชุมกรรมการบริหารหลักสูตรและ IAC','Programme committee and IAC minutes'),W('การตัดสินใจที่อ้างผลการประเมิน','Decisions citing assessment results')],[W('แบบรายการตรวจประเมิน 79 ข้อ (Guideline 3.1.4)','79-item checklist (Guideline 3.1.4)'),W('ระดับรายข้อตามสัญลักษณ์ D W C R S','Item levels by D W C R S')]],
+ iss:[W('ใช้ระดับตามความรู้สึก ไม่อ้างนิยาม','Levels by feel, not by definition'),W('มองแต่ละเกณฑ์แยกกัน ไม่เห็นว่าเกณฑ์ข้อ 4 เชื่อมทุกข้อ','Treating criteria separately, missing how criterion 4 links them')],
+ terms:[['CQI',W('การพัฒนาคุณภาพอย่างต่อเนื่อง','Continuous quality improvement')],['IAC',W('คณะกรรมการที่ปรึกษาจากภาคอุตสาหกรรม','Industrial Advisory Committee')],['S',W('มีคำอธิบายพอเพียง (Resolved)','Resolved')]],
+ ref:[PROC,W('ETAC Guideline 3.1.4 แบบรายการตรวจสอบ SER','ETAC Guideline 3.1.4')],
+ chk:[W('ข้อวิตกกังวลต่างจากข้อด้อยอย่างไรตามนิยามของ ETAC','How does a concern differ from a weakness in ETAC’s definitions?'),W('สัญลักษณ์ S ใช้เมื่อใด','When is S used?')]},
+
+4:{abet:W('คู่มือ ETAC ปรับปรุงครั้งที่ 3 ข้อ 4.4 และ 5','ETAC procedure rev. 3, 4.4 and 5'),
+ goal:W('รู้หน้าที่ของคณะผู้ตรวจ ETAC ตั้งแต่ตรวจเอกสารเบื้องต้นจนถึง Decision Meeting','Know the ETAC team’s duties from the first document review to the Decision Meeting.'),
+ obj:[W('บอกงานของคณะผู้ตรวจ 4 ส่วนตามข้อ 4.4.1','State the four duty areas in 4.4.1'),W('อธิบายสิ่งที่พูดและไม่พูดใน Exit meeting','Explain what is and is not said at the exit meeting'),W('บอกหน้าที่ของหัวหน้าคณะผู้ตรวจ','State the chair’s duties')],
+ sec:[
+ {h:W('งานของคณะผู้ตรวจ (ข้อ 4.4.1)','The team’s duties (4.4.1)'),b:[
+  W('ตรวจเอกสารเบื้องต้น: ซักถามและขอเอกสารเพิ่ม ถ้าคำอธิบายหรือหลักฐานไม่ได้คุณภาพหรือส่งช้าเกินควร อาจเลื่อนหรือยกเลิกการตรวจเยี่ยม','Preliminary review: ask questions and request documents; poor or very late evidence may postpone or cancel the visit'),
+  W('ตรวจเยี่ยม 2 วัน: Course Portfolio การสอน ห้องปฏิบัติการและความปลอดภัย ห้องสมุด ระบบสารสนเทศ และสัมภาษณ์ทุกกลุ่ม','Two-day visit: course portfolios, teaching, labs and safety, library, IT and interviews'),
+  W('Exit meeting กับผู้บริหารสถาบันและหลักสูตร','Exit meeting with institution and programme leaders'),
+  W('รายงาน: Fact Finding Report ให้สถาบันพิจารณา รายงานผลตามแบบที่กำหนด ตรวจทานกับคณะทำงานกลั่นกรอง และนำเสนอใน Decision Meeting','Reporting: Fact Finding Report, the formal report, intervener review and presentation at the Decision Meeting')]},
+ {h:W('ก่อนตรวจเยี่ยม','Before the visit'),p:W('ถ้าเอกสารที่ขอไม่ใช่ประเด็นหลัก คณะผู้ตรวจให้หลักสูตรเตรียมไว้ในวันตรวจได้ ถ้าเอกสารแสดงชัดว่าผลลัพธ์และการจัดการไม่เป็นไปตามเกณฑ์ คณะผู้ตรวจอาจเสนอไม่รับรองโดยไม่ต้องตรวจเยี่ยม (ข้อ 5.1)','Minor requests can wait for the visit day. If the documents clearly show the criteria are not met, the team may recommend non-accreditation without a visit (5.1).')},
+ {h:W('Exit meeting','Exit meeting'),b:[
+  W('อธิบายกระบวนงานที่จะทำต่อโดยย่อ','Briefly explain the next steps'),
+  W('แจ้งรายการข้อเท็จจริงที่พบ โดยไม่ต้องอธิบายหรือให้คำแนะนำในรายละเอียด','List the facts found, without detailed explanation or advice'),
+  W('ไม่แจ้งผลการรับรอง เพราะผลตัดสินใน Decision Meeting','Do not announce a result; that is decided at the Decision Meeting')]},
+ {h:W('หลังตรวจเยี่ยม','After the visit'),b:[
+  W('Fact Finding Report ภายใน 1 สัปดาห์ หลักสูตรชี้แจงภายใน 1 สัปดาห์','Fact Finding Report within a week; programme reply within a week'),
+  W('คณะผู้ตรวจประชุมสรุปตามแบบรายการตรวจประเมินและเขียนรายงานผล (เม.ย.)','Team summarises against the checklist and writes the report (April)'),
+  W('หัวหน้าคณะประชุมกับคณะทำงานกลั่นกรอง (พ.ค.) ความเห็นไม่จำเป็นต้องตรงกัน','Chair meets the intervener group (May); views need not converge'),
+  W('หัวหน้าคณะนำเสนอใน Decision Meeting (มิ.ย.)','Chair presents at the Decision Meeting (June)')]},
+ {h:W('หัวหน้าคณะผู้ตรวจ (ข้อ 4.4.3)','Team chair (4.4.3)'),p:W('ประสานงานกับเจ้าหน้าที่ แนะนำทีมเรื่องขั้นตอน ประชุมสรุปผลและเขียนรายงาน ตรวจทานกับคณะทำงานกลั่นกรอง และนำเสนอใน Decision Meeting ควรมีประสบการณ์วิชาชีพ เคยบริหารหลักสูตรที่ได้รับรอง หรือเคยเป็นผู้ตรวจของสภาวิศวกร','Coordinates with staff, guides the team on procedure, leads the summary and report, works with the interveners and presents at the Decision Meeting. Should have professional experience, have led an accredited programme or have evaluated before.')},
+ {h:W('ระดับข้อค้นพบ','Finding levels'),tbl:LV}],
+ ev:[[W('แบบรายการตรวจประเมินและแบบรายงานผล','Checklist and report template'),W('ทุกระดับมีหลักฐานและตำแหน่งอ้างอิง','Every level has evidence and a reference')],[W('Fact Finding Report และคำชี้แจงของหลักสูตร','Fact Finding Report and programme reply'),W('ประเด็นใดเปลี่ยนเป็น S หลังคำชี้แจง','Which issues become S after the reply')]],
+ iss:[W('ให้คำแนะนำหรือบอกผลใน Exit meeting','Advising or announcing results at the exit meeting'),W('ขอเอกสารกว้าง ๆ ไม่ระบุเกณฑ์และตำแหน่ง','Vague document requests without criterion or location')],
+ terms:[['Fact Finding Report',W('รายงานข้อเท็จจริงจากการตรวจเยี่ยม','Report of facts found at the visit')],['Exit meeting',W('ประชุมสรุปปิดท้ายการตรวจเยี่ยม','Closing meeting of the visit')]],
+ ref:[PROC],
+ chk:[W('คณะผู้ตรวจเสนอไม่รับรองโดยไม่ตรวจเยี่ยมได้เมื่อใด','When may a team recommend non-accreditation without a visit?'),W('หลักสูตรต้องส่งคำชี้แจงต่อ Fact Finding Report ภายในกี่วัน','How soon must the programme reply to the Fact Finding Report?')]},
+
+5:{abet:W('คู่มือ ETAC ปรับปรุงครั้งที่ 3 ข้อ 9 และแบบรายงานประเมินตนเอง · ETAC Guideline 3.1.1–3.1.4','ETAC procedure rev. 3, section 9 and the SER template · Guidelines 3.1.1–3.1.4'),
+ goal:W('อ่านเล่ม SER ของหลักสูตร ETC ตามแบบรายงาน 10 ส่วน และรู้ว่าเอกสารเชิงประจักษ์ใดต้องมีในวันตรวจ','Read an ETC SER by its 10-part template and know which evidence must be ready on the visit day.'),
+ obj:[W('บอก 10 ส่วนของ SER','Name the 10 parts of the SER'),W('ใช้ Guideline 3.1.1–3.1.4 ตรวจความครบ','Check completeness with Guidelines 3.1.1–3.1.4'),W('บอกเอกสารที่ต้องเตรียมในห้องเอกสาร','List what must be in the document room')],
+ sec:[
+ {h:W('SER 10 ส่วน','SER in 10 parts'),tbl:{cols:[W('ส่วน','Part'),W('เนื้อหา','Content')],rows:[
+  ['1',W('ข้อมูลพื้นฐาน: ชื่อหลักสูตรและปริญญา ผู้รับผิดชอบ ประวัติ ความร่วมมือ สถานที่สอน การประชาสัมพันธ์ ผลการรับรองครั้งก่อน','Basic data: names, contacts, history, partnerships, sites, publicity, last accreditation')],
+  ['2',W('เกณฑ์ข้อ 1 นิสิตนักศึกษา','Criterion 1 Students')],['3',W('เกณฑ์ข้อ 2 วัตถุประสงค์หลักสูตร','Criterion 2 Objectives')],['4',W('เกณฑ์ข้อ 3 ผลลัพธ์การศึกษา','Criterion 3 Outcomes')],
+  ['5',W('เกณฑ์ข้อ 4 การพัฒนาต่อเนื่อง','Criterion 4 Improvement')],['6',W('เกณฑ์ข้อ 5 รายละเอียดหลักสูตร','Criterion 5 Curriculum')],['7',W('เกณฑ์ข้อ 6 คณาจารย์','Criterion 6 Faculty')],
+  ['8',W('เกณฑ์ข้อ 7 สิ่งอำนวยความสะดวก','Criterion 7 Facilities')],['9',W('เกณฑ์ข้อ 8 การสนับสนุนของสถาบัน','Criterion 8 Support')],
+  ['10',W('เอกสารประกอบ: เอกสารหลักสูตร ประมวลรายวิชา ประวัติอาจารย์ และอื่น ๆ','Supporting documents: curriculum, syllabi, faculty CVs and more')]]}},
+ {h:W('แนวปฏิบัติ 4 ฉบับ','Four guidelines'),b:[
+  W('3.1.1 เอกสารเชิงประจักษ์ที่ต้องเตรียมในวันตรวจ ย้อนหลังอย่างน้อย 2 ปี','3.1.1 evidence for the visit, at least two years back'),
+  W('3.1.2 ผลลัพธ์รายวิชาและตัวชี้วัดที่สอดคล้องกับ SK','3.1.2 course outcomes and indicators aligned with SK'),
+  W('3.1.3 รายงาน Outcome Score ของโครงงานรวบยอด','3.1.3 Capstone outcome score report'),
+  W('3.1.4 แบบรายการตรวจสอบ SER 79 ข้อ ใช้ตรวจว่า SER ตอบทุกหัวข้อ','3.1.4 the 79-item SER checklist, to check every item is answered')]},
+ {h:W('SER ที่ดีและไม่ดี','Good and poor SERs'),tbl:{cols:[W('SER ที่ดี','Good'),W('SER ที่ไม่ดี','Poor')],rows:[
+  [W('ตอบตามหัวข้อของแบบรายงาน มีตารางและเลขอ้างอิงหลักฐาน','Follows the template with tables and evidence references'),W('เรียงหัวข้อเอง ข้ามหัวข้อ','Own order, missing items')],
+  [W('ผลลัพธ์แยกรายปีอย่างน้อย 2 ปี','Results per year for at least two years'),W('เฉลี่ยรวมหลายปีหรือมีปีเดียว','Multi-year averages or a single year')],
+  [W('บอกปัญหาของตนและแผนแก้','States its own problems and plans'),W('บรรยายแต่ข้อดี','Only strengths')]]}},
+ {h:W('สิ่งที่สถาบันต้องเตรียมในวันตรวจ (ข้อ 9)','What the institution prepares (section 9)'),b:[
+  W('Course Portfolio ทุกรายวิชาของหลักสูตร: ประมวลรายวิชา แผนการสอน เอกสารประกอบการสอน การบ้าน รายงาน บันทึกการวัดผล ตัวอย่างข้อสอบและสมุดคำตอบ','A course portfolio for every course: syllabus, plan, notes, assignments, reports, grade records, sample exams and scripts'),
+  W('แฟ้มห้องปฏิบัติการ: ผู้รับผิดชอบ ตารางการใช้ คู่มือเครื่องมือ คู่มือความปลอดภัย แบบฝึก และตัวอย่างรายงาน','Lab files: owner, schedules, equipment and safety manuals, exercises and sample reports'),
+  W('ผู้ตรวจประเมินจากเอกสารที่อ้างอิงได้ผ่านระบบเอกสารและการจัดเก็บของสถาบันเท่านั้น','Evaluators judge only from evidence traceable in the institution’s own records')]},
+ {h:W('ถ้า SER ไม่ได้มาตรฐาน','If the SER falls short'),p:W('SER ที่รูปแบบไม่ตรงแบบรายงาน คุณภาพไม่พอ หรือข้อมูลไม่พอ อาจถูกปฏิเสธการสมัครและให้ยื่นใหม่ในปีถัดไป (ข้อ 3.4 และ 9)','An SER off template, of poor quality or lacking data may be refused, with reapplication the next year (3.4, 9).')}],
+ ev:[[W('เล่ม SER คู่กับ Guideline 3.1.4','The SER beside Guideline 3.1.4'),W('หัวข้อใดไม่มีคำตอบหรือไม่มีหลักฐาน','Which items have no answer or evidence')],[W('บัญชีเอกสารห้องเอกสาร (Guideline 3.1.1)','Document room list (Guideline 3.1.1)'),W('แฟ้มที่ระบุว่ามี แต่เปิดแล้วไม่มีจริง','Files listed but not actually there')]],
+ iss:[W('SER ไม่ใช้หัวข้อตามแบบรายงาน','SER not following the template'),W('ข้อมูลไม่ถึง 2 ปี','Less than two years of data'),W('ไม่มี Course Portfolio ครบทุกวิชา','Portfolios missing for some courses')],
+ terms:[['SER',W('รายงานประเมินตนเองของสถาบันการศึกษา','Self-evaluation report')],['Course Portfolio',W('แฟ้มเอกสารรายวิชา','Course file')]],
+ ref:[PROC,W('ETAC Guideline 3.1.1–3.1.4','ETAC Guidelines 3.1.1–3.1.4')],
+ chk:[W('SER ของ ETAC มีกี่ส่วน ส่วนใดเป็นเกณฑ์ข้อ 4','How many parts has the SER, and which is criterion 4?'),W('หลักฐานในห้องเอกสารต้องย้อนหลังอย่างน้อยกี่ปี','How far back must document-room evidence go?')]},
+
+7:{abet:W('คู่มือ ETAC ปรับปรุงครั้งที่ 3 ข้อ 6.2 และแบบรายงานส่วนที่ 3','ETAC procedure rev. 3, 6.2 and SER part 3'),
+ goal:W('ตรวจวัตถุประสงค์หลักสูตร (PEO) ของหลักสูตร ETC ตามข้อกำหนด 4 ข้อของเกณฑ์ข้อ 2','Check an ETC programme’s PEOs against the four requirements of criterion 2.'),
+ obj:[W('แยก PEO กับ PO','Tell PEOs from POs'),W('ตรวจกระบวนการทบทวน PEO ที่มี IAC มีส่วนร่วม','Check a PEO review involving the IAC'),W('ให้ระดับกรณีด้าน PEO','Grade PEO cases')],
+ sec:[
+ {h:W('PEO กับ PO','PEOs and POs'),p:W('PEO บอกสิ่งที่บัณฑิตทำได้ในการทำงานไม่กี่ปีหลังจบ เช่น ติดตั้ง ควบคุม และปรับปรุงระบบในโรงงาน หรือดูแลโครงการ ส่วน PO บอกสิ่งที่นักศึกษาทำได้เมื่อจบ PEO ของหลักสูตร ETC จึงควรพูดถึงงานของนักเทคโนโลยีวิศวกรรม ไม่ใช่การวิจัยหรือการออกแบบระบบใหม่ทั้งหมด','PEOs state what graduates do a few years into work, such as installing, running and improving plant systems or leading projects; POs state what students can do at graduation. ETC PEOs should describe technologist work, not research or whole new system design.')},
+ {h:W('ข้อกำหนด 4 ข้อ (ข้อ 6.2)','Four requirements (6.2)'),b:[
+  W('PEO สอดคล้องกับพันธกิจของสถาบันและเกณฑ์ และเผยแพร่แล้วก่อนเริ่มใช้','PEOs fit the mission and criteria, and are published before use'),
+  W('มีกระบวนการกำหนดและทบทวน PEO เป็นประจำ ให้ตอบสนองสังคมและองค์กรที่ใช้บัณฑิต','A regular process sets and reviews PEOs to meet society’s and employers’ needs'),
+  W('การสอนและการบริหารหลักสูตรทำให้ PEO สำเร็จ','Teaching and management make the PEOs achievable'),
+  W('มีการประเมินความสำเร็จและใช้ผลทบทวนและพัฒนาหลักสูตร','Achievement is evaluated and used to review and improve')]},
+ {h:W('สิ่งที่ SER ส่วนที่ 3 ต้องแสดง','What SER part 3 must show'),b:[
+  W('พันธกิจ PEO และ PO พร้อมหลักฐานการเผยแพร่บนเว็บไซต์','Mission, PEOs and POs, with web publication'),
+  W('ตารางเชื่อม PEO กับพันธกิจ','A PEO–mission table'),
+  W('ผู้มีส่วนได้ส่วนเสียและหลักฐานว่า PEO ตอบความต้องการ (IAC ศิษย์เก่า และอื่น ๆ)','Stakeholders and evidence that PEOs meet their needs (IAC, alumni and others)'),
+  W('กระบวนการทบทวนที่ IAC มีส่วนร่วมเป็นช่วง ๆ อย่างเป็นระบบ และใช้ผลประเมิน PO รายปีประกอบ','A systematic review with the IAC, using annual PO results')]},
+ {h:W('จุดที่ต้องระวังในหลักสูตร ETC','ETC watch-points'),b:[
+  W('ผู้ใช้บัณฑิตและสถานประกอบการสหกิจศึกษาเป็นผู้มีส่วนได้ส่วนเสียหลัก ควรมีเสียงในการทบทวน','Employers and co-op hosts are key stakeholders and should have a voice'),
+  W('คู่มือไม่กำหนดรอบปีของการทบทวน ให้ดูว่าเป็นประจำและเป็นระบบ','The procedure sets no review interval; look for regularity and system'),
+  W('PEO คัดลอกจากหลักสูตรวิศวกรเป็นสัญญาณว่าหลักสูตรยังไม่ชัดว่าผลิตใคร','PEOs copied from engineering programmes signal an unclear target graduate')]},
+ {h:W('กรณีตัวอย่าง','Cases'),tbl:{cols:[W('สถานการณ์','Situation'),W('ระดับ','Level')],rows:[
+  [W('ทบทวน PEO ทุก 4 ปี โดยใช้ข้อมูล 4 แหล่งและ IAC ร่วม','PEOs reviewed every 4 years with four data sources and the IAC'),W('ไม่มีประเด็น','No issue')],
+  [W('ทบทวนในกรรมการหลักสูตรอย่างเดียว ไม่มีความเห็นภาคอุตสาหกรรม','Reviewed by the committee alone, no industry input'),'C'],
+  [W('PEO เขียนถึงงานวิจัยและนวัตกรรมระดับแนวหน้า ไม่ตรงงานของบัณฑิตจริง','PEOs speak of frontier research, unlike graduates’ real jobs'),'W'],
+  [W('PEO ปรับแล้วแต่หน้าเว็บยังเป็นฉบับเก่า','PEOs revised but the website shows the old ones'),'R']]}}],
+ ev:[[W('รายงานการประชุม IAC และผลสำรวจศิษย์เก่าและผู้ใช้บัณฑิต','IAC minutes and alumni and employer surveys'),W('IAC: “ครั้งล่าสุดหลักสูตรถามความเห็นเรื่อง PEO เมื่อไร”','IAC: “When were you last asked about the PEOs?”')],[W('หน้าเว็บไซต์หลักสูตร','Programme website'),W('PEO ที่เผยแพร่ตรงกับเล่ม SER','Published PEOs match the SER')]],
+ iss:[W('PEO เป็นผลลัพธ์ตอนจบ ไม่ใช่สิ่งที่ทำได้หลังทำงาน','PEOs written as graduation outcomes'),W('ไม่มี IAC หรือผู้ใช้บัณฑิตในการทบทวน','No IAC or employers in the review'),W('ไม่ได้เผยแพร่ PEO','PEOs not published')],
+ terms:[['PEO',W('วัตถุประสงค์หลักสูตร','Programme educational objectives')],['IAC',W('คณะกรรมการที่ปรึกษาจากภาคอุตสาหกรรม','Industrial Advisory Committee')]],
+ ref:[PROC],
+ chk:[W('PEO ต้องเผยแพร่เมื่อใด','When must PEOs be published?'),W('คู่มือ ETAC กำหนดรอบการทบทวน PEO หรือไม่','Does ETAC fix a PEO review interval?')]},
+
+15:{abet:W('คู่มือ ETAC ปรับปรุงครั้งที่ 3 ข้อ 6.8 และแบบรายงานส่วนที่ 9','ETAC procedure rev. 3, 6.8 and SER part 9'),
+ goal:W('ตรวจการนำองค์กร งบประมาณ บุคลากรสายสนับสนุน และการพัฒนาอาจารย์ของหลักสูตร ETC ตามเกณฑ์ข้อ 8','Check leadership, budget, support staff and faculty development of an ETC programme under criterion 8.'),
+ obj:[W('บอก 5 หัวข้อของ SER ส่วนที่ 9','Name the five items of SER part 9'),W('ประเมินความพอเพียงของนายช่างและงบซ่อมบำรุง','Judge whether technicians and maintenance budget suffice'),W('ให้ระดับกรณีด้านการสนับสนุน','Grade support cases')],
+ sec:[
+ {h:W('ไม่ได้วัดความร่ำรวย','Not a wealth test'),p:W('เกณฑ์ข้อ 8 ถามว่าทรัพยากรพอให้หลักสูตรบรรลุผลลัพธ์อย่างต่อเนื่องหรือไม่ ไม่ได้เทียบว่าสถาบันใดมีงบมากกว่า หลักฐานที่ดีคืองบที่ผูกกับผลการประเมินผลลัพธ์และแผนการจัดหา','Criterion 8 asks whether resources let the programme reach its outcomes consistently, not who has more money. Good evidence ties budget to assessment results and a resourcing plan.')},
+ {h:W('ห้าหัวข้อใน SER ส่วนที่ 9','Five items in SER part 9'),tbl:{cols:[W('หัวข้อ','Item'),W('สิ่งที่ต้องแสดง','What to show')],rows:[
+  [W('1 การนำองค์กร','1 Leadership'),W('บทบาทผู้บริหารระดับมหาวิทยาลัย คณะ และภาควิชาในการบริหารและตัดสินใจเรื่องหลักสูตร','Roles of university, faculty and department leaders in running the programme')],
+  [W('2 งบประมาณ','2 Budget'),W('กระบวนการทำงบที่ใช้ผลการประเมินผลลัพธ์ การสนับสนุนต่อเนื่อง งบสอน งบซ่อมบำรุงและยกระดับครุภัณฑ์ และการประเมินความพอเพียง','Budgeting using outcome results, continuity, teaching funds, maintenance and upgrades, and a sufficiency check')],
+  [W('3 บุคลากรสายสนับสนุน','3 Support staff'),W('การประเมินความพอเพียงของเจ้าหน้าที่ ผู้ช่วยสอน ครูปฏิบัติการและช่างเทคนิค การจ้างและอบรม','Sufficiency of clerical staff, TAs, technicians; hiring and training')],
+  [W('4 การรับและพัฒนาอาจารย์','4 Faculty recruitment'),W('กระบวนการรับอาจารย์ การทดแทน และการจูงใจ','Recruitment, replacement and retention')],
+  [W('5 การพัฒนาวิชาชีพของอาจารย์','5 Professional development'),W('ทุนอบรม สัมมนา ลาเขียนผลงาน และการฝึกในภาคอุตสาหกรรม','Funding for training, seminars, sabbaticals and industry placements')]]}},
+ {h:W('จุดที่ต้องดูในหลักสูตร ETC','ETC watch-points'),b:[
+  W('ครูปฏิบัติการและช่างเทคนิคเพียงพอต่อจำนวนชั่วโมงปฏิบัติและโรงฝึกงาน','Enough technicians for the practical hours and workshops'),
+  W('งบซ่อมบำรุงและเปลี่ยนเครื่องมือมีแผนต่อเนื่อง ไม่พึ่งงบครั้งเดียว','Maintenance and replacement are planned, not one-off grants'),
+  W('สิทธิ์ซอฟต์แวร์อุตสาหกรรมต่ออายุทันเวลา','Industry software licences renewed on time'),
+  W('งบให้อาจารย์ไปฝึกในภาคอุตสาหกรรม (เชื่อมกับเกณฑ์ข้อ 6)','Funding for faculty industry placements (links to criterion 6)')]},
+ {h:W('กรณีตัวอย่าง','Cases'),tbl:{cols:[W('สถานการณ์','Situation'),W('ระดับ','Level')],rows:[
+  [W('งบครุภัณฑ์ลดลงต่อเนื่อง 3 ปี ห้องปฏิบัติการใช้เครื่องที่ชำรุด ผลลัพธ์ PO5 ต่ำกว่าเกณฑ์','Equipment budget falling for 3 years; broken kit in use; PO5 below target'),'W'],
+  [W('นายช่าง 1 คนดูแลโรงฝึกงาน 3 แห่ง มีแผนจ้างเพิ่มแต่ยังไม่อนุมัติ','One technician for three workshops; hiring planned, not approved'),'C'],
+  [W('สิทธิ์ซอฟต์แวร์ต่ออายุล่าช้า 2 เดือนเมื่อปีก่อน ปีนี้ได้งบผูกพัน 3 ปีแล้ว','Licence renewed 2 months late last year; 3-year funding now in place'),'R'],
+  [W('งบลดลงแต่ผลลัพธ์ครบและเครื่องมือยังทันสมัย มีแผนชัด','Budget down but outcomes met, kit current, clear plan'),W('ไม่มีประเด็น','No issue')]]}}],
+ ev:[[W('ตารางงบประมาณ 3 ปีและแผนจัดหา','Three-year budget and procurement plan'),W('หัวหน้าภาควิชา: “ผลประเมินผลลัพธ์ปีนี้ส่งผลต่องบอย่างไร”','Head: “How did this year’s outcome results shape the budget?”')],[W('อัตรากำลังสายสนับสนุน','Support staffing'),W('นายช่าง: “ดูแลกี่ห้อง มีเวลาซ่อมบำรุงตามแผนไหม”','Technician: “How many rooms do you cover, and is there time for planned maintenance?”')]],
+ iss:[W('ไม่มีหลักฐานว่างบผูกกับผลการประเมิน','No link from budget to assessment'),W('นายช่างไม่พอ ส่งผลต่อความปลอดภัยและการซ่อมบำรุง','Too few technicians, hurting safety and maintenance'),W('ไม่มีงบพัฒนาวิชาชีพของอาจารย์','No faculty development funds')],
+ terms:[[W('การนำองค์กร','Program leadership'),W('ผู้บริหารที่มีอำนาจและความรับผิดชอบต่อคุณภาพหลักสูตร','Leaders with authority and responsibility for programme quality')],[W('ครูปฏิบัติการ','Technician'),W('บุคลากรที่ดูแลการฝึกปฏิบัติและเครื่องมือ','Staff running practical training and equipment')]],
+ ref:[PROC],
+ chk:[W('SER ส่วนที่ 9 มีกี่หัวข้อ','How many items in SER part 9?'),W('งบประมาณที่ดีควรผูกกับอะไร','What should a good budget be tied to?')]},
+
+17:{abet:W('คู่มือการอบรม ETC · คู่มือ ETAC ปรับปรุงครั้งที่ 3 ข้อ 4.4 และ 5.2','ETC training manual · ETAC procedure rev. 3, 4.4 and 5.2'),
+ goal:W('รู้ว่าการอบรม Onsite 2 วันกับเคส IET ทำอะไรในแต่ละช่วง ต้องเตรียมอะไร ใช้เอกสารใด และวิทยากรประเมินจากอะไร','Know what each on-site slot does with the IET case, what to prepare, which documents to use and how you are assessed.'),
+ obj:[W('บอกผลลัพธ์การเรียนรู้ของการตรวจเยี่ยมจำลอง','State the learning outcomes of the mock visit'),W('อธิบายลำดับงาน 2 วันตั้งแต่ Pre-visit 1 ถึง Decision Meeting จำลอง','Explain the two days from Pre-visit 1 to the mock Decision Meeting'),W('ทำงานมอบหมายก่อนอบรม: อ่านเอกสารของหลักสูตร IET และทำ Auto Check ใน PEV Studio ฉบับ ETC','Finish the pre-work: read the IET documents and run Auto Check in PEV Studio ETC'),W('บอกเกณฑ์ 20 คะแนนที่วิทยากรใช้','State the 20-point scheme')],
+ sec:[
+ {h:W('รูปแบบการอบรม','Format'),p:W('Onsite เป็นการตรวจเยี่ยมจำลองที่ใกล้การตรวจจริง ผู้เข้าอบรมจัดทีม 3 คน (หัวหน้าคณะ 1 คนและผู้ตรวจ 2 คน ตามข้อ 4.4) ทุกทีมประเมินหลักสูตรเทคโนโลยีวิศวกรรมอุตสาหการ (IET) มหาวิทยาลัยเทคโนโลยีวนาธาร ซึ่งเป็นหลักสูตรสมมติ ตั้งแต่อ่านเล่ม SER จนเสนอผลใน Decision Meeting จำลอง บันทึกทุกขั้นใน PEV Studio ฉบับ ETC วิทยากรเป็นผู้ประสานงาน ตอบจดหมายขอเอกสาร และสวมบทบาทคนของหลักสูตร','On-site is a mock visit as close to real as possible. Teams of three (a chair and two evaluators, as in 4.4) all evaluate the fictitious Industrial Engineering Technology (IET) programme of Wanathan University of Technology, from the SER to a mock Decision Meeting, recording every step in PEV Studio ETC. Facilitators coordinate, answer document requests and play programme staff.')},
+ {h:W('สิ่งที่จะทำได้เมื่อจบการอบรม','What you will be able to do'),b:[
+  W('วางแผนการตรวจเยี่ยมที่ครบกิจกรรมตามข้อ 5.2 และเป็นมิตร','Plan a cordial visit that covers every activity in 5.2'),
+  W('ตัดสินระดับข้อค้นพบตามนิยามของ ETAC และตามระดับปัญหางานวิศวกรรมทั่วไป','Grade findings by ETAC definitions at the broadly-defined level'),
+  W('สัมภาษณ์อาจารย์ นักศึกษา ครูปฏิบัติการ พนักงานพี่เลี้ยง ผู้ใช้บัณฑิตและศิษย์เก่า','Interview faculty, students, technicians, mentors, employers and alumni'),
+  W('เขียนข้อค้นพบและ Exit Statement ที่บอกข้อเท็จจริงโดยไม่ให้คำแนะนำในรายละเอียด','Write findings and an exit statement that state facts without detailed advice'),
+  W('จัดทำ Fact Finding Report และนำเสนอใน Decision Meeting จำลอง','Write a Fact Finding Report and present at a mock Decision Meeting')]},
+ {h:W('กำหนดการ 2 วัน','The two days'),p:W('วันที่ 1 ประเมินจากเอกสาร วันที่ 2 ตรวจเยี่ยมจำลองจนถึงการตัดสิน แต่ละช่วงมีสไลด์ฉบับ ETC ในหน้า Onsite','Day 1 reviews documents; Day 2 runs the mock visit to the decision. Each slot has an ETC slide deck on the Onsite page.'),tbl:{cols:[W('วัน','Day'),W('เวลา','Time'),W('กิจกรรม','Activity'),W('ผลที่ได้','Output')],rows:[
+  [W('วันที่ 1','Day 1'),'08:00–08:30',W('เปิดการอบรม กติกา ความลับ และ COI จัดทีม','Opening, rules, confidentiality, COI, teams'),W('รายชื่อทีมใน PEV Studio','Team in PEV Studio')],
+  [W('วันที่ 1','Day 1'),'08:30–12:00',W('ประเมินเกณฑ์ข้อ 1–4 (Pre-visit 1) อุ่นเครื่องด้วย Quiz & Poll กรณีศึกษา ETC','Criteria 1–4 (Pre-visit 1) after ETC Quiz & Poll warm-ups'),W('ระดับ PV1 ข้อ 1–4','PV1, criteria 1–4')],
+  [W('วันที่ 1','Day 1'),'13:00–15:00',W('ประเมินเกณฑ์ข้อ 5–8 (Pre-visit 1)','Criteria 5–8 (Pre-visit 1)'),W('ระดับ PV1 ครบ 8 เกณฑ์','PV1 for all eight')],
+  [W('วันที่ 1','Day 1'),'15:00–15:45',W('รวมผลทีมและเขียนจดหมายขอเอกสาร ไม่เกิน 8 รายการ','Merge results and write the request, up to 8 items'),W('แบบรายการขอเอกสารเพิ่มเติม','Document request')],
+  [W('วันที่ 1','Day 1'),'15:45–17:00',W('Pre-visit 2 และแผนตรวจเยี่ยม เลือกสัมภาษณ์ 4 จาก 8 กลุ่ม ดูสถานที่ 2 จาก 4 แห่ง','Pre-visit 2 and visit plan: 4 of 8 groups, 2 of 4 places'),W('ระดับ PV2 แผน และคำถาม','PV2, plan and questions')],
+  [W('วันที่ 1','Day 1'),'17:00–17:30',W('สรุปวันที่ 1 ด้วยกระดาน Brainstorm','Day 1 wrap-up on the brainstorm board'),'–'],
+  [W('วันที่ 2','Day 2'),'08:00–10:00',W('ประชุมคณะ แล้วตรวจเยี่ยมจำลอง: โรงฝึกงาน ห้องเอกสาร และการสัมภาษณ์','Team meeting, then the mock visit: workshop, document room and interviews'),W('ข้อเท็จจริงจากวันตรวจ','Visit facts')],
+  [W('วันที่ 2','Day 2'),'10:15–11:30',W('ประชุมคณะ ชี้แจงกับประธานหลักสูตร Exit Statement และ Exit meeting จำลอง','Team meeting, programme chair, exit statement and mock exit meeting'),W('Exit Statement','Exit statement')],
+  [W('วันที่ 2','Day 2'),'11:30–12:00',W('เทียบกับเฉลย','Compare with the key'),'–'],
+  [W('วันที่ 2','Day 2'),'13:00–14:00',W('Fact Finding Report และคำชี้แจงของหลักสูตร','Fact Finding Report and programme reply'),W('Fact Finding Report','Fact Finding Report')],
+  [W('วันที่ 2','Day 2'),'14:00–15:30',W('Decision Meeting จำลอง ประเมินและปิดการอบรม','Mock Decision Meeting, assessment and close'),W('ไฟล์งานของทีม (.json)','Team file (.json)')]]}},
+ {h:W('งานที่ต้องเสร็จก่อนอบรม','Due before the training'),b:[
+  W('เรียน Module 18 แล้ว Module 0–17 ผ่านแบบทดสอบทุกโมดูล (ถูกอย่างน้อย 4 จาก 5 ข้อ) โดยเฉพาะ Module 16','Module 18, then Modules 0–17, passing every quiz (4 of 5), especially Module 16'),
+  W('อ่านเอกสารของหลักสูตร IET ทั้งหมดในหัวข้อถัดไป ใช้เวลาประมาณ 5–6 ชั่วโมง','Read all IET documents listed next, about 5–6 hours'),
+  W('ตรวจใบระเบียน IET 5 ฉบับในหน้า ฝึกวิเคราะห์ › ใบระเบียนผลการศึกษา','Check the five IET transcripts on the Analysis › Transcripts page'),
+  W('เปิด PEV Studio ฉบับ ETC กด "เริ่มฝึก" ที่เคส IET ทำ Auto Check แล้ว Save ไฟล์มาวันอบรม','Open PEV Studio ETC, start the IET case, run Auto Check and save the file')]},
+ {h:W('เอกสารของหลักสูตร IET','IET documents'),p:W('อ่านเล่ม SER ครบ 8 เกณฑ์ จดจุดที่สงสัยพร้อมเกณฑ์และตำแหน่ง อ่านใบระเบียนเทียบกับเกณฑ์สำเร็จการศึกษา และอ่านเอกสารตามแนวปฏิบัติ ETAC 3 ฉบับคู่กับเกณฑ์ข้อ 3 4 และ 5 ซองเอกสาร ช-1 ถึง ช-6 จะได้รับในวันอบรมหลังทีมส่งจดหมายขอเอกสาร','Read the whole SER and note doubts with criterion and location, check the transcripts against graduation rules, and read the three guideline documents with criteria 3, 4 and 5. Envelope documents ช-1 to ช-6 come on the day, after your request.'),files:[
+  ['etc-files/IET/pdf/IET_SER_trainee.pdf',['เล่ม SER หลักสูตร IET ฉบับผู้อบรม','IET SER, trainee edition']],
+  ['etc-files/IET/pdf/IET_transcripts.pdf',['ใบระเบียนผลการศึกษา 5 ราย','Five transcripts']],
+  ['etc-files/IET/pdf/IET_capstone_trainee.pdf',['รายงาน Outcome Score on Capstone (Guideline 3.1.3)','Capstone outcome score report (Guideline 3.1.3)']],
+  ['etc-files/IET/pdf/IET_sk_trainee.pdf',['การประเมินผลลัพธ์ตามแบบความรู้ SK (Guideline 3.1.2)','Outcome assessment by SK (Guideline 3.1.2)']],
+  ['etc-files/IET/pdf/IET_docroom_trainee.pdf',['บัญชีเอกสารห้องเอกสาร (Guideline 3.1.1)','Document room list (Guideline 3.1.1)']],
+  ['etc-files/IET/pdf/IET_SER_facilitator.pdf',['เล่ม SER ฉบับวิทยากร (มีเฉลย)','SER, facilitator edition (with key)'],1],
+  ['etc-files/IET/pdf/IET_envelope.pdf',['ซองเอกสารเพิ่มเติม ช-1 ถึง ช-6','Envelope ช-1 to ช-6'],1],
+  ['etc-files/IET/pdf/IET_rolecards.pdf',['บัตรบทบาท 12 บทบาท','Twelve role cards'],1]]},
+ {h:W('สิ่งที่ต้องนำไป','What to bring'),b:[
+  W('คอมพิวเตอร์พกพาและสายชาร์จ ใช้ PEV Studio ฉบับ ETC ตลอดสองวัน','Laptop and charger for PEV Studio ETC'),
+  W('ไฟล์งาน PEV Studio (.json) ที่ทำ Auto Check และ Save แล้ว','Your saved PEV Studio file (.json) after Auto Check'),
+  W('โทรศัพท์มือถือสำหรับ Quiz & Poll และกระดาน Brainstorm','A phone for Quiz & Poll and the brainstorm board'),
+  W('บันทึกจุดที่สงสัยในเล่ม SER','Your notes on the SER')]},
+ {h:W('กติการะหว่างอบรม','Ground rules'),b:[
+  W('พูดอย่างตั้งใจ ฟังอย่างใส่ใจ และให้ทุกเสียงได้พูด','Speak with intention, listen with attention, let every voice be heard'),
+  W('เริ่มและเลิกตรงเวลา','Start and finish on time'),
+  W('รักษาความลับและแจ้งผลประโยชน์ทับซ้อน (ข้อ 3.10 และ 3.12) เหมือนการตรวจจริง','Keep confidentiality and declare conflicts of interest (3.10, 3.12) as in a real visit'),
+  W('ตัดสินจากหลักฐานและเกณฑ์ ETAC ไม่เทียบกับหลักสูตรวิศวกรหรือสถาบันของตน','Judge on evidence and ETAC criteria, not against engineering programmes or your own institution')]},
+ {h:W('การประเมินระหว่างอบรม','Assessment during training'),p:W('วิทยากรให้คะแนนงานของทีม 20 คะแนนตามคู่มือวิทยากร และสังเกตสมรรถนะ PEV 6 ด้าน ผลใช้ประกอบการพิจารณาขึ้นทะเบียนเป็นผู้ตรวจ ซึ่งคู่มือ ETAC กำหนดให้ต้องผ่านการอบรมและการทดสอบ (ข้อ 4.4.2)','Facilitators score team work out of 20 and observe six PEV competencies; results support registration, which requires training and a test (4.4.2).'),tbl:{cols:[W('งาน','Work'),W('คะแนน','Points')],rows:[
+  [W('ระดับข้อค้นพบสุดท้ายรายเกณฑ์','Final level per criterion'),'5'],[W('การอ้างหลักฐานประกอบข้อค้นพบ','Evidence cited'),'4'],[W('จดหมายขอเอกสารเพิ่มเติม','Document request'),'4'],[W('แผนตรวจเยี่ยม','Visit plan'),'4'],[W('การเขียนข้อค้นพบ','Finding statements'),'3']]}}],
+ ev:[[W('ไฟล์ PEV Studio ฉบับ ETC ที่ทำ Auto Check แล้ว','Your PEV Studio ETC file after Auto Check'),W('นำมาวันแรก','Bring on day 1')],[W('คู่มือการอบรม ETC บทที่ 7','ETC training manual, chapter 7'),W('ตารางกิจกรรม Onsite','On-site schedule')]],
+ iss:[W('มาโดยยังไม่ได้อ่าน SER ของ IET ทั้งเล่ม','Arriving without reading the IET SER'),W('ไม่ได้ทำ Auto Check หรือไม่ได้ Save ไฟล์','No Auto Check or no saved file'),W('เขียนคำขอเอกสารกว้าง ๆ ไม่ระบุเกณฑ์และตำแหน่ง','Vague requests without criterion or location'),W('ให้ระดับตามมาตรฐานหลักสูตรวิศวกร','Grading to engineering-programme standards')],
+ terms:[['PV1, PV2',W('ระดับข้อค้นพบหลัง Pre-visit 1 และ 2','Finding levels after Pre-visit 1 and 2')],['COI',W('ผลประโยชน์ทับซ้อน','Conflict of interest')]],
+ ref:[W('คู่มือการอบรม ETC ฉบับผู้เข้าอบรม บทที่ 7','ETC training manual (trainee), chapter 7'),PROC],
+ chk:[W('งานมอบหมายก่อนอบรมให้อ่านเอกสารชุดใด','Which documents does the pre-work cover?'),W('PV1 และ PV2 ต่างกันอย่างไร','How do PV1 and PV2 differ?'),W('วิทยากรให้คะแนน 20 คะแนนจากอะไรบ้าง','What makes up the 20 points?')]}
+};
+for(const k in R){const m=M[k];if(!m)continue;Object.assign(m,R[k]);m.sec=R[k].sec.concat([NOTE]);m.etcRead=true;}
+
+/* Module 16: new opening sections from ETAC 5.2; TABEE interview techniques, session cards and question bank kept. */
+const m16=M[16];
+if(m16&&m16.sec){
+ const keep=m16.sec.filter((s,i)=>i>0&&!s.etc);
+ const intro=[
+ {h:W('การตรวจเยี่ยม 2 วันตามคู่มือ ETAC (ข้อ 5.2)','The two-day visit in ETAC 5.2'),p:W('การตรวจเยี่ยมใช้เวลา 2 วัน และมีวันที่ 0 ช่วงเย็นสำหรับประชุมคณะ กรณีติดตามผลในวงรอบอาจประเมินจากรายงานความก้าวหน้าอย่างเดียว หรือตรวจเยี่ยม 1 วัน กำหนดการปรับได้แต่ต้องทำกิจกรรมให้ครบ ตารางด้านล่างคือตัวอย่างในคู่มือ','The visit takes two days, with a Day 0 evening team meeting. Follow-ups may use a progress report only or a one-day visit. Timings may change but every activity must happen. The table shows the procedure’s sample.'),tbl:{cols:[W('วัน','Day'),W('เวลา','Time'),W('กิจกรรมตามตัวอย่างของ ETAC','Activity in the ETAC sample')],rows:[
+  [W('วันที่ 0','Day 0'),'18:00–21:00',W('คณะผู้ตรวจและอนุกรรมการประสานงานวางแผนและทบทวนประเด็น','Team and coordinator plan and review issues')],
+  [W('วันที่ 1','Day 1'),'09:00–10:30',W('ประชุมผู้บริหารสถาบันและหลักสูตร ฟังการนำเสนอ และซักถามเนื้อหา SER','Leaders’ meeting, presentations and SER questions')],
+  [W('วันที่ 1','Day 1'),'10:30–12:00',W('ดูการเรียนการสอน อุปกรณ์ ความปลอดภัยในห้องปฏิบัติการ ห้องสมุด และระบบสารสนเทศ','Classes, equipment, lab safety, library and IT')],
+  [W('วันที่ 1','Day 1'),'13:00–14:45',W('ทบทวนข้อซักถาม แล้วตรวจ Course Portfolio และเอกสารหลักฐาน','Review questions, then course portfolios and evidence')],
+  [W('วันที่ 1','Day 1'),'14:45–17:00',W('สัมภาษณ์ศิษย์เก่าและผู้ใช้บัณฑิต บัณฑิต และนักศึกษา','Alumni and employers, recent graduates, students')],
+  [W('วันที่ 1','Day 1'),'18:00–21:00',W('สรุปข้อเท็จจริงและร่าง Exit meeting','Summarise facts, draft the exit meeting')],
+  [W('วันที่ 2','Day 2'),'09:00–12:00',W('ประชุมผู้บริหาร สัมภาษณ์อาจารย์ แล้วสัมภาษณ์เจ้าหน้าที่ ผู้ช่วยสอน และครูปฏิบัติการ','Leaders, faculty interviews, then staff, TAs and technicians')],
+  [W('วันที่ 2','Day 2'),'13:00–14:00',W('ตรวจ Course Portfolio ต่อ และสัมภาษณ์หัวหน้าภาควิชาหรือผู้บริหารหลักสูตร','More portfolios; head of department or programme lead')],
+  [W('วันที่ 2','Day 2'),'14:00–16:00',W('เตรียมและจัด Exit meeting','Prepare and hold the exit meeting')]]}},
+ {h:W('สิ่งที่ต้องได้จากวันตรวจในหลักสูตร ETC','What an ETC visit must establish'),b:[
+  W('ดูโรงฝึกงานหรือห้องปฏิบัติการระหว่างคาบจริง: การ์ด ปุ่มหยุดฉุกเฉิน PPE และสมุดซ่อมบำรุง','See a workshop or lab in a live class: guards, emergency stops, PPE and the maintenance log'),
+  W('สัมภาษณ์ครูปฏิบัติการหรือนายช่าง และพนักงานพี่เลี้ยงหรืออาจารย์นิเทศของฝึกงานและสหกิจศึกษา','Interview technicians, and internship or co-op mentors and supervisors'),
+  W('ฟังการนำเสนอโครงงานรวบยอดหรือเปิดรายงาน Outcome Score (Guideline 3.1.3) ดูว่าโจทย์ถึงระดับ SP','Hear a capstone presentation or open the outcome score report (3.1.3) and check the SP level'),
+  W('เปิดแฟ้มในห้องเอกสารตามบัญชี Guideline 3.1.1 ย้อนหลังอย่างน้อย 2 ปี','Open document-room files per Guideline 3.1.1, at least two years back'),
+  W('ใน Exit meeting แจ้งข้อเท็จจริงที่พบ ไม่อธิบายหรือแนะนำในรายละเอียด และไม่บอกผล','At the exit meeting state facts only, without detailed advice or a result')]},
+ {h:W('ตารางช่วงในหน้านี้','The session cards below'),p:W('การ์ดช่วงต่อจากนี้เป็นตารางของการอบรม ซึ่งจัดให้ใกล้การตรวจจริงและสัมพันธ์กับสไลด์ Mock-up ของเคส IET เวลาต่างจากตัวอย่างของ ETAC เล็กน้อย และมีช่วงนำเสนอโครงงานรวบยอดแยกออกมา ในการตรวจจริงให้ยึดกำหนดการที่คณะผู้ตรวจตกลงกับสถาบัน โดยต้องครบกิจกรรมตามข้อ 5.2','The cards that follow are the training timetable, linked to the IET mock-up decks. Times differ a little from the ETAC sample and the capstone presentation has its own slot. On a real visit, follow the schedule agreed with the institution, covering every activity in 5.2.')}];
+ m16.sec=intro.concat(keep,[NOTE]);
+ m16.abet=W('คู่มือ ETAC ปรับปรุงครั้งที่ 3 ข้อ 4.4.1 และ 5.2 · ABET Module 5 (เทคนิคการสัมภาษณ์)','ETAC procedure rev. 3, 4.4.1 and 5.2 · ABET Module 5 (interview technique)');
+ m16.goal=W('ตรวจเยี่ยมหลักสูตร ETC 2 วันให้ครบกิจกรรมตามคู่มือ ETAC ใช้การสัมภาษณ์และการดูสถานที่ยืนยันหรือหักล้างประเด็นจาก SER','Run a two-day ETC visit covering every ETAC activity, using interviews and site checks to confirm or rule out SER issues.');
+ m16.etcRead=true;
+}
+})();
