@@ -1151,7 +1151,9 @@ async resetDo(){A.closeModal();const files=[...(P('files').list||[])];
 
 /* ----- Decision Meeting draft: one line per item, finding text from the PEV draft (review comments stay in their own layer) ----- */
 A.decDraft=function(){const d=P('dec'),f=P('fact');let n=0;CHECKLIST.forEach(c=>{const x=d['c'+c.n]||(d['c'+c.n]={});const rs=ALL.filter(a=>a.c===c.n).map(a=>({a,f:finalR(c.n,a.it.id)}));if(!rs.some(o=>o.f.r))return;
-  const line=o=>{const n0=stripWho((o.f.st==='fin'||o.f.st==='scr')?(finalR(c.n,o.a.it.id,'post').n||''):(o.f.n||''));return'ข้อ '+o.a.it.code+(n0?': '+String(n0).replace(/\s*\n\s*/g,' · '):'')};
+  const line=o=>{const id=o.a.it.id,late=o.f.st==='fin'||o.f.st==='scr';let n0=stripWho(late?(finalR(c.n,id,'post').n||''):(o.f.n||''));
+    if(late){const base=finalR(c.n,id,'post').r;for(const k of['scr','dec']){const d=revOf(c.n,id,k);if(d.sub?.r&&d.pev?.v==='agree'&&d.sub.r===o.f.r&&d.sub.r!==base){n0=(n0?n0+' · ':'')+(k==='scr'?'คณะกรรมการกลั่นกรองเสนอ':'คณะอนุกรรมการฯ เสนอ')+(d.sub.r===finalR(c.n,id,'ex').r?'คงระดับ':'ปรับเป็นระดับ')+RT[d.sub.r].th+(d.sub.n?' เพราะ'+String(d.sub.n).replace(/^เพราะ/,''):'')+' คณะผู้ตรวจประเมินเห็นตาม';break}}}
+    return'ข้อ '+o.a.it.code+(n0?': '+String(n0).replace(/\s*\n\s*/g,' · '):'')};
   const by=k=>rs.filter(o=>o.f.r===k).map(line).join('\n');const set=(k,v)=>{if(!x[k]&&v){x[k]=v;n++}};
   const facts=Object.values(f['c'+c.n]||{}).filter(s=>s&&s!=='ไม่มีประเด็น').join('\n');
   set('fact',facts||'การดำเนินงานของหลักสูตรเป็นไปตามเกณฑ์ข้อ '+c.n+' '+c.th+' ของ TABEE');['D','W','C','R'].forEach(k=>set(k,by(k)||'ไม่มี'));
@@ -1222,16 +1224,16 @@ renderLanding=function(){renderLanding6();const v=$('#view');if(!v)return;const 
   if(!CASES.length)return;const RES={full:'รับรอง',cond:'รับรองแบบมีเงื่อนไข',prov:'รับรองชั่วคราว',wait:'รอผลการปรับปรุงแก้ไข',no:'ไม่รับรอง'};
   const sec=document.createElement('section');sec.className='card col';sec.id='samples';
   sec.innerHTML=`<div class="row" style="justify-content:space-between;align-items:baseline"><h2>${ED==='trainee'?t('เคสฝึกอบรม: วิศวกรรมวัสดุและโลหการ','Training case: Materials Engineering'):t('เคสจากชุดฝึกอบรม PEV','Cases from the PEV training kits')}</h2><span class="small muted">${t('หลักสูตรสมมติ · มหาวิทยาลัยเทคโนโลยีวนาธาร','Fictional programs · Wanathan University')}</span></div>
-   <p class="small muted" style="margin:0;max-width:80ch">${t('"เริ่มฝึก" สร้างรายการใหม่ที่มีเฉพาะ SER และเอกสารประกอบ ให้ประเมินเองตั้งแต่ Auto Check ส่วนซองเอกสารเพิ่มเติมเพิ่มได้ที่หน้าเอกสารหลักสูตรเมื่อถึง Pre-visit 2 · "ดูตัวอย่างที่กรอกครบ" เปิดเคสที่กรอกทุกขั้นแล้ว ทั้งสองแบบสร้างเป็นรายการใหม่ ไม่ทับรายการเดิม','"Start practice" creates an evaluation with the SER and attachments only. "View completed example" opens a fully filled case. Both create a new evaluation.')}</p>
+   <p class="small muted" style="margin:0;max-width:80ch">${ED==='trainee'?t('"เริ่มฝึก" สร้างรายการใหม่ที่มีเฉพาะ SER และเอกสารประกอบ ให้ประเมินเองตั้งแต่ Auto Check ส่วนซองเอกสารเพิ่มเติมเพิ่มได้ที่หน้าเอกสารหลักสูตรเมื่อถึง Pre-visit 2 กดซ้ำได้ทุกเมื่อ ระบบสร้างรายการใหม่โดยไม่ทับรายการเดิม','"Start practice" creates an evaluation with the SER and attachments only; you evaluate from Auto Check on. Add the envelope documents on the Program documents page at Pre-visit 2. Each start creates a new entry.'):t('"เริ่มฝึก" สร้างรายการใหม่ที่มีเฉพาะ SER และเอกสารประกอบ ให้ประเมินเองตั้งแต่ Auto Check ส่วนซองเอกสารเพิ่มเติมเพิ่มได้ที่หน้าเอกสารหลักสูตรเมื่อถึง Pre-visit 2 · "ดูตัวอย่างที่กรอกครบ" เปิดเคสที่กรอกทุกขั้นแล้ว ทั้งสองแบบสร้างเป็นรายการใหม่ ไม่ทับรายการเดิม','"Start practice" creates an evaluation with the SER and attachments only. "View completed example" opens a fully filled case. Both create a new evaluation.')}</p>
    <div class="smpl">${CASES.map(s=>`<article class="smc"><div class="row" style="justify-content:space-between;align-items:center;gap:8px"><span class="mono tiny muted">${esc(s.short)}</span>${s.video?`<button class="tlp ok" data-a="video" style="border:0;cursor:pointer"><i></i>${t('ดูวีดีโอสอน','Watch tutorial')}</button>`:''}</div>
      <b>${esc(s.field)}</b><p class="small muted">${esc(s.about)}</p>
-     ${ED==='instructor'||s.key==='mt'?`<div class="lvs">${[1,2,3,4,5,6,7,8].map(c=>`<span title="${t('เกณฑ์ข้อ ','Criterion ')}${c}">${chipS(s.lv[c]||'N')}<small>${c}</small></span>`).join('')}</div><span class="small">${t('ผลในตัวอย่าง: ','Example result: ')}${esc(RES[s.result]||'')}</span>`:''}
+     ${s.lv?`<div class="lvs">${[1,2,3,4,5,6,7,8].map(c=>`<span title="${t('เกณฑ์ข้อ ','Criterion ')}${c}">${chipS(s.lv[c]||'N')}<small>${c}</small></span>`).join('')}</div><span class="small">${t('ผลในตัวอย่าง: ','Example result: ')}${esc(RES[s.result]||'')}</span>`:''}
      <details class="cdocs"><summary>${t('เอกสารของเคส','Case documents')} (${docsOf(s).length})</summary>${docList(s.key,false)}</details>
-     <div class="row" style="gap:8px;flex-wrap:wrap"><button class="btn pri sm" data-a="sample" data-k="${s.key}" data-m="practice" ${S.canWrite?'':'disabled'}>${t('เริ่มฝึก','Start practice')}</button><button class="btn sm" data-a="sample" data-k="${s.key}" data-m="ex" ${S.canWrite?'':'disabled'}>${t('ดูตัวอย่างที่กรอกครบ','View completed example')}</button></div></article>`).join('')}</div>`;
+     <div class="row" style="gap:8px;flex-wrap:wrap"><button class="btn pri sm" data-a="sample" data-k="${s.key}" data-m="practice" ${S.canWrite?'':'disabled'}>${t('เริ่มฝึก','Start practice')}</button>${ED==='trainee'?'':`<button class="btn sm" data-a="sample" data-k="${s.key}" data-m="ex" ${S.canWrite?'':'disabled'}>${t('ดูตัวอย่างที่กรอกครบ','View completed example')}</button>`}</div></article>`).join('')}</div>`;
   const cards=v.querySelectorAll('section.card');const target=cards[0];if(target)target.before(sec);else v.appendChild(sec)};
 
 /* ----- open a case: completed example or practice ----- */
-A.sample=async function(d){const s=caseOf(d.k);if(!s)return;let c;
+A.sample=async function(d){const s=caseOf(d.k);if(!s)return;if(ED==='trainee'&&d.m!=='practice')d={...d,m:'practice'};let c;
   busy(t('กำลังเปิดเคส ','Opening case ')+s.field+'…',async()=>{try{c=await loadCase(d.k)}catch(e){toast(t('โหลดเอกสารของเคสไม่ได้','Could not load the case files'));return}
     const o=JSON.parse(JSON.stringify(c.example));const pid=uid();await Store.open(pid);const prac=d.m==='practice';
     if(prac){const m=o.meta;S.meta={inst:m.inst,prog:m.prog,field:m.field,campus:m.campus,cycle:m.cycle,sample:d.k,practice:true,createdAt:Date.now()};
@@ -1260,7 +1262,7 @@ function landingRail(){const ps=S.programs||[],w=S.canWrite?'':' disabled';const
   <nav aria-label="${t('เมนูเริ่มต้น','Start menu')}" style="display:contents">
   <div class="phase"><div class="phase-h"><em>00</em>${t('เริ่มต้น','Start')}</div>
    ${LSTEP('video',t('วีดีโอสอนการใช้งาน','Tutorial video'))}
-   ${c0?LSTEP('sample',t('เริ่มฝึก: ','Practice: ')+esc(c0.short||c0.field),` data-k="${c0.key}" data-m="practice"${w}`)+LSTEP('sample',t('ดูตัวอย่างที่กรอกครบ','Completed example'),` data-k="${c0.key}" data-m="ex"${w}`):''}
+   ${c0?LSTEP('sample',t('เริ่มฝึก: ','Practice: ')+esc(c0.short||c0.field),` data-k="${c0.key}" data-m="practice"${w}`)+(ED==='trainee'?'':LSTEP('sample',t('ดูตัวอย่างที่กรอกครบ','Completed example'),` data-k="${c0.key}" data-m="ex"${w}`)):''}
    ${ED==='instructor'&&CASES.length>1?LSTEP('lgo',t('เคสอื่นทั้งหมด','All cases')+` (${CASES.length})`,' data-v="samples"'):''}</div>
   <div class="phase"><div class="phase-h"><em>··</em>${t('หลักสูตรที่กำลังตรวจ','Programs under review')}</div>
    ${ps.length?ps.map(p=>LSTEP('open',esc(p.field||p.prog||'(ไม่มีชื่อ)'),` data-id="${p.id}"`)).join(''):`<span class="lr-empty">${t('ยังไม่มี','None yet')}</span>`}</div>
