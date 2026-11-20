@@ -71,11 +71,12 @@ const Store={dirty:{},timers:{},writing:{},
   async init(){S.sync=t('เก็บในเบราว์เซอร์นี้เท่านั้น','Stored in this browser only');try{await KV.open()}catch(e){S.sync=t('เบราว์เซอร์นี้เก็บข้อมูลไม่ได้','This browser cannot store data');toast(S.sync)}},
   async keys(lo,hi){return this._k(lo,hi)},_k(lo,hi){return KV.tx('readonly',s=>s.getAllKeys(IDBKeyRange.bound(lo,hi)))},
   async list(){const ks=(await this._k('p/','p/\uffff')).filter(k=>/^p\/[^/]+\/meta$/.test(k));const out=[];for(const k of ks){const m=await KV.get(k);if(m)out.push({id:k.split('/')[1],...m})}return out.sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0))},
-  async open(pid){this.dirty={};S.pid=pid;S.parts={};S.meta={};S.texts={};S.autoInfo=null;
+  async flushAll(){if(!S.pid)return;for(const k of Object.keys(this.dirty)){clearTimeout(this.timers[k]);await this.flush(k)}for(let i=0;i<40&&Object.values(this.writing).some(Boolean);i++)await new Promise(r=>setTimeout(r,50))},
+  async open(pid){await this.flushAll();Object.values(this.timers).forEach(clearTimeout);this.dirty={};S.pid=pid;S.parts={};S.meta={};S.texts={};S.autoInfo=null;
     S.meta=await KV.get('p/'+pid+'/meta')||{};for(const key of await this._k('p/'+pid+'/','p/'+pid+'/\uffff')){const k=key.slice(('p/'+pid+'/').length);if(k==='meta'||k.startsWith('t/'))continue;S.parts[k]=await KV.get(key)||{}}
     try{localStorage.setItem('pev.last',pid)}catch(e){}},
   save(k){if(!S.pid)return;this.dirty[k]=1;clearTimeout(this.timers[k]);this.timers[k]=setTimeout(()=>this.flush(k),500);setSaving()},
-  async flush(k){if(this.writing[k]){this.timers[k]=setTimeout(()=>this.flush(k),300);return}
+  async flush(k){if(!S.pid){delete this.dirty[k];return}if(this.writing[k]){this.timers[k]=setTimeout(()=>this.flush(k),300);return}
     this.writing[k]=1;delete this.dirty[k];const pid=S.pid,data=clone(k==='meta'?S.meta:S.parts[k]);
     try{if(k==='meta')data.updatedAt=Date.now();await KV.set('p/'+pid+'/'+k,data);
       if(k!=='meta'&&!(await KV.get('p/'+pid+'/meta')))await KV.set('p/'+pid+'/meta',{...clone(S.meta),updatedAt:Date.now()})}
@@ -324,7 +325,7 @@ go(d){S.view=d.v;S.filter='all';try{location.hash=d.v}catch(e){}render()},
 cell(d){S.view=d.v;S.crit=+d.c;S.filter='all';try{location.hash=d.v}catch(e){}render()},
 crit(d){S.crit=+d.c;render(true)},filter(d){S.filter=d.f;render(true)},cmp(){S.cmp=!S.cmp;render(true)},qmode(d){S.qmode=d.m;render(true)},
 lang(){LANG=LANG==='th'?'en':'th';try{localStorage.setItem('pev.lang',LANG)}catch(e){}document.documentElement.lang=LANG;Store.init&&(S.sync=Store.db?t('ข้อมูลร่วมของทีม','Shared team data'):t('บันทึกเฉพาะเครื่องนี้','Saved on this device only'));render(true)},
-async switch(){S.pid=null;S.programs=null;render();S.programs=await Store.list().catch(()=>[]);render()},
+async switch(){if(Store.flushAll)await Store.flushAll();S.pid=null;S.programs=null;render();S.programs=await Store.list().catch(()=>[]);render()},
 async open(d){await Store.open(d.id);S.view='home';render()},
 async create(){const inst=$('#n_inst').value.trim(),prog=$('#n_prog').value.trim(),field=$('#n_field').value.trim();if(!inst&&!field){toast(t('กรอกชื่อสถาบันหรือสาขาวิชาก่อน','Enter an institution or field first'));return}
   const pid=uid();await Store.open(pid);S.meta={inst,prog,field,createdAt:Date.now()};Store.save('meta');log('สร้างรายการตรวจประเมิน');S.view='setup';render()},
@@ -1126,7 +1127,7 @@ goChk(d){const g=revGap(d.k);if(g.noReason){toast(t('ยังมี ','')+g.noR
 cell(d){cell7({...d,v:viewOfStage(d.v)})},
 openItem(d){openItem7({...d,v:viewOfStage(d.v)})},
 genAll(){busy(t('กำลังสร้างเอกสารทุกฉบับ…','Building every document…'),async()=>{await lib(L_ZIP);const z=new JSZip();let i=1;const nn=()=>String(i++).padStart(2,'0')+' ';const dx=async k=>{const d=DOCS[k]();z.file(nn()+d.file+'.docx',await makeDocx(d.blocks))};
-  z.file(nn()+'PEV-Worksheet Ver.3.xlsx',await makeXlsx());for(const k of['req','appt','plan','qs','fact','screen'])await dx(k);
+  z.file(nn()+'PEV-Worksheet Ver.3.xlsx',await makeXlsx());for(const k of['req','appt','plan','qs','iq','fact','screen'])if(DOCS[k])await dx(k);
   z.file(nn()+'Program Decision.pptx',await makePptx());for(const k of['report','notify','cal'])await dx(k);
   await saveFile('เอกสาร TABEE - '+fileBase()+'.zip',await z.generateAsync({type:'blob',compression:'DEFLATE'}))})}
 });
