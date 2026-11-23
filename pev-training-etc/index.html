@@ -775,7 +775,7 @@ view.addEventListener('input',e=>{const d=e.target.dataset;if(d.trn&&d.trn.endsW
 /* Quiz & Poll screens on the public site (phones must reach them) */
 const WS_WEB=(window.STUDIO_LINKS||{}).quizPoll||'https://apinans.github.io/TABEE/';
 const BS_WEB=(window.STUDIO_LINKS||{}).brainstorm||WS_WEB+'brainstorm/';
-const wsURL=k=>WS_WEB+'assesstrain-etc'+(k==='mix'?'':k)+'/';
+const wsURL=k=>WS_WEB+'pev-training-etc/assesstrain-etc'+(k==='mix'?'':k)+'/';
 const wsBtn=(k,label)=>`<p class="row" style="gap:10px;flex-wrap:wrap"><a class="btn" href="${wsURL(k)}" target="_blank" rel="noopener">${label} ↗</a><span class="note">${wsURL(k).replace('https://','')}</span></p>${window.SERLAB_MODE==='trainee'?`<p class="note">${tx('ในวันอบรม วิทยากรเปิดจอนี้หน้าห้อง ผู้อบรมสแกน QR บนจอด้วยมือถือ','On the day the facilitator shows this screen; scan its QR code with your phone.')}</p>`:''}`;
 function wsTab(){
   const W=window.TR_WS||[];
