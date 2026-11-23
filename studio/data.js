@@ -65,11 +65,11 @@ const STATUS={
   decided:{th:'มีมติแล้ว',step:26,cls:'ok'}
 };
 const OUTCOME={
-  full:{th:'รับรอง (Full accreditation)',y:6},
-  cond:{th:'รับรองแบบมีเงื่อนไข',y:3},
-  prov:{th:'รับรองชั่วคราว (หลักสูตรใหม่)',y:3},
-  wait:{th:'รอผลการปรับปรุงแก้ไข',y:1},
-  no:{th:'ไม่รับรอง หรือยกเลิกการรับรอง',y:0}
+  full:{th:'รับรอง (Full accreditation)',en:'Full accreditation',y:6},
+  cond:{th:'รับรองแบบมีเงื่อนไข',en:'Conditional accreditation',y:3},
+  prov:{th:'รับรองชั่วคราว (หลักสูตรใหม่)',en:'Provisional accreditation (new programme)',y:3},
+  wait:{th:'รอผลการปรับปรุงแก้ไข',en:'Pending improvement',y:1},
+  no:{th:'ไม่รับรอง หรือยกเลิกการรับรอง',en:'Not accredited or accreditation withdrawn',y:0}
 };
 const ROLES=[
   {k:'all',th:'ดูทั้งระบบ (สาธิต)',secs:null},
@@ -92,6 +92,12 @@ const NAV=[
 const GATES=['รับสมัคร','คัดเลือก','อบรมออนไลน์','Onsite / Mock-up visit','สังเกตการณ์','ขึ้นทะเบียน','คงสถานะ'];
 const PEVLV={obs:'ผู้สังเกตการณ์',new:'PEV ใหม่',exp:'PEV มีประสบการณ์',chair:'หัวหน้าคณะผู้ตรวจ',senior:'ผู้ตรวจอาวุโส / วิทยากร'};
 const REVIEWCHK=['ข้อสังเกตแต่ละข้ออ้างเกณฑ์ถูกข้อ','มีหลักฐานรองรับข้อสังเกตทุกข้อ','ระดับผล (D/W/C) สอดคล้องกับถ้อยคำ','ผลที่เสนอสอดคล้องกับตารางผลการรับรอง','ไม่มีถ้อยคำที่อาจนำไปสู่ COI หรือการอุทธรณ์'];
+/* ชื่อภาษาอังกฤษของข้อมูลสมมติ (ใช้เมื่อเลือก EN) */
+const INST_EN={u1:'Srinaphalai University',u2:'Tharawadee Institute of Technology',u3:'Wanathan University of Technology',u4:'Krung Rattanakiri University'};
+const PEV_EN={v01:'Assoc. Prof. Dr. Karn T.',v02:'Prof. Dr. Kwan W.',v03:'Assoc. Prof. Dr. Kanin S.',v04:'Asst. Prof. Dr. Jaru P.',v05:'Dr. Chalit O.',v06:'Mr. Danai R.',
+  v07:'Asst. Prof. Dr. Thipa N.',v08:'Mr. Thana K.',v09:'Asst. Prof. Dr. Napa M.',v10:'Assoc. Prof. Dr. Bodin L.',v11:'Mr. Pakorn S.',v12:'Asst. Prof. Dr. Pim J.',
+  v13:'Dr. Phum T.',v14:'Assoc. Prof. Dr. Mana Y.',v15:'Ms. Rattana H.',v16:'Asst. Prof. Dr. Wichai B.',v17:'Assoc. Prof. Dr. Siri D.',v18:'Mr. Sumet K.',
+  v19:'Asst. Prof. Dr. Arun P.',v20:'Dr. Ek C.'};
 const SEEDVER=1;
 function SEED(){
   const inst={u1:'มหาวิทยาลัยศรีนภาลัย',u2:'สถาบันเทคโนโลยีธาราวดี',u3:'มหาวิทยาลัยเทคโนโลยีวนาธาร',u4:'มหาวิทยาลัยกรุงรัตนคีรี'};
@@ -152,5 +158,5 @@ function SEED(){
   ];
   return {v:SEEDVER,role:'all',inst,programs,pevs,apps,
     me:{name:'',type:'acad',fields:[],track:'EAC',coi:[],gate:0,visits:[],avail:{from:'',to:''},confirm:{contact:0,coi:0,ethics:0,secret:0}},
-    log:[{t:'2026-11-18T09:20:00+07:00',who:'ผู้ประสานงานหลักสูตร',msg:'ยื่นคำขอ TABEE-2569-EAC-002 (วิศวกรรมวัสดุ)'}],seq:{EAC:2,ETC:1}};
+    log:[{t:'2026-11-18T09:20:00+07:00',who:'ผู้ประสานงานหลักสูตร',msg:'ยื่นคำขอ TABEE-2569-EAC-002 (วิศวกรรมวัสดุ)',role:'inst',en:'Application submitted TABEE-2569-EAC-002 (Materials Engineering)'}],seq:{EAC:2,ETC:1}};
 }
