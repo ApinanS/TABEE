@@ -242,8 +242,8 @@ VIEWS.training=()=>{const card=t=>{const T=TRACK[t],pr=trProgress(t==='EAC'?'tab
     <a class="btn pri lg" href="${T.training}">เปิด PEV Training Studio ${t}</a>
     <p class="small">${pr?`ความคืบหน้าในเครื่องนี้: ผ่านแบบทดสอบ <b>${pr.pass}</b> บท (ทำแล้ว ${pr.tried} บท) · ดูวิดีโอ ${pr.watched} บท · กิจกรรม Onsite ที่ทำแล้ว ${pr.done} รายการ`:'<span class="muted">ยังไม่มีความคืบหน้าในเครื่องนี้</span>'}</p>
     <h3>ช่วง Onsite (จอวิทยากร)</h3>
-    <div class="row" style="gap:6px"><span class="small muted">อุ่นเครื่องรายเกณฑ์</span>${[1,2,3,4,5,6,7,8].map(i=>`<a class="btn sm" href="assesstrain${sfx}${i}/" title="${CRIT[i]}">${i}</a>`).join('')}</div>
-    <div class="row"><a class="btn sm" href="assesstrain${sfx}/">การประเมินผลการตรวจ 10 สถานการณ์</a><a class="btn sm" href="brainstorm/">กระดาน Brainstorm</a></div></div>`};
+    <div class="row" style="gap:6px"><span class="small muted">อุ่นเครื่องรายเกณฑ์</span>${[1,2,3,4,5,6,7,8].map(i=>`<a class="btn sm" href="${T.training}assesstrain${sfx}${i}/" title="${CRIT[i]}">${i}</a>`).join('')}</div>
+    <div class="row"><a class="btn sm" href="${T.training}assesstrain${sfx}/">การประเมินผลการตรวจ 10 สถานการณ์</a><a class="btn sm" href="brainstorm/">กระดาน Brainstorm</a></div></div>`};
   return{crumbs:[['home','หน้าหลัก'],['training','อบรม PEV']],html:
   head('ส่วนที่ 3 · PEV','อบรมเพื่อขึ้นทะเบียน PEV','เส้นทางอบรมมี 3 ช่วง คือ เรียนล่วงหน้าออนไลน์ งานวิเคราะห์หลักสูตรจำลอง และ Mock-up visit เลือกชุดอบรมให้ตรงกับประเภทหลักสูตรที่จะตรวจ ผลการเรียนจะไปแสดงในแฟ้มสะสมผลงาน')+
   `<div class="grid3">${card('EAC')}${card('ETC')}</div>
