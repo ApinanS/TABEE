@@ -21,13 +21,13 @@
 ## ENG · หลักสูตรวิศวกรรมศาสตร์ (Washington Accord)
 - `pev-training/` PEV Training Studio ฉบับผู้อบรม (Module 0–17, SER lab, workshop)
 - `pevstudio/` PEV Studio ฉบับผู้อบรม เครื่องมือประเมินหลักสูตรตาม PEV Worksheet ทำงานในเบราว์เซอร์ ไม่เรียก AI และไม่ส่งข้อมูลออก
-- `assesstrain/` การประเมินผลการตรวจ 10 สถานการณ์คละเกณฑ์
-- `assesstrain1/` ถึง `assesstrain8/` อุ่นเครื่อง Onsite รายเกณฑ์ข้อ 1–8
+- `pev-training/assesstrain/` การประเมินผลการตรวจ 10 สถานการณ์คละเกณฑ์
+- `pev-training/assesstrain1/` ถึง `pev-training/assesstrain8/` อุ่นเครื่อง Onsite รายเกณฑ์ข้อ 1–8
 
 ## ETC · หลักสูตรเทคโนโลยีวิศวกรรม (Sydney Accord)
 - `pev-training-etc/` ETC PEV Training Studio ฉบับผู้อบรม
 - `pevstudio-etc/` PEV Studio ETC ฉบับผู้อบรม (`pevstudio-sa/` เป็นหน้า redirect มาที่นี่)
-- `assesstrain-etc/` และ `assesstrain-etc1/` ถึง `assesstrain-etc8/` จอ Quiz & Poll ชุด ETC
+- `pev-training-etc/assesstrain-etc/` และ `pev-training-etc/assesstrain-etc1/` ถึง `pev-training-etc/assesstrain-etc8/` จอ Quiz & Poll ชุด ETC
 
 ## ใช้ร่วมกัน
 - `brainstorm/` กระดาน Brainstorm Onsite 3 รอบ ผู้อบรมสแกน QR แล้วพิมพ์ความเห็นจากมือถือ
